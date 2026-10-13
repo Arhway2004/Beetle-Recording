@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Cleartext HTTP is disabled. The Mac AI Gateway must be reached over HTTPS
+  (self-signed certificates are accepted only when their SHA-256 fingerprint is
+  pinned in Settings), or over an encrypted VPN such as Tailscale using HTTPS.
+-->
+<network-security-config>
+    <base-config cleartextTrafficPermitted="false" />
+</network-security-config>

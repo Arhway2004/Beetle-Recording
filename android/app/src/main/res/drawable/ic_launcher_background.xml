@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Same moss-green gradient as the iOS icon (tool/logo/draw_logo.py). -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <gradient
+        android:angle="270"
+        android:startColor="#C4D6AA"
+        android:endColor="#7A9C62" />
+</shape>

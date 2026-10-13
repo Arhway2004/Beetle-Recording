@@ -1,0 +1,112 @@
+import 'dart:io';
+
+import 'package:beetle_keeper/app.dart';
+import 'package:beetle_keeper/application/providers.dart';
+import 'package:beetle_keeper/data/database/app_database.dart';
+import 'package:beetle_keeper/data/repositories/settings_repository.dart';
+import 'package:beetle_keeper/infrastructure/storage/secure_store.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_test/flutter_test.dart';
+
+import '../helpers/test_helpers.dart';
+
+void main() {
+  late AppDatabase db;
+
+  setUp(() => db = memoryDb());
+
+  Widget app({Map<String, String> settings = const {}}) => ProviderScope(
+        overrides: [
+          databaseProvider.overrideWithValue(db),
+          documentsDirProvider.overrideWithValue(Directory.systemTemp),
+          notificationGatewayProvider.overrideWithValue(FakeNotificationGateway()),
+          secretStoreProvider.overrideWithValue(MemorySecretStore()),
+          initialSettingsProvider.overrideWithValue(settings),
+        ],
+        child: const BeetleKeeperApp(),
+      );
+
+  /// Drift runs real (non-fake) async work, so let it progress in real time
+  /// and then pump frames; pumpAndSettle would spin on progress indicators.
+  Future<void> settle(WidgetTester tester) async {
+    for (var i = 0; i < 6; i++) {
+      await tester.runAsync(() => Future<void>.delayed(const Duration(milliseconds: 30)));
+      await tester.pump(const Duration(milliseconds: 100));
+    }
+  }
+
+  Future<void> pumpApp(WidgetTester tester, {Map<String, String> settings = const {}}) async {
+    tester.view.physicalSize = const Size(1170, 2532); // iPhone-sized, phone layout
+    tester.view.devicePixelRatio = 3;
+    addTearDown(tester.view.reset);
+    await tester.pumpWidget(app(settings: settings));
+    await settle(tester);
+  }
+
+  Future<void> dispose(WidgetTester tester) async {
+    // Closing waits on Drift's stream timers, which only advance in fake time.
+    await tester.pumpWidget(const SizedBox());
+    final closing = db.close();
+    await tester.pump(const Duration(seconds: 1));
+    await tester.runAsync(() => closing);
+    await tester.pump(const Duration(seconds: 1));
+  }
+
+  testWidgets('boots offline in Simplified Chinese with an empty state', (tester) async {
+    await pumpApp(tester);
+    expect(find.text('还没有甲虫'), findsOneWidget);
+    expect(find.text('添加甲虫'), findsWidgets);
+    expect(find.byType(NavigationBar), findsOneWidget);
+    await dispose(tester);
+  });
+
+  testWidgets('English locale is selectable', (tester) async {
+    await tester.runAsync(() => SettingsRepository(db).set(SettingsKeys.locale, 'en'));
+    await pumpApp(tester, settings: {'ui.locale': 'en'});
+    expect(find.text('No beetles yet'), findsOneWidget);
+    await dispose(tester);
+  });
+
+  testWidgets('beetle form validates and creates a beetle with history', (tester) async {
+    await pumpApp(tester);
+    await tester.tap(find.byType(FloatingActionButton));
+    await settle(tester);
+    expect(find.text('新增甲虫'), findsOneWidget);
+
+    // Saving without species fails validation.
+    await tester.tap(find.text('保存'));
+    await settle(tester);
+    expect(find.text('必填'), findsWidgets);
+
+    await tester.tap(find.byType(DropdownButtonFormField<String>).first);
+    await settle(tester);
+    await tester.tap(find.textContaining('DHH ·').last);
+    await settle(tester);
+    expect(find.widgetWithText(TextFormField, 'DHH-001'), findsOneWidget);
+
+    final weight = find.widgetWithText(TextFormField, '当前体重（克）');
+    await tester.scrollUntilVisible(weight, 200, scrollable: find.descendant(of: find.byType(Form), matching: find.byType(Scrollable)).first);
+    await tester.enterText(weight, '35.5');
+    await tester.tap(find.text('保存'));
+    await settle(tester);
+
+    final beetles = (await tester.runAsync(() => db.select(db.beetles).get()))!;
+    expect(beetles.single.code, 'DHH-001');
+    final weights = (await tester.runAsync(() => db.select(db.weightRecords).get()))!;
+    expect(weights.single.weightGrams, 35.5);
+    expect(find.text('DHH-001'), findsWidgets); // detail page
+    await dispose(tester);
+  });
+
+  testWidgets('assistant explains when no AI is available instead of answering', (tester) async {
+    await pumpApp(tester);
+    await tester.tap(find.text('AI 助手').last);
+    await settle(tester);
+    await tester.enterText(find.byType(TextField), 'CCK-001 最近一个月生长正常吗？');
+    await tester.tap(find.byIcon(Icons.send));
+    await settle(tester);
+    expect(find.textContaining('当前没有可用的 AI 模型'), findsOneWidget);
+    await dispose(tester);
+  });
+}

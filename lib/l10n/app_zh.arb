@@ -1,0 +1,704 @@
+{
+  "@@locale": "zh",
+  "appTitle": "甲虫饲养助手",
+  "navDashboard": "首页",
+  "navBeetles": "甲虫",
+  "navRecords": "记录",
+  "navAssistant": "AI 助手",
+  "navReminders": "提醒",
+  "navAnalytics": "分析",
+  "navSettings": "设置",
+  "commonSave": "保存",
+  "commonCancel": "取消",
+  "commonDelete": "删除",
+  "commonEdit": "编辑",
+  "commonConfirm": "确认",
+  "commonRetry": "重试",
+  "commonClose": "关闭",
+  "commonAdd": "添加",
+  "commonAll": "全部",
+  "commonNone": "无",
+  "commonOptional": "可选",
+  "commonRequired": "必填",
+  "commonInvalidNumber": "请输入有效的数字",
+  "commonMustBePositive": "必须大于 0",
+  "commonErrorTitle": "出错了",
+  "commonSaved": "已保存",
+  "commonNotes": "备注",
+  "commonDateTime": "时间",
+  "commonDeleteConfirmTitle": "确认删除？",
+  "commonDeleteRecordMessage": "该记录会被标记为已删除（保留审计痕迹），甲虫的当前状态会回退到上一条记录。",
+  "commonNotSet": "未设定",
+  "sexMale": "公",
+  "sexFemale": "母",
+  "sexUnknown": "未知",
+  "stageL1": "L1 幼虫",
+  "stageL2": "L2 幼虫",
+  "stageL3": "L3 幼虫",
+  "stagePrepupa": "预蛹",
+  "stagePupa": "蛹",
+  "stageAdult": "成虫",
+  "stageUnset": "阶段未记录",
+  "l3Early": "前期",
+  "l3Middle": "中期",
+  "l3Late": "后期",
+  "statusActive": "饲养中",
+  "statusDeceased": "已死亡",
+  "statusTransferred": "已转让",
+  "statusArchived": "已归档",
+  "obsGeneral": "一般",
+  "obsColorChange": "体色变化",
+  "obsActivity": "活动",
+  "obsFeeding": "进食",
+  "obsPupalChamber": "蛹室",
+  "obsMolt": "蜕皮",
+  "obsHealth": "健康",
+  "obsBehavior": "行为",
+  "reminderStatusSuggested": "待确认",
+  "reminderStatusConfirmed": "已确认",
+  "reminderStatusScheduled": "已安排",
+  "reminderStatusCompleted": "已完成",
+  "reminderStatusCancelled": "已取消",
+  "reminderStatusExpired": "已过期",
+  "severityInfo": "信息",
+  "severityObservation": "观察",
+  "severityWarning": "注意",
+  "severityAlert": "警报",
+  "confidenceLabel": "置信度：{level}",
+  "@confidenceLabel": {
+    "placeholders": {
+      "level": {
+        "type": "String"
+      }
+    }
+  },
+  "confidenceLow": "低",
+  "confidenceMedium": "中",
+  "confidenceHigh": "高",
+  "basisMeasured": "实测超限",
+  "basisCalculated": "计算结果",
+  "basisAiInference": "AI 推测",
+  "sourceUser": "用户创建",
+  "sourceRule": "规则检测",
+  "sourceAi": "AI 建议",
+  "recordWeight": "体重",
+  "recordObservation": "观察",
+  "recordSubstrate": "换土",
+  "recordContainer": "换盒",
+  "recordLifeStage": "阶段变化",
+  "recordTemperature": "温度",
+  "eventSignificantWeightChange": "体重显著变化",
+  "eventWeightLoss": "体重下降",
+  "eventMeasurementOverdue": "长时间未称重",
+  "eventSubstrateInspection": "检查/更换土",
+  "eventContainerReview": "评估容器",
+  "eventTemperatureOutOfRange": "温度超出范围",
+  "eventPossiblePrepupa": "可能进入预蛹",
+  "eventPossiblePupation": "可能化蛹",
+  "eventExpectedEmergenceWindow": "预期羽化窗口",
+  "eventOutdatedReminder": "过期提醒",
+  "eventGeneralObservation": "一般观察",
+  "eventCustom": "自定义",
+  "dashboardActiveBeetles": "饲养中",
+  "dashboardPendingSuggestions": "待确认建议",
+  "dashboardUpcoming": "即将到来的提醒",
+  "dashboardRecent": "最近记录",
+  "dashboardEmptyTitle": "还没有甲虫",
+  "dashboardEmptyBody": "添加第一只甲虫，开始记录它的成长。",
+  "dashboardAddBeetle": "添加甲虫",
+  "dashboardBySpecies": "按种类",
+  "dashboardByStage": "按阶段",
+  "dashboardNoUpcoming": "暂无提醒",
+  "dashboardTemperatureAlert": "{sensor}：{celsius}°C 超出你设定的范围",
+  "@dashboardTemperatureAlert": {
+    "placeholders": {
+      "celsius": {
+        "type": "String"
+      },
+      "sensor": {
+        "type": "String"
+      }
+    }
+  },
+  "dashboardReviewSuggestions": "查看",
+  "beetlesSearchHint": "搜索编号或备注",
+  "beetlesEmpty": "没有符合条件的甲虫",
+  "filterSpecies": "种类",
+  "filterSex": "性别",
+  "filterStage": "阶段",
+  "filterStatus": "状态",
+  "beetleFormNewTitle": "新增甲虫",
+  "beetleFormEditTitle": "编辑甲虫",
+  "fieldCode": "编号",
+  "fieldCodeHelper": "例如 DHH-001",
+  "fieldCodeInvalid": "格式应为 种类代码-编号，例如 DHH-001",
+  "fieldCodeDuplicate": "编号 {code} 已存在",
+  "@fieldCodeDuplicate": {
+    "placeholders": {
+      "code": {
+        "type": "String"
+      }
+    }
+  },
+  "fieldSpecies": "种类",
+  "fieldSex": "性别",
+  "fieldStatus": "状态",
+  "fieldAcquiredAt": "入手日期",
+  "fieldHatchDate": "孵化日期",
+  "fieldEstimatedHatchDate": "估计孵化日期",
+  "fieldHatchUncertainty": "估计误差（± 天）",
+  "fieldStage": "当前阶段",
+  "fieldL3Phase": "L3 细分（观察标签）",
+  "fieldWeight": "当前体重（克）",
+  "fieldContainer": "容器容量（升）",
+  "fieldSubstrateType": "土的类型",
+  "fieldSubstrateBrand": "土的品牌",
+  "fieldSensor": "温度传感器",
+  "fieldBreedingNotes": "饲养备注",
+  "beetleFormInitialSection": "初始记录（保存为历史事件）",
+  "beetleFormStageHint": "阶段只根据你的记录设置，不会根据体重推断。",
+  "beetleFormHistoryHint": "体重、容器、土和阶段的后续变化请在详情页添加记录。",
+  "detailOverview": "概览",
+  "detailGrowth": "成长曲线",
+  "detailHistory": "历史记录",
+  "detailPhotos": "照片",
+  "detailReminders": "提醒",
+  "detailAiAnalyses": "AI 分析记录",
+  "detailAddPhoto": "添加照片",
+  "detailNoPhotos": "暂无照片",
+  "detailNoHistory": "暂无记录",
+  "detailAiInterpret": "AI 解读近况",
+  "detailAiInterpretDone": "AI 生成了 {n} 条建议，已放入待确认列表",
+  "@detailAiInterpretDone": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "detailAiInterpretRejected": "{n} 条 AI 输出未通过校验，已丢弃",
+  "@detailAiInterpretRejected": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "detailLatestWeight": "最新体重",
+  "detailMaxWeight": "历史最高",
+  "detailChangeSincePrevious": "较上次",
+  "detailAvgWeekly": "平均每周",
+  "detailNeedTwoWeights": "至少需要两次称重才能计算变化",
+  "detailHatch": "孵化",
+  "detailEstimatedHatch": "约 {date}（±{days} 天）",
+  "@detailEstimatedHatch": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      },
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "detailAcquired": "入手",
+  "detailContainer": "容器",
+  "detailSubstrate": "土",
+  "detailChangeStatus": "更改状态",
+  "detailAvgNote": "平均值只反映首末两次记录，生长并非线性。",
+  "recordsEmpty": "暂无记录",
+  "recordsAdd": "添加记录",
+  "chooseRecordType": "选择记录类型",
+  "chooseBeetle": "选择甲虫",
+  "weightGrams": "体重（克）",
+  "weightDisturbWarning": "该个体当前记录为预蛹或蛹。此阶段翻动和称重可能造成伤害。",
+  "observationCategory": "类别",
+  "observationDescription": "描述",
+  "substrateQuantity": "用量（升）",
+  "substrateBatch": "批次",
+  "weightDuringChange": "更换时体重（克）",
+  "observedCondition": "观察到的状况",
+  "nextPlannedAt": "下次计划检查/换土",
+  "containerPrevious": "原容器（升，留空则取上次记录）",
+  "containerNew": "新容器（升）",
+  "stageNew": "新阶段",
+  "stageIsEstimated": "日期为估计值",
+  "temperatureCelsius": "温度（°C）",
+  "noSensors": "请先在设置中添加温度传感器",
+  "noBeetles": "请先添加甲虫",
+  "addPhotos": "添加照片",
+  "photosSelected": "已选 {n} 张照片",
+  "@photosSelected": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "photoFromCamera": "拍照",
+  "photoFromGallery": "从相册选择",
+  "suggestionsCreated": "已保存。生成了 {n} 条待确认建议",
+  "@suggestionsCreated": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "remindersTabSuggested": "待确认",
+  "remindersTabUpcoming": "已确认",
+  "remindersTabHistory": "历史",
+  "remindersEmptySuggested": "没有待确认的建议",
+  "remindersEmptyUpcoming": "没有已确认的提醒",
+  "remindersEmptyHistory": "暂无历史",
+  "reminderNew": "新建提醒",
+  "reminderTitleField": "标题",
+  "reminderMessageField": "内容",
+  "reminderDueAt": "提醒时间",
+  "reminderBeetleOptional": "关联甲虫（可选）",
+  "reminderAccept": "接受",
+  "reminderReject": "拒绝",
+  "reminderPostpone": "推迟",
+  "reminderPostponeDays": "推迟 {days} 天",
+  "@reminderPostponeDays": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "reminderDisableSimilar": "不再提示类似建议",
+  "reminderDisableSimilarConfirm": "将不再生成此类建议（{event}）。可在设置中恢复。",
+  "@reminderDisableSimilarConfirm": {
+    "placeholders": {
+      "event": {
+        "type": "String"
+      }
+    }
+  },
+  "reminderComplete": "完成",
+  "reminderCancel": "取消提醒",
+  "reminderReason": "原因",
+  "reminderRecommendation": "建议",
+  "reminderEvidence": "依据 {n} 条记录",
+  "@reminderEvidence": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "reminderNeedsConfirmation": "只有你确认后才会安排通知",
+  "reminderReview": "确认提醒",
+  "reminderAcceptEdited": "接受（含修改）",
+  "notificationsDenied": "通知权限未开启：提醒已保存，但不会弹出系统通知。",
+  "notificationsRationale": "为了在设定时间提醒你，需要通知权限。",
+  "remindersDeferred": "{n} 个较远的提醒会在临近时安排（系统通知数量限制）",
+  "@remindersDeferred": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "remindersInexact": "未授予精确闹钟权限，通知时间可能略有延迟。",
+  "reminderOverdue": "已逾期",
+  "ruleWeightChangeTitle": "{code} 体重变化 {percent}%",
+  "@ruleWeightChangeTitle": {
+    "placeholders": {
+      "code": {
+        "type": "String"
+      },
+      "percent": {
+        "type": "String"
+      }
+    }
+  },
+  "ruleWeightChangeMessage": "复查 {code} 的体重与状态。",
+  "@ruleWeightChangeMessage": {
+    "placeholders": {
+      "code": {
+        "type": "String"
+      }
+    }
+  },
+  "ruleWeightChangeReason": "最近两次记录的体重从 {from} g 变为 {to} g（{percent}%）。",
+  "@ruleWeightChangeReason": {
+    "placeholders": {
+      "from": {
+        "type": "String"
+      },
+      "percent": {
+        "type": "String"
+      },
+      "to": {
+        "type": "String"
+      }
+    }
+  },
+  "ruleWeightLossRecommendation": "一周后复称，并检查土和温度。L3 后期体重下降可能与准备化蛹有关，也可能另有原因；请避免频繁翻动。",
+  "ruleWeightGainRecommendation": "按常规继续记录即可。",
+  "ruleOverdueTitle": "为 {code} 称重",
+  "@ruleOverdueTitle": {
+    "placeholders": {
+      "code": {
+        "type": "String"
+      }
+    }
+  },
+  "ruleOverdueMessage": "距离上次称重已较久，可在换土时顺便称重。",
+  "ruleOverdueReasonDays": "已有 {days} 天没有体重记录。",
+  "@ruleOverdueReasonDays": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "ruleOverdueReasonNever": "还没有任何体重记录。",
+  "ruleOverdueRecommendation": "幼虫期可在方便时称重；预蛹或蛹期请勿为称重而翻动。",
+  "ruleSubstrateTitle": "检查 {code} 的土",
+  "@ruleSubstrateTitle": {
+    "placeholders": {
+      "code": {
+        "type": "String"
+      }
+    }
+  },
+  "ruleSubstrateMessage": "按计划检查土的状态。",
+  "ruleSubstrateReason": "距离上次换土已 {days} 天，已到你设定的计划时间。",
+  "@ruleSubstrateReason": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "ruleSubstrateRecommendation": "先从外部观察；如有蛹室迹象，请不要更换。",
+  "ruleTempTitle": "温度超出设定：{sensor}",
+  "@ruleTempTitle": {
+    "placeholders": {
+      "sensor": {
+        "type": "String"
+      }
+    }
+  },
+  "ruleTempMessage": "{sensor} 实测 {celsius}°C。",
+  "@ruleTempMessage": {
+    "placeholders": {
+      "celsius": {
+        "type": "String"
+      },
+      "sensor": {
+        "type": "String"
+      }
+    }
+  },
+  "ruleTempReason": "实测 {celsius}°C 超出你设定的范围（{range}）。这是实测值，不是 AI 预测。",
+  "@ruleTempReason": {
+    "placeholders": {
+      "celsius": {
+        "type": "String"
+      },
+      "range": {
+        "type": "String"
+      }
+    }
+  },
+  "ruleTempRecommendation": "检查环境温度和温控设备。",
+  "rulePrepupaTitle": "观察 {code} 状态",
+  "@rulePrepupaTitle": {
+    "placeholders": {
+      "code": {
+        "type": "String"
+      }
+    }
+  },
+  "rulePrepupaMessage": "检查外部可观察的变化，避免不必要的翻动。",
+  "rulePrepupaReason": "近期记录到体色变化或蛹室相关观察，但证据不足以确认进入预蛹。",
+  "rulePrepupaRecommendation": "从外部观察，不要打扰可能存在的蛹室。",
+  "ruleEmergenceTitle": "{code} 预期羽化窗口",
+  "@ruleEmergenceTitle": {
+    "placeholders": {
+      "code": {
+        "type": "String"
+      }
+    }
+  },
+  "ruleEmergenceMessage": "按你设定的蛹期（{min}–{max} 天），开始留意羽化。",
+  "@ruleEmergenceMessage": {
+    "placeholders": {
+      "max": {
+        "type": "int"
+      },
+      "min": {
+        "type": "int"
+      }
+    }
+  },
+  "ruleEmergenceReason": "已记录进入蛹期；你为该种类设定的蛹期为 {min}–{max} 天。",
+  "@ruleEmergenceReason": {
+    "placeholders": {
+      "max": {
+        "type": "int"
+      },
+      "min": {
+        "type": "int"
+      }
+    }
+  },
+  "ruleEmergenceRecommendation": "外部观察即可。羽化后成虫需要时间硬化，请勿过早取出。",
+  "assistantHint": "询问你的饲养记录…",
+  "assistantEmptyTitle": "问问你的饲养记录",
+  "assistantEmptyBody": "AI 会先查询你的记录再回答，并标注哪些是记录、计算、推测或建议。",
+  "assistantExample1": "CCK-001 最近一个月生长正常吗？",
+  "assistantExample2": "比较 DHH-001 和 DHH-002 最近三个月的成长速度。",
+  "assistantExample3": "为什么我的幼虫最近重量下降？",
+  "assistantNoProvider": "当前没有可用的 AI 模型，因此无法回答。记录、提醒和分析功能不受影响。",
+  "assistantProviderMac": "Mac 本地 AI",
+  "assistantProviderMobile": "手机本地 AI",
+  "assistantFallback": "已回退到 {provider}",
+  "@assistantFallback": {
+    "placeholders": {
+      "provider": {
+        "type": "String"
+      }
+    }
+  },
+  "assistantConsentTitle": "允许发送数据到你的 Mac？",
+  "assistantConsentBody": "回答问题时，应用会把相关饲养记录发送到你配置的 Mac AI 网关（{host}）。不会发送到任何云服务。你可以随时在设置中撤销。",
+  "@assistantConsentBody": {
+    "placeholders": {
+      "host": {
+        "type": "String"
+      }
+    }
+  },
+  "assistantConsentPublicWarning": "警告：该地址不是本机或局域网 / VPN 地址。请确认它是你自己的设备。",
+  "assistantConsentAllow": "允许",
+  "assistantEvidence": "基于 {n} 条记录",
+  "@assistantEvidence": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "assistantToolsUsed": "查询数据 {n} 次",
+  "@assistantToolsUsed": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "assistantReminderDraft": "AI 提议的提醒（尚未创建）",
+  "assistantReviewDraft": "查看并确认",
+  "assistantFeedbackHelpful": "有帮助",
+  "assistantFeedbackNotHelpful": "没帮助",
+  "assistantError": "请求失败：{error}",
+  "@assistantError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "assistantThinking": "正在查询记录并思考…",
+  "assistantGoToSettings": "前往设置",
+  "assistantNewChat": "新对话",
+  "assistantToolLoop": "AI 查询次数过多，已停止。请换个更具体的问题。",
+  "assistantImageUnavailable": "图像分析暂不可用：尚未集成并验证多模态模型。",
+  "claimVerified": "已记录",
+  "claimCalculated": "计算",
+  "claimObservation": "观察",
+  "claimHypothesis": "推测",
+  "claimRecommendation": "建议",
+  "claimUnknown": "未知",
+  "claimUnclassified": "未标注",
+  "unavailableDisabled": "未启用",
+  "unavailableNotConfigured": "未配置地址或访问令牌",
+  "unavailableConsent": "需要你同意发送数据",
+  "unavailableUnreachable": "无法连接",
+  "unavailableUnauthorized": "访问令牌无效",
+  "unavailableInsecure": "需要 HTTPS（自签名证书需填写指纹）",
+  "unavailableModelMissing": "模型不可用",
+  "unavailableNotBundled": "此版本未包含手机本地模型",
+  "analyticsWeightComparison": "体重对比",
+  "analyticsSelectBeetles": "选择要对比的甲虫",
+  "analyticsTemperatureTrends": "温度趋势（7 天）",
+  "analyticsSubstrateHistory": "换土记录",
+  "analyticsAiHistory": "AI 观察记录",
+  "analyticsCorrelationNote": "图表只展示记录数据；同时发生的变化不代表因果关系。",
+  "analyticsNoData": "暂无数据",
+  "analyticsMinMax": "当前 {current}°C · 最低 {low}°C · 最高 {high}°C",
+  "@analyticsMinMax": {
+    "placeholders": {
+      "current": {
+        "type": "String"
+      },
+      "high": {
+        "type": "String"
+      },
+      "low": {
+        "type": "String"
+      }
+    }
+  },
+  "analyticsTarget": "目标 {target}°C · 阈值 {range}",
+  "@analyticsTarget": {
+    "placeholders": {
+      "range": {
+        "type": "String"
+      },
+      "target": {
+        "type": "String"
+      }
+    }
+  },
+  "analyticsRecentMeasurements": "最近称重",
+  "settingsAppearance": "外观",
+  "settingsTheme": "主题",
+  "themeSystem": "跟随系统",
+  "themeLight": "浅色",
+  "themeDark": "深色",
+  "settingsLanguage": "语言",
+  "settingsAi": "AI",
+  "settingsMacGateway": "Mac AI 网关",
+  "settingsGatewayUrl": "网关地址",
+  "settingsGatewayUrlHelper": "例如 https://my-mac.local:8443",
+  "settingsGatewayUrlInvalid": "请输入 https:// 开头的地址",
+  "settingsGatewayToken": "访问令牌",
+  "settingsGatewayTokenHelper": "在 Mac 上运行 make gateway-token 生成；保存在系统钥匙串中",
+  "settingsGatewayTokenSet": "已保存（不显示）",
+  "settingsCertFingerprint": "证书 SHA-256 指纹",
+  "settingsCertFingerprintHelper": "使用自签名证书时必填（make gateway-cert 会输出）",
+  "settingsCertFingerprintInvalid": "应为 64 位十六进制",
+  "settingsModel": "模型",
+  "settingsTimeout": "超时（秒）",
+  "settingsTestConnection": "测试连接",
+  "settingsConnectionOk": "连接成功",
+  "settingsEnabled": "启用",
+  "settingsRouting": "AI 路由",
+  "routingAuto": "自动（优先 Mac）",
+  "routingMac": "仅 Mac",
+  "routingMobile": "仅手机",
+  "settingsMobileAi": "手机本地 AI（llama.cpp）",
+  "settingsMobileAiStatus": "不可用：此版本尚未集成 llama.cpp 运行时和模型",
+  "settingsVision": "图像分析",
+  "settingsAutoAi": "保存记录后自动请求 AI 解读",
+  "settingsAutoAiHelper": "会把该甲虫的相关记录发送到 Mac 网关；结果只会作为待确认建议",
+  "settingsRevokeConsent": "撤销数据发送授权",
+  "settingsConsentGranted": "已授权：{date}",
+  "@settingsConsentGranted": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "settingsCareRules": "主动关怀规则",
+  "ruleWeightPercent": "体重变化提示阈值（%）",
+  "ruleGapDays": "多久未称重时提示（天）",
+  "ruleSubstrateInterval": "换土检查间隔（天，留空关闭）",
+  "ruleSuggestionExpiry": "未处理建议过期（天）",
+  "settingsSpecies": "种类管理",
+  "speciesAdd": "添加种类",
+  "speciesCode": "种类代码（2–8 位大写字母/数字）",
+  "speciesScientific": "学名",
+  "speciesCommon": "俗名",
+  "speciesPupaMin": "蛹期最短（天）",
+  "speciesPupaMax": "蛹期最长（天）",
+  "speciesPupaHelper": "留空表示未知；仅用于预期羽化窗口提醒",
+  "speciesBuiltin": "内置",
+  "speciesRangeInvalid": "最短不能大于最长",
+  "settingsSensors": "温度传感器",
+  "sensorAdd": "添加传感器",
+  "sensorName": "名称",
+  "sensorLocation": "位置",
+  "sensorKind": "类型",
+  "sensorManual": "手动记录",
+  "sensorBluetooth": "蓝牙（尚未支持）",
+  "sensorWifi": "Wi-Fi（尚未支持）",
+  "sensorMin": "最低阈值（°C）",
+  "sensorMax": "最高阈值（°C）",
+  "sensorTarget": "目标温度（°C）",
+  "sensorThresholdHelper": "适宜温度因种类和阶段而异，请按你的饲养方案设定。",
+  "settingsSuppressions": "已关闭的建议类型",
+  "suppressionAllBeetles": "所有甲虫",
+  "settingsBackup": "备份与恢复",
+  "backupExport": "导出备份",
+  "backupExportHelper": "包含所有记录和照片；不包含访问令牌",
+  "backupImport": "从备份恢复",
+  "backupRestoreConfirm": "将按记录 ID 合并备份数据：新记录会被添加，较新的修改会覆盖较旧的版本，不会产生重复。继续？",
+  "backupRestored": "恢复完成：新增 {inserted}，更新 {updated}，跳过 {skipped}",
+  "@backupRestored": {
+    "placeholders": {
+      "inserted": {
+        "type": "int"
+      },
+      "skipped": {
+        "type": "int"
+      },
+      "updated": {
+        "type": "int"
+      }
+    }
+  },
+  "backupErrorNotBackup": "不是有效的备份文件",
+  "backupErrorVersion": "备份版本不受支持（可能来自更新的应用版本）",
+  "backupErrorCorrupted": "备份文件已损坏（完整性校验失败）",
+  "backupErrorAlready": "该备份已经恢复过",
+  "backupErrorConflict": "编号冲突：{codes}。本机已有相同编号的不同记录，未做任何更改。",
+  "@backupErrorConflict": {
+    "placeholders": {
+      "codes": {
+        "type": "String"
+      }
+    }
+  },
+  "settingsAiMemory": "AI 记忆",
+  "aiMemoryEmpty": "暂无 AI 分析记录",
+  "aiMemoryDeleteAll": "删除全部 AI 分析",
+  "aiMemoryDeleteConfirm": "只删除 AI 生成的分析，不会删除任何饲养记录。",
+  "aiMemoryOutcome": "预测结果",
+  "outcomeNotApplicable": "不适用",
+  "outcomePending": "待验证",
+  "outcomeCorrect": "正确",
+  "outcomeIncorrect": "不正确",
+  "aiMemoryQuestion": "问题",
+  "settingsPrivacy": "隐私",
+  "privacyBody": "所有数据保存在本机。无需账户，没有统计分析。只有在你同意后，数据才会发送到你自己的 Mac 网关，绝不会发送到云服务。",
+  "settingsAbout": "关于",
+  "aboutVersion": "版本 {version}",
+  "@aboutVersion": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  },
+  "parentsSection": "父母",
+  "parentsHint": "可选择饲养列表中的个体，或填写不在列表中的种虫信息。",
+  "fieldSire": "父本",
+  "fieldDam": "母本",
+  "parentNotInCollection": "不在列表中",
+  "fieldSireNote": "父本信息",
+  "fieldDamNote": "母本信息",
+  "parentNoteHelper": "例如：WD 150 mm，瓜德罗普",
+  "parentUnknown": "未记录",
+  "offspringSection": "子代（{count}）",
+  "@offspringSection": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "parentErrorSelf": "个体不能是自己的父母",
+  "parentErrorSame": "父本和母本必须是不同个体",
+  "parentErrorNotFound": "所选父母已不存在",
+  "parentErrorWrongSex": "父本须为雄性，母本须为雌性",
+  "parentErrorCycle": "这会让个体成为自己的祖先",
+  "parentErrorSexConflict": "该个体已有子代记录，不能改为此性别"
+}
