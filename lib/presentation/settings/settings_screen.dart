@@ -21,7 +21,6 @@ class SettingsScreen extends ConsumerWidget {
     final l = context.l10n;
     final settings = ref.watch(settingsRepoProvider);
     final theme = ref.watch(themeModeProvider);
-    final locale = ref.watch(localeProvider);
     final routing = ref.watch(routingPreferenceProvider);
     final autoAi = ref.watch(settingsMapProvider).valueOrNull?[SettingsKeys.autoAiInterpretation] == 'true';
 
@@ -59,9 +58,10 @@ class SettingsScreen extends ConsumerWidget {
           leading: const Icon(Icons.translate),
           title: Text(l.settingsLanguage),
           trailing: DropdownButton<String>(
-            value: locale.languageCode,
+            value: ref.watch(languagePreferenceProvider),
             underline: const SizedBox.shrink(),
             items: [
+              DropdownMenuItem(value: systemLanguage, child: Text(l.languageSystem)),
               for (final code in supportedLanguageCodes)
                 DropdownMenuItem(value: code, child: Text(_languageNames[code]!)),
             ],

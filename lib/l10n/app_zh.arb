@@ -768,5 +768,6 @@
   "pastRecordsFutureDate": "不能是未来的日期",
   "pastRecordsNeedValue": "请填写体重或阶段",
   "pastRecordsBadWeight": "体重须大于 0 且小于 1000 克",
-  "pastRecordsSaveFailed": "保存失败，记录没有改动，请重试"
+  "pastRecordsSaveFailed": "保存失败，记录没有改动，请重试",
+  "languageSystem": "跟随系统"
 }

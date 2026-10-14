@@ -425,5 +425,6 @@
   "pastRecordsFutureDate": "วันที่ต้องไม่อยู่ในอนาคต",
   "pastRecordsNeedValue": "โปรดกรอกน้ำหนักหรือระยะ",
   "pastRecordsBadWeight": "น้ำหนักต้องมากกว่า 0 และน้อยกว่า 1000 กรัม",
-  "pastRecordsSaveFailed": "บันทึกไม่สำเร็จ ข้อมูลไม่ถูกเปลี่ยนแปลง โปรดลองอีกครั้ง"
+  "pastRecordsSaveFailed": "บันทึกไม่สำเร็จ ข้อมูลไม่ถูกเปลี่ยนแปลง โปรดลองอีกครั้ง",
+  "languageSystem": "ตามภาษาของอุปกรณ์"
 }

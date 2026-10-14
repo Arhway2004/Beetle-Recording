@@ -78,10 +78,25 @@ final themeModeProvider = Provider<ThemeMode>((ref) => switch (_settings(ref)[Se
 
 const supportedLanguageCodes = ['zh', 'en', 'th'];
 
-/// Simplified Chinese is the default language.
-final localeProvider = Provider<Locale>((ref) {
+/// Stored language preference meaning "follow the device".
+const systemLanguage = 'system';
+
+/// The stored choice: a code from [supportedLanguageCodes] or [systemLanguage].
+/// Simplified Chinese stays the default when nothing was chosen.
+final languagePreferenceProvider = Provider<String>((ref) {
   final code = _settings(ref)[SettingsKeys.locale];
-  return Locale(supportedLanguageCodes.contains(code) ? code! : 'zh');
+  return code == systemLanguage || supportedLanguageCodes.contains(code) ? code! : 'zh';
+});
+
+/// The device language if the app supports it (any Chinese variant → zh), else zh.
+Locale resolveSupportedLocale(Locale? device) =>
+    Locale(supportedLanguageCodes.contains(device?.languageCode) ? device!.languageCode : 'zh');
+
+/// The language actually shown, also used for text built outside widgets
+/// (notifications, care texts). Invalidated when the device language changes.
+final localeProvider = Provider<Locale>((ref) {
+  final pref = ref.watch(languagePreferenceProvider);
+  return pref == systemLanguage ? resolveSupportedLocale(WidgetsBinding.instance.platformDispatcher.locale) : Locale(pref);
 });
 
 final l10nProvider = Provider<AppLocalizations>((ref) => lookupAppLocalizations(ref.watch(localeProvider)));

@@ -24,6 +24,10 @@ class _BeetleKeeperAppState extends ConsumerState<BeetleKeeperApp> with WidgetsB
     WidgetsBinding.instance.addObserver(this);
   }
 
+  /// In "device language" mode, follow a language change made in system settings.
+  @override
+  void didChangeLocales(List<Locale>? locales) => ref.invalidate(localeProvider);
+
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
@@ -61,6 +65,7 @@ class _BeetleKeeperAppState extends ConsumerState<BeetleKeeperApp> with WidgetsB
       darkTheme: AppTheme.dark(),
       themeMode: ref.watch(themeModeProvider),
       locale: ref.watch(localeProvider),
+      localeResolutionCallback: (device, _) => resolveSupportedLocale(device),
       supportedLocales: AppLocalizations.supportedLocales,
       localizationsDelegates: const [
         AppLocalizations.delegate,
