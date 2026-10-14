@@ -2655,6 +2655,12 @@ abstract class AppLocalizations {
   /// In zh, this message translates to:
   /// **'保存失败，记录没有改动，请重试'**
   String get pastRecordsSaveFailed;
+
+  /// No description provided for @languageSystem.
+  ///
+  /// In zh, this message translates to:
+  /// **'跟随系统'**
+  String get languageSystem;
 }
 
 class _AppLocalizationsDelegate

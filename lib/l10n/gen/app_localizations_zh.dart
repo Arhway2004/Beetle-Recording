@@ -1379,4 +1379,7 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get pastRecordsSaveFailed => '保存失败，记录没有改动，请重试';
+
+  @override
+  String get languageSystem => '跟随系统';
 }

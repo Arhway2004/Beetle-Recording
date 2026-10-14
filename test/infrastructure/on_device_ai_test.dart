@@ -97,8 +97,8 @@ void main() {
       final r = c.finish();
       expect(r.content, 'Looking it up');
       expect(r.toolCalls, hasLength(1)); // the malformed call is dropped
-      expect((r.toolCalls.single.id, r.toolCalls.single.name, r.toolCalls.single.arguments),
-          ('call_a', 'get_beetle_profile', {'beetle_id': 'DHH-001'}));
+      expect((r.toolCalls.single.id, r.toolCalls.single.name), ('call_a', 'get_beetle_profile'));
+      expect(r.toolCalls.single.arguments, {'beetle_id': 'DHH-001'});
     });
 
     test('messages keep roles, tool calls and tool results', () {
@@ -115,7 +115,8 @@ void main() {
         llama.LlamaChatRole.tool,
       ]);
       final call = out[2].parts.whereType<llama.LlamaToolCallContent>().single;
-      expect((call.name, call.arguments), ('f', {'a': 1}));
+      expect(call.name, 'f');
+      expect(call.arguments, {'a': 1});
       expect(out[3].parts.whereType<llama.LlamaToolResultContent>().single.result, '{"ok":true}');
     });
   });
@@ -198,8 +199,8 @@ void main() {
 
       await store.download(m).drain<void>();
       final s = await on.status();
-      expect((s.available, s.experimental, s.capabilities),
-          (true, true, {AiCapability.chat, AiCapability.toolCalling, AiCapability.proactiveInterpretation}));
+      expect((s.available, s.experimental), (true, true));
+      expect(s.capabilities, {AiCapability.chat, AiCapability.toolCalling, AiCapability.proactiveInterpretation});
       final r = await on.chat(const [ChatMessage.user('hi')]);
       expect((r.content, r.model), ('[UNKNOWN] no data', 'Test model'));
       expect(runtime.lastMessages!.single.content, 'hi');

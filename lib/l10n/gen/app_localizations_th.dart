@@ -1420,4 +1420,7 @@ class AppLocalizationsTh extends AppLocalizations {
   @override
   String get pastRecordsSaveFailed =>
       'บันทึกไม่สำเร็จ ข้อมูลไม่ถูกเปลี่ยนแปลง โปรดลองอีกครั้ง';
+
+  @override
+  String get languageSystem => 'ตามภาษาของอุปกรณ์';
 }

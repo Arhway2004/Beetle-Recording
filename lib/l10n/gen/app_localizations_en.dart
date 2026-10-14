@@ -1423,4 +1423,7 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get pastRecordsSaveFailed =>
       'Could not save; nothing was changed. Please try again.';
+
+  @override
+  String get languageSystem => 'Device language';
 }
