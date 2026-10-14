@@ -34,6 +34,11 @@ class _BeetleKeeperAppState extends ConsumerState<BeetleKeeperApp> with WidgetsB
   /// time-based care rules, and re-check AI connectivity.
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.paused) {
+      // Release the ~2 GB on-device model so iOS does not kill the app in the background.
+      ref.read(onDeviceRuntimeProvider).unload().ignore();
+      return;
+    }
     if (state != AppLifecycleState.resumed) return;
     final gateway = ref.read(notificationGatewayProvider);
     gateway

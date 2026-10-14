@@ -245,6 +245,7 @@ class _TurnView extends ConsumerWidget {
                       Wrap(spacing: Insets.s, runSpacing: Insets.xs, children: [
                         Pill(l.providerName(a.provider), icon: Icons.memory),
                         if (a.isFallback) Pill(l.assistantFallback(l.providerName(a.provider))),
+                        if (a.provider == AiProviderKind.mobile) Pill(l.providerExperimental, icon: Icons.science_outlined),
                         Pill(l.assistantEvidence(a.evidence.length), icon: Icons.fact_check_outlined),
                         Pill(l.assistantToolsUsed(a.toolCalls.length), icon: Icons.manage_search),
                       ]),

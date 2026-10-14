@@ -20,6 +20,7 @@ void main() {
         overrides: [
           databaseProvider.overrideWithValue(db),
           documentsDirProvider.overrideWithValue(Directory.systemTemp),
+          supportDirProvider.overrideWithValue(Directory.systemTemp),
           notificationGatewayProvider.overrideWithValue(FakeNotificationGateway()),
           secretStoreProvider.overrideWithValue(MemorySecretStore()),
           initialSettingsProvider.overrideWithValue(settings),
@@ -58,6 +59,17 @@ void main() {
     expect(find.text('还没有甲虫'), findsOneWidget);
     expect(find.text('添加甲虫'), findsWidgets);
     expect(find.byType(NavigationBar), findsOneWidget);
+    await dispose(tester);
+  });
+
+  testWidgets('opening Settings does not highlight Dashboard in the bottom bar', (tester) async {
+    await pumpApp(tester);
+    final bar = find.byType(NavigationBar);
+    expect(find.descendant(of: bar, matching: find.byIcon(Icons.space_dashboard)), findsOneWidget);
+    await tester.tap(find.byIcon(Icons.settings_outlined).first);
+    await settle(tester);
+    expect(find.descendant(of: bar, matching: find.byIcon(Icons.space_dashboard)), findsNothing);
+    expect(find.descendant(of: bar, matching: find.byIcon(Icons.space_dashboard_outlined)), findsOneWidget);
     await dispose(tester);
   });
 

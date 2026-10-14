@@ -25,6 +25,7 @@ void main() {
       overrides: [
         databaseProvider.overrideWithValue(db),
         documentsDirProvider.overrideWithValue(Directory.systemTemp),
+        supportDirProvider.overrideWithValue(Directory.systemTemp),
         notificationGatewayProvider.overrideWithValue(FakeNotificationGateway()),
         secretStoreProvider.overrideWithValue(MemorySecretStore()),
       ],

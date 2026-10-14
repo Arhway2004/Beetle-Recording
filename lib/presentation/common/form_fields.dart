@@ -200,7 +200,7 @@ class LabeledDropdown<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => DropdownButtonFormField<T>(
-        value: items.containsKey(value) ? value : null,
+        initialValue: items.containsKey(value) ? value : null,
         isExpanded: true,
         decoration: InputDecoration(labelText: label),
         items: [

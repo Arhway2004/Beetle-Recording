@@ -90,7 +90,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get commonDeleteConfirmTitle => 'Delete?';
 
   @override
-  String get commonDeleteRecordMessage => 'The record will be marked as deleted (kept for audit). The beetle\'s current values fall back to the previous record.';
+  String get commonDeleteRecordMessage =>
+      'The record will be marked as deleted (kept for audit). The beetle\'s current values fall back to the previous record.';
 
   @override
   String get commonNotSet => 'Not set';
@@ -302,7 +303,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get dashboardEmptyTitle => 'No beetles yet';
 
   @override
-  String get dashboardEmptyBody => 'Add your first beetle to start tracking its growth.';
+  String get dashboardEmptyBody =>
+      'Add your first beetle to start tracking its growth.';
 
   @override
   String get dashboardAddBeetle => 'Add beetle';
@@ -408,13 +410,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get fieldBreedingNotes => 'Breeding notes';
 
   @override
-  String get beetleFormInitialSection => 'Initial records (saved as history events)';
+  String get beetleFormInitialSection =>
+      'Initial records (saved as history events)';
 
   @override
-  String get beetleFormStageHint => 'The stage is only set from your records, never inferred from weight.';
+  String get beetleFormStageHint =>
+      'The stage is only set from your records, never inferred from weight.';
 
   @override
-  String get beetleFormHistoryHint => 'Record later changes of weight, container, substrate and stage from the beetle page.';
+  String get beetleFormHistoryHint =>
+      'Record later changes of weight, container, substrate and stage from the beetle page.';
 
   @override
   String get detailOverview => 'Overview';
@@ -469,7 +474,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get detailAvgWeekly => 'Avg / week';
 
   @override
-  String get detailNeedTwoWeights => 'At least two measurements are needed to calculate change';
+  String get detailNeedTwoWeights =>
+      'At least two measurements are needed to calculate change';
 
   @override
   String get detailHatch => 'Hatched';
@@ -492,7 +498,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get detailChangeStatus => 'Change status';
 
   @override
-  String get detailAvgNote => 'Averages only reflect the first and last record; growth is not linear.';
+  String get detailAvgNote =>
+      'Averages only reflect the first and last record; growth is not linear.';
 
   @override
   String get recordsEmpty => 'No records yet';
@@ -510,7 +517,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get weightGrams => 'Weight (g)';
 
   @override
-  String get weightDisturbWarning => 'This beetle is recorded as prepupa or pupa. Disturbing or weighing it at this stage can cause harm.';
+  String get weightDisturbWarning =>
+      'This beetle is recorded as prepupa or pupa. Disturbing or weighing it at this stage can cause harm.';
 
   @override
   String get observationCategory => 'Category';
@@ -646,7 +654,8 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get reminderNeedsConfirmation => 'Notifications are only scheduled after you confirm';
+  String get reminderNeedsConfirmation =>
+      'Notifications are only scheduled after you confirm';
 
   @override
   String get reminderReview => 'Review reminder';
@@ -655,10 +664,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get reminderAcceptEdited => 'Accept with changes';
 
   @override
-  String get notificationsDenied => 'Notifications are off: reminders are saved but will not alert you.';
+  String get notificationsDenied =>
+      'Notifications are off: reminders are saved but will not alert you.';
 
   @override
-  String get notificationsRationale => 'Notification permission is needed to alert you at the chosen time.';
+  String get notificationsRationale =>
+      'Notification permission is needed to alert you at the chosen time.';
 
   @override
   String remindersDeferred(int n) {
@@ -666,7 +677,8 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get remindersInexact => 'Exact alarms not allowed; notifications may be slightly delayed.';
+  String get remindersInexact =>
+      'Exact alarms not allowed; notifications may be slightly delayed.';
 
   @override
   String get reminderOverdue => 'Overdue';
@@ -687,7 +699,8 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get ruleWeightLossRecommendation => 'Re-weigh in a week and check substrate and temperature. Weight loss in late L3 may relate to preparing for pupation or have other causes; avoid frequent disturbance.';
+  String get ruleWeightLossRecommendation =>
+      'Re-weigh in a week and check substrate and temperature. Weight loss in late L3 may relate to preparing for pupation or have other causes; avoid frequent disturbance.';
 
   @override
   String get ruleWeightGainRecommendation => 'Continue recording as usual.';
@@ -698,7 +711,8 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get ruleOverdueMessage => 'It has been a while since the last weighing; consider weighing at the next substrate change.';
+  String get ruleOverdueMessage =>
+      'It has been a while since the last weighing; consider weighing at the next substrate change.';
 
   @override
   String ruleOverdueReasonDays(int days) {
@@ -709,7 +723,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get ruleOverdueReasonNever => 'No weight has been recorded yet.';
 
   @override
-  String get ruleOverdueRecommendation => 'Weigh larvae when convenient; do not dig up a prepupa or pupa to weigh it.';
+  String get ruleOverdueRecommendation =>
+      'Weigh larvae when convenient; do not dig up a prepupa or pupa to weigh it.';
 
   @override
   String ruleSubstrateTitle(String code) {
@@ -725,7 +740,8 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get ruleSubstrateRecommendation => 'Observe from outside first; if there are signs of a pupal chamber, do not replace it.';
+  String get ruleSubstrateRecommendation =>
+      'Observe from outside first; if there are signs of a pupal chamber, do not replace it.';
 
   @override
   String ruleTempTitle(String sensor) {
@@ -743,7 +759,8 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get ruleTempRecommendation => 'Check the room and temperature-control equipment.';
+  String get ruleTempRecommendation =>
+      'Check the room and temperature-control equipment.';
 
   @override
   String rulePrepupaTitle(String code) {
@@ -751,13 +768,16 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get rulePrepupaMessage => 'Check for externally visible changes and avoid unnecessary disturbance.';
+  String get rulePrepupaMessage =>
+      'Check for externally visible changes and avoid unnecessary disturbance.';
 
   @override
-  String get rulePrepupaReason => 'Recent notes mention color change or a pupal chamber, but the evidence is insufficient to confirm prepupation.';
+  String get rulePrepupaReason =>
+      'Recent notes mention color change or a pupal chamber, but the evidence is insufficient to confirm prepupation.';
 
   @override
-  String get rulePrepupaRecommendation => 'Observe externally without disturbing a possible pupal chamber.';
+  String get rulePrepupaRecommendation =>
+      'Observe externally without disturbing a possible pupal chamber.';
 
   @override
   String ruleEmergenceTitle(String code) {
@@ -775,7 +795,8 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get ruleEmergenceRecommendation => 'Observe externally. Newly emerged adults need time to harden; do not remove them too early.';
+  String get ruleEmergenceRecommendation =>
+      'Observe externally. Newly emerged adults need time to harden; do not remove them too early.';
 
   @override
   String get assistantHint => 'Ask about your records…';
@@ -784,19 +805,22 @@ class AppLocalizationsEn extends AppLocalizations {
   String get assistantEmptyTitle => 'Ask about your breeding records';
 
   @override
-  String get assistantEmptyBody => 'The AI looks up your records before answering and labels what is recorded, calculated, hypothesized or recommended.';
+  String get assistantEmptyBody =>
+      'The AI looks up your records before answering and labels what is recorded, calculated, hypothesized or recommended.';
 
   @override
   String get assistantExample1 => 'Is CCK-001 growing normally this month?';
 
   @override
-  String get assistantExample2 => 'Compare DHH-001 and DHH-002 growth over the last three months.';
+  String get assistantExample2 =>
+      'Compare DHH-001 and DHH-002 growth over the last three months.';
 
   @override
   String get assistantExample3 => 'Why has my larva lost weight recently?';
 
   @override
-  String get assistantNoProvider => 'No AI model is available, so this question cannot be answered. Records, reminders and analytics still work.';
+  String get assistantNoProvider =>
+      'No AI model is available, so this question cannot be answered. Records, reminders and analytics still work.';
 
   @override
   String get assistantProviderMac => 'Mac local AI';
@@ -818,7 +842,8 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get assistantConsentPublicWarning => 'Warning: this address is not a local, LAN or VPN address. Make sure it is your own device.';
+  String get assistantConsentPublicWarning =>
+      'Warning: this address is not a local, LAN or VPN address. Make sure it is your own device.';
 
   @override
   String get assistantConsentAllow => 'Allow';
@@ -860,10 +885,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get assistantNewChat => 'New chat';
 
   @override
-  String get assistantToolLoop => 'The AI made too many lookups and was stopped. Try a more specific question.';
+  String get assistantToolLoop =>
+      'The AI made too many lookups and was stopped. Try a more specific question.';
 
   @override
-  String get assistantImageUnavailable => 'Image analysis unavailable: no validated multimodal model is integrated.';
+  String get assistantImageUnavailable =>
+      'Image analysis unavailable: no validated multimodal model is integrated.';
 
   @override
   String get claimVerified => 'Recorded';
@@ -902,7 +929,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get unavailableUnauthorized => 'Access token rejected';
 
   @override
-  String get unavailableInsecure => 'HTTPS required (pin fingerprint for self-signed certs)';
+  String get unavailableInsecure =>
+      'HTTPS required (pin fingerprint for self-signed certs)';
 
   @override
   String get unavailableModelMissing => 'Model unavailable';
@@ -926,7 +954,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get analyticsAiHistory => 'AI observation history';
 
   @override
-  String get analyticsCorrelationNote => 'Charts only show recorded data; changes occurring together do not imply causation.';
+  String get analyticsCorrelationNote =>
+      'Charts only show recorded data; changes occurring together do not imply causation.';
 
   @override
   String get analyticsNoData => 'No data';
@@ -981,7 +1010,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settingsGatewayToken => 'Access token';
 
   @override
-  String get settingsGatewayTokenHelper => 'Generate on the Mac with `make gateway-token`; stored in the system keychain';
+  String get settingsGatewayTokenHelper =>
+      'Generate on the Mac with `make gateway-token`; stored in the system keychain';
 
   @override
   String get settingsGatewayTokenSet => 'Saved (hidden)';
@@ -990,7 +1020,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settingsCertFingerprint => 'Certificate SHA-256 fingerprint';
 
   @override
-  String get settingsCertFingerprintHelper => 'Required for self-signed certificates (printed by make gateway-cert)';
+  String get settingsCertFingerprintHelper =>
+      'Required for self-signed certificates (printed by make gateway-cert)';
 
   @override
   String get settingsCertFingerprintInvalid => 'Must be 64 hex characters';
@@ -1023,10 +1054,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get routingMobile => 'Phone only';
 
   @override
-  String get settingsMobileAi => 'On-device AI (llama.cpp)';
+  String get settingsMobileAi => 'On-device AI';
 
   @override
-  String get settingsMobileAiStatus => 'Unavailable: llama.cpp runtime and model are not integrated in this build';
+  String get settingsMobileAiStatus =>
+      'Runs a small model offline on this phone (experimental)';
 
   @override
   String get settingsVision => 'Image analysis';
@@ -1035,7 +1067,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settingsAutoAi => 'Ask AI to interpret after saving records';
 
   @override
-  String get settingsAutoAiHelper => 'Sends that beetle\'s records to the Mac gateway; results are only suggestions for review';
+  String get settingsAutoAiHelper =>
+      'Sends that beetle\'s records to the Mac gateway; results are only suggestions for review';
 
   @override
   String get settingsRevokeConsent => 'Revoke data-sharing consent';
@@ -1055,10 +1088,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get ruleGapDays => 'Measurement gap (days)';
 
   @override
-  String get ruleSubstrateInterval => 'Substrate check interval (days, blank = off)';
+  String get ruleSubstrateInterval =>
+      'Substrate check interval (days, blank = off)';
 
   @override
-  String get ruleSuggestionExpiry => 'Unreviewed suggestions expire after (days)';
+  String get ruleSuggestionExpiry =>
+      'Unreviewed suggestions expire after (days)';
 
   @override
   String get settingsSpecies => 'Species';
@@ -1082,7 +1117,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get speciesPupaMax => 'Pupal period max (days)';
 
   @override
-  String get speciesPupaHelper => 'Leave blank if unknown; only used for emergence window suggestions';
+  String get speciesPupaHelper =>
+      'Leave blank if unknown; only used for emergence window suggestions';
 
   @override
   String get speciesBuiltin => 'Built-in';
@@ -1124,7 +1160,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get sensorTarget => 'Target (°C)';
 
   @override
-  String get sensorThresholdHelper => 'Suitable temperatures differ by species and stage; set them for your own setup.';
+  String get sensorThresholdHelper =>
+      'Suitable temperatures differ by species and stage; set them for your own setup.';
 
   @override
   String get settingsSuppressions => 'Disabled suggestion types';
@@ -1139,13 +1176,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get backupExport => 'Export backup';
 
   @override
-  String get backupExportHelper => 'Includes all records and photos; never includes access tokens';
+  String get backupExportHelper =>
+      'Includes all records and photos; never includes access tokens';
 
   @override
   String get backupImport => 'Restore from backup';
 
   @override
-  String get backupRestoreConfirm => 'The backup is merged by record ID: new records are added and newer edits replace older ones. No duplicates are created. Continue?';
+  String get backupRestoreConfirm =>
+      'The backup is merged by record ID: new records are added and newer edits replace older ones. No duplicates are created. Continue?';
 
   @override
   String backupRestored(int inserted, int skipped, int updated) {
@@ -1156,10 +1195,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get backupErrorNotBackup => 'Not a valid backup file';
 
   @override
-  String get backupErrorVersion => 'Unsupported backup version (possibly from a newer app)';
+  String get backupErrorVersion =>
+      'Unsupported backup version (possibly from a newer app)';
 
   @override
-  String get backupErrorCorrupted => 'Backup is corrupted (integrity check failed)';
+  String get backupErrorCorrupted =>
+      'Backup is corrupted (integrity check failed)';
 
   @override
   String get backupErrorAlready => 'This backup was already restored';
@@ -1179,7 +1220,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get aiMemoryDeleteAll => 'Delete all AI analyses';
 
   @override
-  String get aiMemoryDeleteConfirm => 'Only AI-generated analyses are deleted. Breeding records are not affected.';
+  String get aiMemoryDeleteConfirm =>
+      'Only AI-generated analyses are deleted. Breeding records are not affected.';
 
   @override
   String get aiMemoryOutcome => 'Prediction outcome';
@@ -1203,7 +1245,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settingsPrivacy => 'Privacy';
 
   @override
-  String get privacyBody => 'All data stays on this device. No account, no analytics. Data is sent only to your own Mac gateway after you consent, never to a cloud service.';
+  String get privacyBody =>
+      'All data stays on this device. No account, no analytics. Data is sent only to your own Mac gateway after you consent, never to a cloud service.';
 
   @override
   String get settingsAbout => 'About';
@@ -1217,7 +1260,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get parentsSection => 'Parents';
 
   @override
-  String get parentsHint => 'Pick a beetle from your collection, or describe a parent you never kept here.';
+  String get parentsHint =>
+      'Pick a beetle from your collection, or describe a parent you never kept here.';
 
   @override
   String get fieldSire => 'Father (sire)';
@@ -1255,11 +1299,68 @@ class AppLocalizationsEn extends AppLocalizations {
   String get parentErrorNotFound => 'The selected parent no longer exists';
 
   @override
-  String get parentErrorWrongSex => 'The father must be male and the mother female';
+  String get parentErrorWrongSex =>
+      'The father must be male and the mother female';
 
   @override
   String get parentErrorCycle => 'That would make the beetle its own ancestor';
 
   @override
-  String get parentErrorSexConflict => 'This beetle already has offspring as the other parent, so it cannot change to this sex';
+  String get parentErrorSexConflict =>
+      'This beetle already has offspring as the other parent, so it cannot change to this sex';
+
+  @override
+  String onDeviceIntro(String model) {
+    return 'Runs $model on this phone. Works offline and your records never leave the device. It is slower and less reliable than the Mac AI.';
+  }
+
+  @override
+  String get onDeviceExperimental =>
+      'Experimental: the small model may look up records incorrectly. Check answers against your records.';
+
+  @override
+  String onDeviceDownloadHint(String size) {
+    return 'Download size $size. Use Wi-Fi and keep the app open while downloading; an interrupted download resumes.';
+  }
+
+  @override
+  String get onDeviceDownload => 'Download model';
+
+  @override
+  String get onDeviceResume => 'Resume download';
+
+  @override
+  String onDeviceDownloading(int percent) {
+    return 'Downloading… $percent%';
+  }
+
+  @override
+  String get onDeviceVerifying => 'Verifying file…';
+
+  @override
+  String get onDeviceReady => 'Model downloaded and verified';
+
+  @override
+  String get onDeviceDelete => 'Delete model';
+
+  @override
+  String get onDeviceDeleteConfirm =>
+      'Delete the downloaded model? You can download it again later.';
+
+  @override
+  String get onDeviceNeedsModel => 'Download the model first';
+
+  @override
+  String get onDeviceErrorNetwork =>
+      'Download failed. Check the connection and resume.';
+
+  @override
+  String get onDeviceErrorChecksum =>
+      'The file failed its integrity check and was deleted. Download it again.';
+
+  @override
+  String get onDeviceErrorDiskFull => 'Not enough storage space';
+
+  @override
+  String get providerExperimental => 'Experimental';
 }

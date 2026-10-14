@@ -63,7 +63,8 @@ import 'app_localizations_zh.dart';
 /// be consistent with the languages listed in the AppLocalizations.supportedLocales
 /// property.
 abstract class AppLocalizations {
-  AppLocalizations(String locale) : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+  AppLocalizations(String locale)
+    : localeName = intl.Intl.canonicalizedLocale(locale.toString());
 
   final String localeName;
 
@@ -71,7 +72,8 @@ abstract class AppLocalizations {
     return Localizations.of<AppLocalizations>(context, AppLocalizations)!;
   }
 
-  static const LocalizationsDelegate<AppLocalizations> delegate = _AppLocalizationsDelegate();
+  static const LocalizationsDelegate<AppLocalizations> delegate =
+      _AppLocalizationsDelegate();
 
   /// A list of this localizations delegate along with the default localizations
   /// delegates.
@@ -83,18 +85,19 @@ abstract class AppLocalizations {
   /// Additional delegates can be added by appending to this list in
   /// MaterialApp. This list does not have to be used at all if a custom list
   /// of delegates is preferred or required.
-  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates = <LocalizationsDelegate<dynamic>>[
-    delegate,
-    GlobalMaterialLocalizations.delegate,
-    GlobalCupertinoLocalizations.delegate,
-    GlobalWidgetsLocalizations.delegate,
-  ];
+  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
+      <LocalizationsDelegate<dynamic>>[
+        delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ];
 
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[
     Locale('en'),
     Locale('th'),
-    Locale('zh')
+    Locale('zh'),
   ];
 
   /// No description provided for @appTitle.
@@ -1996,13 +1999,13 @@ abstract class AppLocalizations {
   /// No description provided for @settingsMobileAi.
   ///
   /// In zh, this message translates to:
-  /// **'手机本地 AI（llama.cpp）'**
+  /// **'手机本地 AI'**
   String get settingsMobileAi;
 
   /// No description provided for @settingsMobileAiStatus.
   ///
   /// In zh, this message translates to:
-  /// **'不可用：此版本尚未集成 llama.cpp 运行时和模型'**
+  /// **'在本机离线运行小模型（实验性）'**
   String get settingsMobileAiStatus;
 
   /// No description provided for @settingsVision.
@@ -2454,9 +2457,100 @@ abstract class AppLocalizations {
   /// In zh, this message translates to:
   /// **'该个体已有子代记录，不能改为此性别'**
   String get parentErrorSexConflict;
+
+  /// No description provided for @onDeviceIntro.
+  ///
+  /// In zh, this message translates to:
+  /// **'在手机上运行 {model}。无需网络，记录不会离开本机。速度比 Mac AI 慢，回答也更不可靠。'**
+  String onDeviceIntro(String model);
+
+  /// No description provided for @onDeviceExperimental.
+  ///
+  /// In zh, this message translates to:
+  /// **'实验性：小模型可能用错查询工具，请对照记录核实回答。'**
+  String get onDeviceExperimental;
+
+  /// No description provided for @onDeviceDownloadHint.
+  ///
+  /// In zh, this message translates to:
+  /// **'下载大小 {size}。请使用 Wi-Fi，并在下载时保持应用打开；中断后可继续下载。'**
+  String onDeviceDownloadHint(String size);
+
+  /// No description provided for @onDeviceDownload.
+  ///
+  /// In zh, this message translates to:
+  /// **'下载模型'**
+  String get onDeviceDownload;
+
+  /// No description provided for @onDeviceResume.
+  ///
+  /// In zh, this message translates to:
+  /// **'继续下载'**
+  String get onDeviceResume;
+
+  /// No description provided for @onDeviceDownloading.
+  ///
+  /// In zh, this message translates to:
+  /// **'正在下载… {percent}%'**
+  String onDeviceDownloading(int percent);
+
+  /// No description provided for @onDeviceVerifying.
+  ///
+  /// In zh, this message translates to:
+  /// **'正在校验文件…'**
+  String get onDeviceVerifying;
+
+  /// No description provided for @onDeviceReady.
+  ///
+  /// In zh, this message translates to:
+  /// **'模型已下载并通过校验'**
+  String get onDeviceReady;
+
+  /// No description provided for @onDeviceDelete.
+  ///
+  /// In zh, this message translates to:
+  /// **'删除模型'**
+  String get onDeviceDelete;
+
+  /// No description provided for @onDeviceDeleteConfirm.
+  ///
+  /// In zh, this message translates to:
+  /// **'删除已下载的模型？之后可以重新下载。'**
+  String get onDeviceDeleteConfirm;
+
+  /// No description provided for @onDeviceNeedsModel.
+  ///
+  /// In zh, this message translates to:
+  /// **'请先下载模型'**
+  String get onDeviceNeedsModel;
+
+  /// No description provided for @onDeviceErrorNetwork.
+  ///
+  /// In zh, this message translates to:
+  /// **'下载失败，请检查网络后继续下载'**
+  String get onDeviceErrorNetwork;
+
+  /// No description provided for @onDeviceErrorChecksum.
+  ///
+  /// In zh, this message translates to:
+  /// **'文件校验失败，已删除，请重新下载'**
+  String get onDeviceErrorChecksum;
+
+  /// No description provided for @onDeviceErrorDiskFull.
+  ///
+  /// In zh, this message translates to:
+  /// **'存储空间不足'**
+  String get onDeviceErrorDiskFull;
+
+  /// No description provided for @providerExperimental.
+  ///
+  /// In zh, this message translates to:
+  /// **'实验性'**
+  String get providerExperimental;
 }
 
-class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
+class _AppLocalizationsDelegate
+    extends LocalizationsDelegate<AppLocalizations> {
   const _AppLocalizationsDelegate();
 
   @override
@@ -2465,26 +2559,28 @@ class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> 
   }
 
   @override
-  bool isSupported(Locale locale) => <String>['en', 'th', 'zh'].contains(locale.languageCode);
+  bool isSupported(Locale locale) =>
+      <String>['en', 'th', 'zh'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AppLocalizationsDelegate old) => false;
 }
 
 AppLocalizations lookupAppLocalizations(Locale locale) {
-
-
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
-    case 'en': return AppLocalizationsEn();
-    case 'th': return AppLocalizationsTh();
-    case 'zh': return AppLocalizationsZh();
+    case 'en':
+      return AppLocalizationsEn();
+    case 'th':
+      return AppLocalizationsTh();
+    case 'zh':
+      return AppLocalizationsZh();
   }
 
   throw FlutterError(
     'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
     'an issue with the localizations generation tool. Please file an issue '
     'on GitHub with a reproducible sample app and the gen-l10n configuration '
-    'that was used.'
+    'that was used.',
   );
 }

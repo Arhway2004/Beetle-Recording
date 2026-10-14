@@ -2,7 +2,9 @@ import '../../data/database/app_database.dart';
 import '../../domain/ai/ai_provider.dart';
 import '../../domain/models/enums.dart';
 import 'gateway_client.dart';
+import 'model_store.dart';
 import 'network_policy.dart';
+import 'on_device_runtime.dart';
 
 /// Provider A: Ollama on the user's Mac, through the authenticated gateway.
 class MacGatewayProvider implements AiProvider {
@@ -130,27 +132,54 @@ class MacGatewayProvider implements AiProvider {
   }
 }
 
-/// Provider B: on-device llama.cpp. The native runtime and GGUF model are not
-/// bundled in this build, so this provider honestly reports itself unavailable.
-/// See `docs/architecture/mobile-ai.md` for the integration plan.
+/// Provider B: on-device llama.cpp (llamadart) with a downloaded GGUF model.
+/// Nothing leaves the phone, so no consent is needed; the user still has to
+/// download the model and switch the provider on. Tool calling with a 1.7B
+/// model is less reliable than the Mac's 8B model, so the status is marked
+/// experimental and the UI says so. Proactive interpretation is not offered.
 class MobileLlamaProvider implements AiProvider {
-  const MobileLlamaProvider();
+  MobileLlamaProvider({
+    required this.settings,
+    required this.store,
+    required this.runtime,
+    OnDeviceModelSpec? model,
+  }) : model = model ?? defaultOnDeviceModel;
+
+  final AiProviderSettingRow settings;
+  final ModelStore store;
+  final OnDeviceRuntime runtime;
+  final OnDeviceModelSpec model;
 
   @override
   AiProviderKind get kind => AiProviderKind.mobile;
 
   @override
-  Future<ProviderStatus> status() async => const ProviderStatus.unavailable(
-      AiProviderKind.mobile, UnavailableCode.notBundled,
-      detail: 'llama.cpp runtime not bundled in this build');
+  Future<ProviderStatus> status() async {
+    if (!settings.enabled) {
+      return const ProviderStatus.unavailable(AiProviderKind.mobile, UnavailableCode.disabled);
+    }
+    if (await store.state(model) != ModelFileState.ready) {
+      return ProviderStatus.unavailable(AiProviderKind.mobile, UnavailableCode.modelMissing,
+          detail: '${model.displayName} not downloaded');
+    }
+    return ProviderStatus(
+      kind: AiProviderKind.mobile,
+      available: true,
+      model: model.displayName,
+      experimental: true,
+      capabilities: const {AiCapability.chat, AiCapability.toolCalling},
+    );
+  }
 
   @override
-  Future<ChatResponse> chat(List<ChatMessage> messages, {List<ToolDefinition> tools = const []}) =>
-      throw AiProviderException('On-device AI is not available in this build',
-          code: UnavailableCode.notBundled);
+  Future<ChatResponse> chat(List<ChatMessage> messages, {List<ToolDefinition> tools = const []}) async {
+    final s = await status();
+    if (!s.available) throw AiProviderException('On-device AI unavailable', code: s.code);
+    final response = await runtime.chat(store.modelFile(model).path, messages, tools);
+    return ChatResponse(content: response.content, toolCalls: response.toolCalls, model: model.displayName);
+  }
 
   @override
   Future<Object?> interpretProactive(Map<String, Object?> context) =>
-      throw AiProviderException('On-device AI is not available in this build',
-          code: UnavailableCode.notBundled);
+      throw AiProviderException('Proactive interpretation is not supported on-device');
 }

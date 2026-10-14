@@ -90,7 +90,8 @@ class AppLocalizationsZh extends AppLocalizations {
   String get commonDeleteConfirmTitle => '确认删除？';
 
   @override
-  String get commonDeleteRecordMessage => '该记录会被标记为已删除（保留审计痕迹），甲虫的当前状态会回退到上一条记录。';
+  String get commonDeleteRecordMessage =>
+      '该记录会被标记为已删除（保留审计痕迹），甲虫的当前状态会回退到上一条记录。';
 
   @override
   String get commonNotSet => '未设定';
@@ -687,7 +688,8 @@ class AppLocalizationsZh extends AppLocalizations {
   }
 
   @override
-  String get ruleWeightLossRecommendation => '一周后复称，并检查土和温度。L3 后期体重下降可能与准备化蛹有关，也可能另有原因；请避免频繁翻动。';
+  String get ruleWeightLossRecommendation =>
+      '一周后复称，并检查土和温度。L3 后期体重下降可能与准备化蛹有关，也可能另有原因；请避免频繁翻动。';
 
   @override
   String get ruleWeightGainRecommendation => '按常规继续记录即可。';
@@ -818,7 +820,8 @@ class AppLocalizationsZh extends AppLocalizations {
   }
 
   @override
-  String get assistantConsentPublicWarning => '警告：该地址不是本机或局域网 / VPN 地址。请确认它是你自己的设备。';
+  String get assistantConsentPublicWarning =>
+      '警告：该地址不是本机或局域网 / VPN 地址。请确认它是你自己的设备。';
 
   @override
   String get assistantConsentAllow => '允许';
@@ -981,7 +984,8 @@ class AppLocalizationsZh extends AppLocalizations {
   String get settingsGatewayToken => '访问令牌';
 
   @override
-  String get settingsGatewayTokenHelper => '在 Mac 上运行 make gateway-token 生成；保存在系统钥匙串中';
+  String get settingsGatewayTokenHelper =>
+      '在 Mac 上运行 make gateway-token 生成；保存在系统钥匙串中';
 
   @override
   String get settingsGatewayTokenSet => '已保存（不显示）';
@@ -990,7 +994,8 @@ class AppLocalizationsZh extends AppLocalizations {
   String get settingsCertFingerprint => '证书 SHA-256 指纹';
 
   @override
-  String get settingsCertFingerprintHelper => '使用自签名证书时必填（make gateway-cert 会输出）';
+  String get settingsCertFingerprintHelper =>
+      '使用自签名证书时必填（make gateway-cert 会输出）';
 
   @override
   String get settingsCertFingerprintInvalid => '应为 64 位十六进制';
@@ -1023,10 +1028,10 @@ class AppLocalizationsZh extends AppLocalizations {
   String get routingMobile => '仅手机';
 
   @override
-  String get settingsMobileAi => '手机本地 AI（llama.cpp）';
+  String get settingsMobileAi => '手机本地 AI';
 
   @override
-  String get settingsMobileAiStatus => '不可用：此版本尚未集成 llama.cpp 运行时和模型';
+  String get settingsMobileAiStatus => '在本机离线运行小模型（实验性）';
 
   @override
   String get settingsVision => '图像分析';
@@ -1145,7 +1150,8 @@ class AppLocalizationsZh extends AppLocalizations {
   String get backupImport => '从备份恢复';
 
   @override
-  String get backupRestoreConfirm => '将按记录 ID 合并备份数据：新记录会被添加，较新的修改会覆盖较旧的版本，不会产生重复。继续？';
+  String get backupRestoreConfirm =>
+      '将按记录 ID 合并备份数据：新记录会被添加，较新的修改会覆盖较旧的版本，不会产生重复。继续？';
 
   @override
   String backupRestored(int inserted, int skipped, int updated) {
@@ -1203,7 +1209,8 @@ class AppLocalizationsZh extends AppLocalizations {
   String get settingsPrivacy => '隐私';
 
   @override
-  String get privacyBody => '所有数据保存在本机。无需账户，没有统计分析。只有在你同意后，数据才会发送到你自己的 Mac 网关，绝不会发送到云服务。';
+  String get privacyBody =>
+      '所有数据保存在本机。无需账户，没有统计分析。只有在你同意后，数据才会发送到你自己的 Mac 网关，绝不会发送到云服务。';
 
   @override
   String get settingsAbout => '关于';
@@ -1262,4 +1269,55 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get parentErrorSexConflict => '该个体已有子代记录，不能改为此性别';
+
+  @override
+  String onDeviceIntro(String model) {
+    return '在手机上运行 $model。无需网络，记录不会离开本机。速度比 Mac AI 慢，回答也更不可靠。';
+  }
+
+  @override
+  String get onDeviceExperimental => '实验性：小模型可能用错查询工具，请对照记录核实回答。';
+
+  @override
+  String onDeviceDownloadHint(String size) {
+    return '下载大小 $size。请使用 Wi-Fi，并在下载时保持应用打开；中断后可继续下载。';
+  }
+
+  @override
+  String get onDeviceDownload => '下载模型';
+
+  @override
+  String get onDeviceResume => '继续下载';
+
+  @override
+  String onDeviceDownloading(int percent) {
+    return '正在下载… $percent%';
+  }
+
+  @override
+  String get onDeviceVerifying => '正在校验文件…';
+
+  @override
+  String get onDeviceReady => '模型已下载并通过校验';
+
+  @override
+  String get onDeviceDelete => '删除模型';
+
+  @override
+  String get onDeviceDeleteConfirm => '删除已下载的模型？之后可以重新下载。';
+
+  @override
+  String get onDeviceNeedsModel => '请先下载模型';
+
+  @override
+  String get onDeviceErrorNetwork => '下载失败，请检查网络后继续下载';
+
+  @override
+  String get onDeviceErrorChecksum => '文件校验失败，已删除，请重新下载';
+
+  @override
+  String get onDeviceErrorDiskFull => '存储空间不足';
+
+  @override
+  String get providerExperimental => '实验性';
 }

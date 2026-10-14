@@ -77,7 +77,11 @@ class HomeShell extends StatelessWidget {
         ]),
       );
     }
+    // Analytics and Settings live outside the bottom bar. NavigationBar always
+    // has a selected index, so when one of them is open every bar destination
+    // is drawn in its unselected style instead of highlighting Dashboard.
     final inBar = shell.currentIndex < bottomBarCount;
+    final idle = Theme.of(context).colorScheme.onSurfaceVariant;
     return Scaffold(
       key: shellScaffoldKey,
       body: shell,
@@ -103,10 +107,17 @@ class HomeShell extends StatelessWidget {
       bottomNavigationBar: NavigationBar(
         selectedIndex: inBar ? shell.currentIndex : 0,
         indicatorColor: inBar ? null : Colors.transparent,
+        labelTextStyle: inBar
+            ? null
+            : WidgetStatePropertyAll(Theme.of(context).textTheme.labelMedium?.copyWith(color: idle)),
         onDestinationSelected: _go,
         destinations: [
           for (final d in dests.take(bottomBarCount))
-            NavigationDestination(icon: Icon(d.icon), selectedIcon: Icon(d.selectedIcon), label: d.label),
+            NavigationDestination(
+              icon: Icon(d.icon),
+              selectedIcon: inBar ? Icon(d.selectedIcon) : Icon(d.icon, color: idle),
+              label: d.label,
+            ),
         ],
       ),
     );

@@ -90,7 +90,8 @@ class AppLocalizationsTh extends AppLocalizations {
   String get commonDeleteConfirmTitle => 'ยืนยันการลบ?';
 
   @override
-  String get commonDeleteRecordMessage => 'บันทึกจะถูกทำเครื่องหมายว่าลบแล้ว (เก็บไว้เพื่อการตรวจสอบ) และค่าปัจจุบันของด้วงจะย้อนกลับไปใช้บันทึกก่อนหน้า';
+  String get commonDeleteRecordMessage =>
+      'บันทึกจะถูกทำเครื่องหมายว่าลบแล้ว (เก็บไว้เพื่อการตรวจสอบ) และค่าปัจจุบันของด้วงจะย้อนกลับไปใช้บันทึกก่อนหน้า';
 
   @override
   String get commonNotSet => 'ยังไม่ได้ตั้งค่า';
@@ -411,10 +412,12 @@ class AppLocalizationsTh extends AppLocalizations {
   String get beetleFormInitialSection => 'บันทึกเริ่มต้น (บันทึกเป็นประวัติ)';
 
   @override
-  String get beetleFormStageHint => 'ระยะจะกำหนดจากบันทึกของคุณเท่านั้น ไม่ได้อนุมานจากน้ำหนัก';
+  String get beetleFormStageHint =>
+      'ระยะจะกำหนดจากบันทึกของคุณเท่านั้น ไม่ได้อนุมานจากน้ำหนัก';
 
   @override
-  String get beetleFormHistoryHint => 'การเปลี่ยนแปลงภายหลังให้เพิ่มเป็นบันทึกในหน้ารายละเอียด';
+  String get beetleFormHistoryHint =>
+      'การเปลี่ยนแปลงภายหลังให้เพิ่มเป็นบันทึกในหน้ารายละเอียด';
 
   @override
   String get detailOverview => 'ภาพรวม';
@@ -469,7 +472,8 @@ class AppLocalizationsTh extends AppLocalizations {
   String get detailAvgWeekly => 'เฉลี่ย/สัปดาห์';
 
   @override
-  String get detailNeedTwoWeights => 'ต้องมีการชั่งอย่างน้อยสองครั้งจึงจะคำนวณการเปลี่ยนแปลงได้';
+  String get detailNeedTwoWeights =>
+      'ต้องมีการชั่งอย่างน้อยสองครั้งจึงจะคำนวณการเปลี่ยนแปลงได้';
 
   @override
   String get detailHatch => 'ฟัก';
@@ -492,7 +496,8 @@ class AppLocalizationsTh extends AppLocalizations {
   String get detailChangeStatus => 'เปลี่ยนสถานะ';
 
   @override
-  String get detailAvgNote => 'ค่าเฉลี่ยสะท้อนเพียงบันทึกแรกและล่าสุด การเติบโตไม่เป็นเส้นตรง';
+  String get detailAvgNote =>
+      'ค่าเฉลี่ยสะท้อนเพียงบันทึกแรกและล่าสุด การเติบโตไม่เป็นเส้นตรง';
 
   @override
   String get recordsEmpty => 'ยังไม่มีบันทึก';
@@ -510,7 +515,8 @@ class AppLocalizationsTh extends AppLocalizations {
   String get weightGrams => 'น้ำหนัก (กรัม)';
 
   @override
-  String get weightDisturbWarning => 'ด้วงตัวนี้อยู่ในระยะก่อนดักแด้หรือดักแด้ การรบกวนหรือชั่งน้ำหนักอาจเป็นอันตราย';
+  String get weightDisturbWarning =>
+      'ด้วงตัวนี้อยู่ในระยะก่อนดักแด้หรือดักแด้ การรบกวนหรือชั่งน้ำหนักอาจเป็นอันตราย';
 
   @override
   String get observationCategory => 'หมวดหมู่';
@@ -646,7 +652,8 @@ class AppLocalizationsTh extends AppLocalizations {
   }
 
   @override
-  String get reminderNeedsConfirmation => 'จะตั้งเวลาแจ้งเตือนหลังจากคุณยืนยันเท่านั้น';
+  String get reminderNeedsConfirmation =>
+      'จะตั้งเวลาแจ้งเตือนหลังจากคุณยืนยันเท่านั้น';
 
   @override
   String get reminderReview => 'ตรวจสอบการแจ้งเตือน';
@@ -655,10 +662,12 @@ class AppLocalizationsTh extends AppLocalizations {
   String get reminderAcceptEdited => 'ยอมรับพร้อมแก้ไข';
 
   @override
-  String get notificationsDenied => 'การแจ้งเตือนถูกปิด: บันทึกการแจ้งเตือนแล้วแต่จะไม่มีการแจ้งเตือนจากระบบ';
+  String get notificationsDenied =>
+      'การแจ้งเตือนถูกปิด: บันทึกการแจ้งเตือนแล้วแต่จะไม่มีการแจ้งเตือนจากระบบ';
 
   @override
-  String get notificationsRationale => 'ต้องการสิทธิ์การแจ้งเตือนเพื่อเตือนคุณตามเวลาที่กำหนด';
+  String get notificationsRationale =>
+      'ต้องการสิทธิ์การแจ้งเตือนเพื่อเตือนคุณตามเวลาที่กำหนด';
 
   @override
   String remindersDeferred(int n) {
@@ -666,7 +675,8 @@ class AppLocalizationsTh extends AppLocalizations {
   }
 
   @override
-  String get remindersInexact => 'ไม่ได้รับสิทธิ์การปลุกแบบแม่นยำ การแจ้งเตือนอาจล่าช้าเล็กน้อย';
+  String get remindersInexact =>
+      'ไม่ได้รับสิทธิ์การปลุกแบบแม่นยำ การแจ้งเตือนอาจล่าช้าเล็กน้อย';
 
   @override
   String get reminderOverdue => 'เลยกำหนด';
@@ -687,7 +697,8 @@ class AppLocalizationsTh extends AppLocalizations {
   }
 
   @override
-  String get ruleWeightLossRecommendation => 'ชั่งใหม่ในอีกหนึ่งสัปดาห์ และตรวจดินกับอุณหภูมิ น้ำหนักที่ลดในช่วงปลาย L3 อาจเกี่ยวกับการเตรียมเข้าดักแด้หรือสาเหตุอื่น หลีกเลี่ยงการรบกวนบ่อย';
+  String get ruleWeightLossRecommendation =>
+      'ชั่งใหม่ในอีกหนึ่งสัปดาห์ และตรวจดินกับอุณหภูมิ น้ำหนักที่ลดในช่วงปลาย L3 อาจเกี่ยวกับการเตรียมเข้าดักแด้หรือสาเหตุอื่น หลีกเลี่ยงการรบกวนบ่อย';
 
   @override
   String get ruleWeightGainRecommendation => 'บันทึกตามปกติต่อไป';
@@ -698,7 +709,8 @@ class AppLocalizationsTh extends AppLocalizations {
   }
 
   @override
-  String get ruleOverdueMessage => 'ไม่ได้ชั่งมานานแล้ว อาจชั่งตอนเปลี่ยนดินครั้งถัดไป';
+  String get ruleOverdueMessage =>
+      'ไม่ได้ชั่งมานานแล้ว อาจชั่งตอนเปลี่ยนดินครั้งถัดไป';
 
   @override
   String ruleOverdueReasonDays(int days) {
@@ -709,7 +721,8 @@ class AppLocalizationsTh extends AppLocalizations {
   String get ruleOverdueReasonNever => 'ยังไม่มีบันทึกน้ำหนัก';
 
   @override
-  String get ruleOverdueRecommendation => 'ชั่งตัวอ่อนเมื่อสะดวก อย่าขุดระยะก่อนดักแด้หรือดักแด้ขึ้นมาชั่ง';
+  String get ruleOverdueRecommendation =>
+      'ชั่งตัวอ่อนเมื่อสะดวก อย่าขุดระยะก่อนดักแด้หรือดักแด้ขึ้นมาชั่ง';
 
   @override
   String ruleSubstrateTitle(String code) {
@@ -725,7 +738,8 @@ class AppLocalizationsTh extends AppLocalizations {
   }
 
   @override
-  String get ruleSubstrateRecommendation => 'สังเกตจากภายนอกก่อน หากมีร่องรอยโพรงดักแด้ อย่าเปลี่ยนดิน';
+  String get ruleSubstrateRecommendation =>
+      'สังเกตจากภายนอกก่อน หากมีร่องรอยโพรงดักแด้ อย่าเปลี่ยนดิน';
 
   @override
   String ruleTempTitle(String sensor) {
@@ -743,7 +757,8 @@ class AppLocalizationsTh extends AppLocalizations {
   }
 
   @override
-  String get ruleTempRecommendation => 'ตรวจสอบอุณหภูมิห้องและอุปกรณ์ควบคุมอุณหภูมิ';
+  String get ruleTempRecommendation =>
+      'ตรวจสอบอุณหภูมิห้องและอุปกรณ์ควบคุมอุณหภูมิ';
 
   @override
   String rulePrepupaTitle(String code) {
@@ -751,13 +766,16 @@ class AppLocalizationsTh extends AppLocalizations {
   }
 
   @override
-  String get rulePrepupaMessage => 'ตรวจการเปลี่ยนแปลงที่มองเห็นได้จากภายนอก หลีกเลี่ยงการรบกวนที่ไม่จำเป็น';
+  String get rulePrepupaMessage =>
+      'ตรวจการเปลี่ยนแปลงที่มองเห็นได้จากภายนอก หลีกเลี่ยงการรบกวนที่ไม่จำเป็น';
 
   @override
-  String get rulePrepupaReason => 'บันทึกล่าสุดระบุสีเปลี่ยนหรือโพรงดักแด้ แต่หลักฐานยังไม่พอจะยืนยันระยะก่อนดักแด้';
+  String get rulePrepupaReason =>
+      'บันทึกล่าสุดระบุสีเปลี่ยนหรือโพรงดักแด้ แต่หลักฐานยังไม่พอจะยืนยันระยะก่อนดักแด้';
 
   @override
-  String get rulePrepupaRecommendation => 'สังเกตจากภายนอกโดยไม่รบกวนโพรงดักแด้ที่อาจมีอยู่';
+  String get rulePrepupaRecommendation =>
+      'สังเกตจากภายนอกโดยไม่รบกวนโพรงดักแด้ที่อาจมีอยู่';
 
   @override
   String ruleEmergenceTitle(String code) {
@@ -775,7 +793,8 @@ class AppLocalizationsTh extends AppLocalizations {
   }
 
   @override
-  String get ruleEmergenceRecommendation => 'สังเกตจากภายนอก ตัวเต็มวัยที่เพิ่งออกต้องใช้เวลาให้เปลือกแข็ง อย่านำออกเร็วเกินไป';
+  String get ruleEmergenceRecommendation =>
+      'สังเกตจากภายนอก ตัวเต็มวัยที่เพิ่งออกต้องใช้เวลาให้เปลือกแข็ง อย่านำออกเร็วเกินไป';
 
   @override
   String get assistantHint => 'ถามเกี่ยวกับบันทึกของคุณ…';
@@ -784,19 +803,22 @@ class AppLocalizationsTh extends AppLocalizations {
   String get assistantEmptyTitle => 'ถามเกี่ยวกับบันทึกการเลี้ยง';
 
   @override
-  String get assistantEmptyBody => 'AI จะค้นบันทึกของคุณก่อนตอบ และระบุว่าส่วนไหนเป็นบันทึก การคำนวณ การคาดเดา หรือคำแนะนำ';
+  String get assistantEmptyBody =>
+      'AI จะค้นบันทึกของคุณก่อนตอบ และระบุว่าส่วนไหนเป็นบันทึก การคำนวณ การคาดเดา หรือคำแนะนำ';
 
   @override
   String get assistantExample1 => 'CCK-001 เดือนนี้โตปกติไหม?';
 
   @override
-  String get assistantExample2 => 'เปรียบเทียบการเติบโตของ DHH-001 และ DHH-002 ในสามเดือนที่ผ่านมา';
+  String get assistantExample2 =>
+      'เปรียบเทียบการเติบโตของ DHH-001 และ DHH-002 ในสามเดือนที่ผ่านมา';
 
   @override
   String get assistantExample3 => 'ทำไมตัวอ่อนของฉันน้ำหนักลดลง?';
 
   @override
-  String get assistantNoProvider => 'ไม่มีโมเดล AI ที่ใช้งานได้ จึงไม่สามารถตอบได้ บันทึก การแจ้งเตือน และการวิเคราะห์ยังใช้งานได้ตามปกติ';
+  String get assistantNoProvider =>
+      'ไม่มีโมเดล AI ที่ใช้งานได้ จึงไม่สามารถตอบได้ บันทึก การแจ้งเตือน และการวิเคราะห์ยังใช้งานได้ตามปกติ';
 
   @override
   String get assistantProviderMac => 'AI บน Mac';
@@ -818,7 +840,8 @@ class AppLocalizationsTh extends AppLocalizations {
   }
 
   @override
-  String get assistantConsentPublicWarning => 'คำเตือน: ที่อยู่นี้ไม่ใช่เครื่องนี้หรือเครือข่าย LAN/VPN โปรดยืนยันว่าเป็นอุปกรณ์ของคุณเอง';
+  String get assistantConsentPublicWarning =>
+      'คำเตือน: ที่อยู่นี้ไม่ใช่เครื่องนี้หรือเครือข่าย LAN/VPN โปรดยืนยันว่าเป็นอุปกรณ์ของคุณเอง';
 
   @override
   String get assistantConsentAllow => 'อนุญาต';
@@ -834,7 +857,8 @@ class AppLocalizationsTh extends AppLocalizations {
   }
 
   @override
-  String get assistantReminderDraft => 'การแจ้งเตือนที่ AI เสนอ (ยังไม่ได้สร้าง)';
+  String get assistantReminderDraft =>
+      'การแจ้งเตือนที่ AI เสนอ (ยังไม่ได้สร้าง)';
 
   @override
   String get assistantReviewDraft => 'ตรวจสอบและยืนยัน';
@@ -860,10 +884,12 @@ class AppLocalizationsTh extends AppLocalizations {
   String get assistantNewChat => 'แชทใหม่';
 
   @override
-  String get assistantToolLoop => 'AI ค้นข้อมูลมากเกินไปและถูกหยุด ลองถามให้เจาะจงขึ้น';
+  String get assistantToolLoop =>
+      'AI ค้นข้อมูลมากเกินไปและถูกหยุด ลองถามให้เจาะจงขึ้น';
 
   @override
-  String get assistantImageUnavailable => 'การวิเคราะห์ภาพยังใช้ไม่ได้: ยังไม่มีโมเดลมัลติโมดัลที่ผ่านการตรวจสอบ';
+  String get assistantImageUnavailable =>
+      'การวิเคราะห์ภาพยังใช้ไม่ได้: ยังไม่มีโมเดลมัลติโมดัลที่ผ่านการตรวจสอบ';
 
   @override
   String get claimVerified => 'บันทึกไว้';
@@ -902,7 +928,8 @@ class AppLocalizationsTh extends AppLocalizations {
   String get unavailableUnauthorized => 'โทเค็นไม่ถูกต้อง';
 
   @override
-  String get unavailableInsecure => 'ต้องใช้ HTTPS (ใส่ลายนิ้วมือสำหรับใบรับรองที่ลงนามเอง)';
+  String get unavailableInsecure =>
+      'ต้องใช้ HTTPS (ใส่ลายนิ้วมือสำหรับใบรับรองที่ลงนามเอง)';
 
   @override
   String get unavailableModelMissing => 'โมเดลไม่พร้อมใช้งาน';
@@ -926,7 +953,8 @@ class AppLocalizationsTh extends AppLocalizations {
   String get analyticsAiHistory => 'ประวัติการสังเกตของ AI';
 
   @override
-  String get analyticsCorrelationNote => 'กราฟแสดงเฉพาะข้อมูลที่บันทึก การเปลี่ยนแปลงที่เกิดพร้อมกันไม่ได้แปลว่าเป็นเหตุและผล';
+  String get analyticsCorrelationNote =>
+      'กราฟแสดงเฉพาะข้อมูลที่บันทึก การเปลี่ยนแปลงที่เกิดพร้อมกันไม่ได้แปลว่าเป็นเหตุและผล';
 
   @override
   String get analyticsNoData => 'ไม่มีข้อมูล';
@@ -975,13 +1003,15 @@ class AppLocalizationsTh extends AppLocalizations {
   String get settingsGatewayUrlHelper => 'เช่น https://my-mac.local:8443';
 
   @override
-  String get settingsGatewayUrlInvalid => 'กรุณาใส่ URL ที่ขึ้นต้นด้วย https://';
+  String get settingsGatewayUrlInvalid =>
+      'กรุณาใส่ URL ที่ขึ้นต้นด้วย https://';
 
   @override
   String get settingsGatewayToken => 'โทเค็นการเข้าถึง';
 
   @override
-  String get settingsGatewayTokenHelper => 'สร้างบน Mac ด้วย make gateway-token และเก็บในพวงกุญแจของระบบ';
+  String get settingsGatewayTokenHelper =>
+      'สร้างบน Mac ด้วย make gateway-token และเก็บในพวงกุญแจของระบบ';
 
   @override
   String get settingsGatewayTokenSet => 'บันทึกแล้ว (ซ่อน)';
@@ -990,7 +1020,8 @@ class AppLocalizationsTh extends AppLocalizations {
   String get settingsCertFingerprint => 'ลายนิ้วมือ SHA-256 ของใบรับรอง';
 
   @override
-  String get settingsCertFingerprintHelper => 'จำเป็นสำหรับใบรับรองที่ลงนามเอง (แสดงโดย make gateway-cert)';
+  String get settingsCertFingerprintHelper =>
+      'จำเป็นสำหรับใบรับรองที่ลงนามเอง (แสดงโดย make gateway-cert)';
 
   @override
   String get settingsCertFingerprintInvalid => 'ต้องเป็นเลขฐานสิบหก 64 ตัว';
@@ -1023,10 +1054,11 @@ class AppLocalizationsTh extends AppLocalizations {
   String get routingMobile => 'มือถือเท่านั้น';
 
   @override
-  String get settingsMobileAi => 'AI บนมือถือ (llama.cpp)';
+  String get settingsMobileAi => 'AI ในเครื่อง';
 
   @override
-  String get settingsMobileAiStatus => 'ยังใช้ไม่ได้: เวอร์ชันนี้ยังไม่มี llama.cpp และโมเดล';
+  String get settingsMobileAiStatus =>
+      'รันโมเดลขนาดเล็กแบบออฟไลน์บนโทรศัพท์นี้ (ทดลอง)';
 
   @override
   String get settingsVision => 'การวิเคราะห์ภาพ';
@@ -1035,7 +1067,8 @@ class AppLocalizationsTh extends AppLocalizations {
   String get settingsAutoAi => 'ให้ AI วิเคราะห์อัตโนมัติหลังบันทึก';
 
   @override
-  String get settingsAutoAiHelper => 'จะส่งบันทึกของด้วงตัวนั้นไปยังเกตเวย์ Mac ผลลัพธ์เป็นเพียงคำแนะนำรอยืนยัน';
+  String get settingsAutoAiHelper =>
+      'จะส่งบันทึกของด้วงตัวนั้นไปยังเกตเวย์ Mac ผลลัพธ์เป็นเพียงคำแนะนำรอยืนยัน';
 
   @override
   String get settingsRevokeConsent => 'เพิกถอนความยินยอมในการส่งข้อมูล';
@@ -1082,7 +1115,8 @@ class AppLocalizationsTh extends AppLocalizations {
   String get speciesPupaMax => 'ระยะดักแด้สูงสุด (วัน)';
 
   @override
-  String get speciesPupaHelper => 'เว้นว่างถ้าไม่ทราบ ใช้สำหรับคำแนะนำช่วงออกจากดักแด้เท่านั้น';
+  String get speciesPupaHelper =>
+      'เว้นว่างถ้าไม่ทราบ ใช้สำหรับคำแนะนำช่วงออกจากดักแด้เท่านั้น';
 
   @override
   String get speciesBuiltin => 'ในตัว';
@@ -1124,7 +1158,8 @@ class AppLocalizationsTh extends AppLocalizations {
   String get sensorTarget => 'เป้าหมาย (°C)';
 
   @override
-  String get sensorThresholdHelper => 'อุณหภูมิที่เหมาะสมต่างกันตามชนิดและระยะ กรุณาตั้งค่าตามการเลี้ยงของคุณ';
+  String get sensorThresholdHelper =>
+      'อุณหภูมิที่เหมาะสมต่างกันตามชนิดและระยะ กรุณาตั้งค่าตามการเลี้ยงของคุณ';
 
   @override
   String get settingsSuppressions => 'ประเภทคำแนะนำที่ปิดไว้';
@@ -1145,7 +1180,8 @@ class AppLocalizationsTh extends AppLocalizations {
   String get backupImport => 'กู้คืนจากข้อมูลสำรอง';
 
   @override
-  String get backupRestoreConfirm => 'ข้อมูลสำรองจะถูกรวมตาม ID: บันทึกใหม่จะถูกเพิ่ม และการแก้ไขที่ใหม่กว่าจะแทนที่ของเก่า ไม่มีข้อมูลซ้ำ ดำเนินการต่อ?';
+  String get backupRestoreConfirm =>
+      'ข้อมูลสำรองจะถูกรวมตาม ID: บันทึกใหม่จะถูกเพิ่ม และการแก้ไขที่ใหม่กว่าจะแทนที่ของเก่า ไม่มีข้อมูลซ้ำ ดำเนินการต่อ?';
 
   @override
   String backupRestored(int inserted, int skipped, int updated) {
@@ -1156,10 +1192,12 @@ class AppLocalizationsTh extends AppLocalizations {
   String get backupErrorNotBackup => 'ไม่ใช่ไฟล์สำรองที่ถูกต้อง';
 
   @override
-  String get backupErrorVersion => 'ไม่รองรับเวอร์ชันข้อมูลสำรองนี้ (อาจมาจากแอปเวอร์ชันใหม่กว่า)';
+  String get backupErrorVersion =>
+      'ไม่รองรับเวอร์ชันข้อมูลสำรองนี้ (อาจมาจากแอปเวอร์ชันใหม่กว่า)';
 
   @override
-  String get backupErrorCorrupted => 'ข้อมูลสำรองเสียหาย (ตรวจสอบความสมบูรณ์ไม่ผ่าน)';
+  String get backupErrorCorrupted =>
+      'ข้อมูลสำรองเสียหาย (ตรวจสอบความสมบูรณ์ไม่ผ่าน)';
 
   @override
   String get backupErrorAlready => 'ข้อมูลสำรองนี้ถูกกู้คืนไปแล้ว';
@@ -1179,7 +1217,8 @@ class AppLocalizationsTh extends AppLocalizations {
   String get aiMemoryDeleteAll => 'ลบผลวิเคราะห์ AI ทั้งหมด';
 
   @override
-  String get aiMemoryDeleteConfirm => 'ลบเฉพาะผลวิเคราะห์ที่ AI สร้าง บันทึกการเลี้ยงไม่ได้รับผลกระทบ';
+  String get aiMemoryDeleteConfirm =>
+      'ลบเฉพาะผลวิเคราะห์ที่ AI สร้าง บันทึกการเลี้ยงไม่ได้รับผลกระทบ';
 
   @override
   String get aiMemoryOutcome => 'ผลของการคาดการณ์';
@@ -1203,7 +1242,8 @@ class AppLocalizationsTh extends AppLocalizations {
   String get settingsPrivacy => 'ความเป็นส่วนตัว';
 
   @override
-  String get privacyBody => 'ข้อมูลทั้งหมดอยู่ในเครื่องนี้ ไม่ต้องมีบัญชี ไม่มีการเก็บสถิติ ข้อมูลจะถูกส่งไปยังเกตเวย์ Mac ของคุณเท่านั้นหลังจากคุณยินยอม และไม่ส่งไปยังคลาวด์';
+  String get privacyBody =>
+      'ข้อมูลทั้งหมดอยู่ในเครื่องนี้ ไม่ต้องมีบัญชี ไม่มีการเก็บสถิติ ข้อมูลจะถูกส่งไปยังเกตเวย์ Mac ของคุณเท่านั้นหลังจากคุณยินยอม และไม่ส่งไปยังคลาวด์';
 
   @override
   String get settingsAbout => 'เกี่ยวกับ';
@@ -1217,7 +1257,8 @@ class AppLocalizationsTh extends AppLocalizations {
   String get parentsSection => 'พ่อแม่พันธุ์';
 
   @override
-  String get parentsHint => 'เลือกด้วงในรายการของคุณ หรือกรอกข้อมูลพ่อแม่ที่ไม่ได้เลี้ยงไว้ที่นี่';
+  String get parentsHint =>
+      'เลือกด้วงในรายการของคุณ หรือกรอกข้อมูลพ่อแม่ที่ไม่ได้เลี้ยงไว้ที่นี่';
 
   @override
   String get fieldSire => 'พ่อพันธุ์';
@@ -1261,5 +1302,61 @@ class AppLocalizationsTh extends AppLocalizations {
   String get parentErrorCycle => 'จะทำให้ด้วงเป็นบรรพบุรุษของตัวเอง';
 
   @override
-  String get parentErrorSexConflict => 'ด้วงตัวนี้มีลูกในฐานะพ่อ/แม่อีกฝ่ายแล้ว จึงเปลี่ยนเป็นเพศนี้ไม่ได้';
+  String get parentErrorSexConflict =>
+      'ด้วงตัวนี้มีลูกในฐานะพ่อ/แม่อีกฝ่ายแล้ว จึงเปลี่ยนเป็นเพศนี้ไม่ได้';
+
+  @override
+  String onDeviceIntro(String model) {
+    return 'รัน $model บนโทรศัพท์นี้ ใช้งานได้แบบออฟไลน์และข้อมูลไม่ออกจากเครื่อง แต่ช้ากว่าและแม่นยำน้อยกว่า Mac AI';
+  }
+
+  @override
+  String get onDeviceExperimental =>
+      'ทดลอง: โมเดลขนาดเล็กอาจค้นข้อมูลผิด โปรดตรวจคำตอบกับบันทึกของคุณ';
+
+  @override
+  String onDeviceDownloadHint(String size) {
+    return 'ขนาดดาวน์โหลด $size โปรดใช้ Wi-Fi และเปิดแอปไว้ระหว่างดาวน์โหลด หากหยุดกลางคันจะดาวน์โหลดต่อได้';
+  }
+
+  @override
+  String get onDeviceDownload => 'ดาวน์โหลดโมเดล';
+
+  @override
+  String get onDeviceResume => 'ดาวน์โหลดต่อ';
+
+  @override
+  String onDeviceDownloading(int percent) {
+    return 'กำลังดาวน์โหลด… $percent%';
+  }
+
+  @override
+  String get onDeviceVerifying => 'กำลังตรวจสอบไฟล์…';
+
+  @override
+  String get onDeviceReady => 'ดาวน์โหลดและตรวจสอบโมเดลแล้ว';
+
+  @override
+  String get onDeviceDelete => 'ลบโมเดล';
+
+  @override
+  String get onDeviceDeleteConfirm =>
+      'ลบโมเดลที่ดาวน์โหลดไว้? ดาวน์โหลดใหม่ได้ภายหลัง';
+
+  @override
+  String get onDeviceNeedsModel => 'โปรดดาวน์โหลดโมเดลก่อน';
+
+  @override
+  String get onDeviceErrorNetwork =>
+      'ดาวน์โหลดล้มเหลว ตรวจสอบการเชื่อมต่อแล้วดาวน์โหลดต่อ';
+
+  @override
+  String get onDeviceErrorChecksum =>
+      'ไฟล์ไม่ผ่านการตรวจสอบและถูกลบแล้ว โปรดดาวน์โหลดใหม่';
+
+  @override
+  String get onDeviceErrorDiskFull => 'พื้นที่เก็บข้อมูลไม่พอ';
+
+  @override
+  String get providerExperimental => 'ทดลอง';
 }

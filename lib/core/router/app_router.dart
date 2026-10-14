@@ -16,6 +16,7 @@ import '../../presentation/settings/ai_memory_screen.dart';
 import '../../presentation/settings/ai_settings_screen.dart';
 import '../../presentation/settings/backup_screen.dart';
 import '../../presentation/settings/care_rules_screen.dart';
+import '../../presentation/settings/on_device_ai_screen.dart';
 import '../../presentation/settings/sensors_screen.dart';
 import '../../presentation/settings/settings_screen.dart';
 import '../../presentation/settings/species_screen.dart';
@@ -110,6 +111,7 @@ GoRouter buildRouter() => GoRouter(
                 builder: (_, __) => const SettingsScreen(),
                 routes: [
                   GoRoute(path: 'ai', builder: (_, __) => const AiSettingsScreen()),
+                  GoRoute(path: 'on-device', builder: (_, __) => const OnDeviceAiScreen()),
                   GoRoute(path: 'rules', builder: (_, __) => const CareRulesScreen()),
                   GoRoute(path: 'species', builder: (_, __) => const SpeciesScreen()),
                   GoRoute(path: 'sensors', builder: (_, __) => const SensorsScreen()),

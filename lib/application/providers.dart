@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:path/path.dart' as p;
 
 import '../data/database/app_database.dart';
 import '../data/repositories/ai_memory_repository.dart';
@@ -16,6 +17,8 @@ import '../domain/ai/ai_router.dart';
 import '../domain/ai/breeding_tools.dart';
 import '../domain/ai/vision.dart';
 import '../domain/models/enums.dart';
+import '../infrastructure/ai/model_store.dart';
+import '../infrastructure/ai/on_device_runtime.dart';
 import '../infrastructure/ai/providers.dart';
 import '../infrastructure/backup/backup_service.dart';
 import '../infrastructure/notifications/notification_gateway.dart';
@@ -33,6 +36,10 @@ import 'reminder_actions.dart';
 
 final databaseProvider = Provider<AppDatabase>((ref) => throw UnimplementedError('databaseProvider'));
 final documentsDirProvider = Provider<Directory>((ref) => throw UnimplementedError('documentsDirProvider'));
+
+/// Application Support: re-downloadable data such as on-device models (not Documents,
+/// which iOS includes in iCloud backups).
+final supportDirProvider = Provider<Directory>((ref) => throw UnimplementedError('supportDirProvider'));
 final secretStoreProvider = Provider<SecretStore>((ref) => PlatformSecretStore());
 final notificationGatewayProvider = Provider<NotificationGateway>((ref) => LocalNotificationGateway());
 final appVersionProvider = Provider<String>((ref) => '1.0.0');
@@ -96,10 +103,26 @@ final aiProvidersProvider = FutureProvider<Map<AiProviderKind, AiProvider>>((ref
   final rows = await ref.watch(providerSettingsProvider.future);
   final token = await ref.watch(gatewayTokenProvider.future);
   final mac = rows.firstWhere((r) => r.provider == AiProviderKind.mac);
+  final mobile = rows.firstWhere((r) => r.provider == AiProviderKind.mobile);
   return {
     AiProviderKind.mac: MacGatewayProvider(settings: mac, token: token),
-    AiProviderKind.mobile: const MobileLlamaProvider(),
+    AiProviderKind.mobile: MobileLlamaProvider(
+      settings: mobile,
+      store: ref.watch(modelStoreProvider),
+      runtime: ref.watch(onDeviceRuntimeProvider),
+    ),
   };
+});
+
+/// Downloaded on-device models live in `<app support>/models/`; they are never part of app backups.
+final modelStoreProvider =
+    Provider<ModelStore>((ref) => ModelStore(Directory(p.join(ref.watch(supportDirProvider).path, 'models'))));
+
+/// One runtime for the app's lifetime so the loaded model survives settings changes.
+final onDeviceRuntimeProvider = Provider<OnDeviceRuntime>((ref) {
+  final runtime = LlamaDartRuntime();
+  ref.onDispose(runtime.unload);
+  return runtime;
 });
 
 final aiRouterProvider = FutureProvider<AiRouter>((ref) async => AiRouter(

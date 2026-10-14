@@ -1,9 +1,11 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:beetle_keeper/data/database/app_database.dart';
 import 'package:beetle_keeper/data/repositories/beetle_repository.dart';
 import 'package:beetle_keeper/data/repositories/breeding_read_model.dart';
 import 'package:beetle_keeper/data/repositories/models.dart';
+import 'package:beetle_keeper/data/repositories/settings_repository.dart';
 import 'package:beetle_keeper/data/repositories/temperature_repository.dart';
 import 'package:beetle_keeper/domain/ai/ai_orchestrator.dart';
 import 'package:beetle_keeper/domain/ai/ai_provider.dart';
@@ -11,6 +13,8 @@ import 'package:beetle_keeper/domain/ai/ai_router.dart';
 import 'package:beetle_keeper/domain/ai/breeding_tools.dart';
 import 'package:beetle_keeper/domain/ai/labeled_answer.dart';
 import 'package:beetle_keeper/domain/models/enums.dart';
+import 'package:beetle_keeper/infrastructure/ai/model_store.dart';
+import 'package:beetle_keeper/infrastructure/ai/on_device_runtime.dart';
 import 'package:beetle_keeper/infrastructure/ai/providers.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -154,12 +158,19 @@ void main() {
     });
 
     test('no AI available → orchestrator raises instead of fabricating', () async {
+      final dir = await Directory.systemTemp.createTemp('bk_no_model');
+      addTearDown(() => dir.delete(recursive: true));
+      final mobile = MobileLlamaProvider(
+        settings: await SettingsRepository(db).provider(AiProviderKind.mobile), // disabled by default
+        store: ModelStore(dir),
+        runtime: LlamaDartRuntime(),
+      );
       final o = AiOrchestrator(
-        router: AiRouter(providers: {AiProviderKind.mobile: const MobileLlamaProvider()}, preference: AiRoutingPreference.auto),
+        router: AiRouter(providers: {AiProviderKind.mobile: mobile}, preference: AiRoutingPreference.auto),
         tools: tools,
       );
       expect(() => o.ask('hi'), throwsA(isA<NoAiProviderException>()));
-      expect((await const MobileLlamaProvider().status()).code, UnavailableCode.notBundled);
+      expect((await mobile.status()).code, UnavailableCode.disabled);
     });
   });
 }

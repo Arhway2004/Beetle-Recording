@@ -17,6 +17,7 @@ Future<void> main() async {
 
   final db = AppDatabase.open();
   final docs = await getApplicationDocumentsDirectory();
+  final support = await getApplicationSupportDirectory();
   final initialSettings = await SettingsRepository(db).all();
   final notifications = LocalNotificationGateway();
 
@@ -24,6 +25,7 @@ Future<void> main() async {
     overrides: [
       databaseProvider.overrideWithValue(db),
       documentsDirProvider.overrideWithValue(docs),
+      supportDirProvider.overrideWithValue(support),
       notificationGatewayProvider.overrideWithValue(notifications),
       initialSettingsProvider.overrideWithValue(initialSettings),
     ],

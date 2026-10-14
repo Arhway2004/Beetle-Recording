@@ -84,11 +84,7 @@ class SettingsScreen extends ConsumerWidget {
             onChanged: (v) => v == null ? null : settings.set(SettingsKeys.routing, v.name),
           ),
         ),
-        ListTile(
-          leading: const Icon(Icons.phone_iphone),
-          title: Text(l.settingsMobileAi),
-          subtitle: Text(l.settingsMobileAiStatus),
-        ),
+        link(Icons.phone_iphone, l.settingsMobileAi, 'on-device', subtitle: l.settingsMobileAiStatus),
         ListTile(
           leading: const Icon(Icons.image_search),
           title: Text(l.settingsVision),

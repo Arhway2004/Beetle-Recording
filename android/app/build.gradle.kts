@@ -19,7 +19,7 @@ android {
     namespace = "com.beetlekeeper.beetle_keeper"
     compileSdk = flutter.compileSdkVersion
     // Plugins (sqlite3_flutter_libs, notifications, …) require NDK 27; NDKs are backward compatible.
-    ndkVersion = "27.0.12077973"
+    ndkVersion = "28.0.13004108"  // installed locally; 28.2 (wanted by integration_test) keeps failing to download
 
     compileOptions {
         // Required by flutter_local_notifications (java.time on older Android).

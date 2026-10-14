@@ -583,8 +583,8 @@
   "routingAuto": "自动（优先 Mac）",
   "routingMac": "仅 Mac",
   "routingMobile": "仅手机",
-  "settingsMobileAi": "手机本地 AI（llama.cpp）",
-  "settingsMobileAiStatus": "不可用：此版本尚未集成 llama.cpp 运行时和模型",
+  "settingsMobileAi": "手机本地 AI",
+  "settingsMobileAiStatus": "在本机离线运行小模型（实验性）",
   "settingsVision": "图像分析",
   "settingsAutoAi": "保存记录后自动请求 AI 解读",
   "settingsAutoAiHelper": "会把该甲虫的相关记录发送到 Mac 网关；结果只会作为待确认建议",
@@ -700,5 +700,41 @@
   "parentErrorNotFound": "所选父母已不存在",
   "parentErrorWrongSex": "父本须为雄性，母本须为雌性",
   "parentErrorCycle": "这会让个体成为自己的祖先",
-  "parentErrorSexConflict": "该个体已有子代记录，不能改为此性别"
+  "parentErrorSexConflict": "该个体已有子代记录，不能改为此性别",
+  "onDeviceIntro": "在手机上运行 {model}。无需网络，记录不会离开本机。速度比 Mac AI 慢，回答也更不可靠。",
+  "@onDeviceIntro": {
+    "placeholders": {
+      "model": {
+        "type": "String"
+      }
+    }
+  },
+  "onDeviceExperimental": "实验性：小模型可能用错查询工具，请对照记录核实回答。",
+  "onDeviceDownloadHint": "下载大小 {size}。请使用 Wi-Fi，并在下载时保持应用打开；中断后可继续下载。",
+  "@onDeviceDownloadHint": {
+    "placeholders": {
+      "size": {
+        "type": "String"
+      }
+    }
+  },
+  "onDeviceDownload": "下载模型",
+  "onDeviceResume": "继续下载",
+  "onDeviceDownloading": "正在下载… {percent}%",
+  "@onDeviceDownloading": {
+    "placeholders": {
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
+  "onDeviceVerifying": "正在校验文件…",
+  "onDeviceReady": "模型已下载并通过校验",
+  "onDeviceDelete": "删除模型",
+  "onDeviceDeleteConfirm": "删除已下载的模型？之后可以重新下载。",
+  "onDeviceNeedsModel": "请先下载模型",
+  "onDeviceErrorNetwork": "下载失败，请检查网络后继续下载",
+  "onDeviceErrorChecksum": "文件校验失败，已删除，请重新下载",
+  "onDeviceErrorDiskFull": "存储空间不足",
+  "providerExperimental": "实验性"
 }
