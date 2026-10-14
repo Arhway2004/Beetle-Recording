@@ -2661,6 +2661,66 @@ abstract class AppLocalizations {
   /// In zh, this message translates to:
   /// **'跟随系统'**
   String get languageSystem;
+
+  /// No description provided for @dashboardNeedsAttention.
+  ///
+  /// In zh, this message translates to:
+  /// **'需要处理'**
+  String get dashboardNeedsAttention;
+
+  /// No description provided for @dashboardToday.
+  ///
+  /// In zh, this message translates to:
+  /// **'今天的照料'**
+  String get dashboardToday;
+
+  /// No description provided for @dashboardSoon.
+  ///
+  /// In zh, this message translates to:
+  /// **'接下来 7 天'**
+  String get dashboardSoon;
+
+  /// No description provided for @dashboardAllClear.
+  ///
+  /// In zh, this message translates to:
+  /// **'今天没有待办，一切正常'**
+  String get dashboardAllClear;
+
+  /// No description provided for @dashboardOverdueCount.
+  ///
+  /// In zh, this message translates to:
+  /// **'已逾期 {count} 项'**
+  String dashboardOverdueCount(int count);
+
+  /// No description provided for @dashboardSuggestionsToReview.
+  ///
+  /// In zh, this message translates to:
+  /// **'{count} 条照料建议待确认'**
+  String dashboardSuggestionsToReview(int count);
+
+  /// No description provided for @dashboardQuickRecord.
+  ///
+  /// In zh, this message translates to:
+  /// **'快速记录'**
+  String get dashboardQuickRecord;
+
+  /// No description provided for @dashboardCollection.
+  ///
+  /// In zh, this message translates to:
+  /// **'我的饲养'**
+  String get dashboardCollection;
+
+  /// No description provided for @reminderMarkDone.
+  ///
+  /// In zh, this message translates to:
+  /// **'标记完成'**
+  String get reminderMarkDone;
+
+  /// No description provided for @commonActionFailed.
+  ///
+  /// In zh, this message translates to:
+  /// **'操作未完成，没有任何改动，请重试'**
+  String get commonActionFailed;
 }
 
 class _AppLocalizationsDelegate

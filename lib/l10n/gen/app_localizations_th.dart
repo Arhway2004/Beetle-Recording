@@ -1423,4 +1423,39 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get languageSystem => 'ตามภาษาของอุปกรณ์';
+
+  @override
+  String get dashboardNeedsAttention => 'ต้องดูแล';
+
+  @override
+  String get dashboardToday => 'งานวันนี้';
+
+  @override
+  String get dashboardSoon => '7 วันข้างหน้า';
+
+  @override
+  String get dashboardAllClear => 'วันนี้ไม่มีงานค้าง';
+
+  @override
+  String dashboardOverdueCount(int count) {
+    return 'เลยกำหนด $count รายการ';
+  }
+
+  @override
+  String dashboardSuggestionsToReview(int count) {
+    return 'คำแนะนำการดูแล $count รายการรอยืนยัน';
+  }
+
+  @override
+  String get dashboardQuickRecord => 'บันทึกด่วน';
+
+  @override
+  String get dashboardCollection => 'คอลเลกชันของฉัน';
+
+  @override
+  String get reminderMarkDone => 'ทำเสร็จแล้ว';
+
+  @override
+  String get commonActionFailed =>
+      'ทำไม่สำเร็จ ไม่มีการเปลี่ยนแปลง โปรดลองอีกครั้ง';
 }

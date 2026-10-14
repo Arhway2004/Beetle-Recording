@@ -1426,4 +1426,39 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get languageSystem => 'Device language';
+
+  @override
+  String get dashboardNeedsAttention => 'Needs attention';
+
+  @override
+  String get dashboardToday => 'Today\'s care';
+
+  @override
+  String get dashboardSoon => 'Next 7 days';
+
+  @override
+  String get dashboardAllClear => 'Nothing due today — all clear';
+
+  @override
+  String dashboardOverdueCount(int count) {
+    return '$count overdue';
+  }
+
+  @override
+  String dashboardSuggestionsToReview(int count) {
+    return '$count care suggestions to review';
+  }
+
+  @override
+  String get dashboardQuickRecord => 'Quick record';
+
+  @override
+  String get dashboardCollection => 'My collection';
+
+  @override
+  String get reminderMarkDone => 'Mark done';
+
+  @override
+  String get commonActionFailed =>
+      'That didn\'t work and nothing was changed. Please try again.';
 }

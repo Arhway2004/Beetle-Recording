@@ -769,5 +769,29 @@
   "pastRecordsNeedValue": "请填写体重或阶段",
   "pastRecordsBadWeight": "体重须大于 0 且小于 1000 克",
   "pastRecordsSaveFailed": "保存失败，记录没有改动，请重试",
-  "languageSystem": "跟随系统"
+  "languageSystem": "跟随系统",
+  "dashboardNeedsAttention": "需要处理",
+  "dashboardToday": "今天的照料",
+  "dashboardSoon": "接下来 7 天",
+  "dashboardAllClear": "今天没有待办，一切正常",
+  "dashboardOverdueCount": "已逾期 {count} 项",
+  "@dashboardOverdueCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "dashboardSuggestionsToReview": "{count} 条照料建议待确认",
+  "@dashboardSuggestionsToReview": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "dashboardQuickRecord": "快速记录",
+  "dashboardCollection": "我的饲养",
+  "reminderMarkDone": "标记完成",
+  "commonActionFailed": "操作未完成，没有任何改动，请重试"
 }

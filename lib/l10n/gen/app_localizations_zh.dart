@@ -1382,4 +1382,38 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get languageSystem => '跟随系统';
+
+  @override
+  String get dashboardNeedsAttention => '需要处理';
+
+  @override
+  String get dashboardToday => '今天的照料';
+
+  @override
+  String get dashboardSoon => '接下来 7 天';
+
+  @override
+  String get dashboardAllClear => '今天没有待办，一切正常';
+
+  @override
+  String dashboardOverdueCount(int count) {
+    return '已逾期 $count 项';
+  }
+
+  @override
+  String dashboardSuggestionsToReview(int count) {
+    return '$count 条照料建议待确认';
+  }
+
+  @override
+  String get dashboardQuickRecord => '快速记录';
+
+  @override
+  String get dashboardCollection => '我的饲养';
+
+  @override
+  String get reminderMarkDone => '标记完成';
+
+  @override
+  String get commonActionFailed => '操作未完成，没有任何改动，请重试';
 }

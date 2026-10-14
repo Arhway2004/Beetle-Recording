@@ -426,5 +426,15 @@
   "pastRecordsNeedValue": "โปรดกรอกน้ำหนักหรือระยะ",
   "pastRecordsBadWeight": "น้ำหนักต้องมากกว่า 0 และน้อยกว่า 1000 กรัม",
   "pastRecordsSaveFailed": "บันทึกไม่สำเร็จ ข้อมูลไม่ถูกเปลี่ยนแปลง โปรดลองอีกครั้ง",
-  "languageSystem": "ตามภาษาของอุปกรณ์"
+  "languageSystem": "ตามภาษาของอุปกรณ์",
+  "dashboardNeedsAttention": "ต้องดูแล",
+  "dashboardToday": "งานวันนี้",
+  "dashboardSoon": "7 วันข้างหน้า",
+  "dashboardAllClear": "วันนี้ไม่มีงานค้าง",
+  "dashboardOverdueCount": "เลยกำหนด {count} รายการ",
+  "dashboardSuggestionsToReview": "คำแนะนำการดูแล {count} รายการรอยืนยัน",
+  "dashboardQuickRecord": "บันทึกด่วน",
+  "dashboardCollection": "คอลเลกชันของฉัน",
+  "reminderMarkDone": "ทำเสร็จแล้ว",
+  "commonActionFailed": "ทำไม่สำเร็จ ไม่มีการเปลี่ยนแปลง โปรดลองอีกครั้ง"
 }

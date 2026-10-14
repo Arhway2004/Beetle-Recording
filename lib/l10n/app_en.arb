@@ -426,5 +426,15 @@
   "pastRecordsNeedValue": "Enter a weight or a stage",
   "pastRecordsBadWeight": "Weight must be between 0 and 1000 g",
   "pastRecordsSaveFailed": "Could not save; nothing was changed. Please try again.",
-  "languageSystem": "Device language"
+  "languageSystem": "Device language",
+  "dashboardNeedsAttention": "Needs attention",
+  "dashboardToday": "Today's care",
+  "dashboardSoon": "Next 7 days",
+  "dashboardAllClear": "Nothing due today — all clear",
+  "dashboardOverdueCount": "{count} overdue",
+  "dashboardSuggestionsToReview": "{count} care suggestions to review",
+  "dashboardQuickRecord": "Quick record",
+  "dashboardCollection": "My collection",
+  "reminderMarkDone": "Mark done",
+  "commonActionFailed": "That didn't work and nothing was changed. Please try again."
 }

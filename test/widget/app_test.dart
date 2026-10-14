@@ -3,7 +3,11 @@ import 'dart:io';
 import 'package:beetle_keeper/app.dart';
 import 'package:beetle_keeper/application/providers.dart';
 import 'package:beetle_keeper/data/database/app_database.dart';
+import 'package:beetle_keeper/data/repositories/beetle_repository.dart';
+import 'package:beetle_keeper/data/repositories/models.dart';
+import 'package:beetle_keeper/data/repositories/reminder_repository.dart';
 import 'package:beetle_keeper/data/repositories/settings_repository.dart';
+import 'package:beetle_keeper/domain/models/enums.dart';
 import 'package:beetle_keeper/infrastructure/storage/secure_store.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -70,6 +74,25 @@ void main() {
     await settle(tester);
     expect(find.descendant(of: bar, matching: find.byIcon(Icons.space_dashboard)), findsNothing);
     expect(find.descendant(of: bar, matching: find.byIcon(Icons.space_dashboard_outlined)), findsOneWidget);
+    await dispose(tester);
+  });
+
+  testWidgets('dashboard puts overdue care first and marks it done in place', (tester) async {
+    await tester.runAsync(() async {
+      final id = await BeetleRepository(db)
+          .createBeetle(NewBeetleInput(code: 'DHH-001', speciesId: builtinSpeciesId('DHH'), sex: Sex.male));
+      await ReminderRepository(db).createUserReminder(
+          beetleId: id, title: '换土', message: 'm', dueAt: DateTime.now().subtract(const Duration(days: 1)));
+    });
+    await pumpApp(tester);
+    expect(find.text('需要处理'), findsOneWidget);
+    expect(find.text('已逾期 1 项'), findsOneWidget);
+    expect(find.text('换土'), findsOneWidget);
+
+    await tester.tap(find.byTooltip('标记完成'));
+    await settle(tester);
+    expect(find.text('需要处理'), findsNothing);
+    expect(find.text('今天没有待办，一切正常'), findsOneWidget);
     await dispose(tester);
   });
 
