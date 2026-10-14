@@ -113,7 +113,10 @@ void main() {
       );
       final answer = await o.ask('CCK-001 最近一个月生长正常吗？');
       expect(answer.sections.map((s) => s.kind), [ClaimKind.calculated, ClaimKind.hypothesis]);
-      expect(answer.toolCalls, ['get_growth_metrics']);
+      // The app first retrieves the named beetle itself, then runs the model's own call.
+      expect(answer.toolCalls, ['get_beetle_profile', 'get_weight_history', 'get_growth_metrics', 'get_growth_metrics']);
+      expect(mac.seen.first.where((m) => m.role == ChatRole.tool), hasLength(3)); // records before the first answer
+      expect(mac.seen.first[1].content, contains('简体中文')); // answer-language reminder at the end
       expect(answer.evidence, isNotEmpty);
       // Second request contained the tool result produced on-device.
       final toolMsg = mac.seen[1].last;
@@ -202,6 +205,19 @@ void main() {
       expect(answer.sections[0].unsupported, ['0.12 g']); // invented → warned
       expect(answer.sections[1].unsupported, isEmpty); // in the records
       expect(answer.sections[2].unsupported, isEmpty); // hypotheses are not fact claims
+    });
+
+    test('model skips tools for a named beetle: the app fetched the data anyway', () async {
+      final provider = ScriptedProvider(AiProviderKind.mobile, [
+        const ChatResponse(content: '[CALCULATED] The latest weight of CCK-001 is 0.12 grams.'),
+      ]);
+      final answer = await AiOrchestrator(
+        router: AiRouter(providers: {AiProviderKind.mobile: provider}, preference: AiRoutingPreference.mobile),
+        tools: tools,
+      ).ask('CCK-001的数据');
+      expect(provider.seen.single.where((m) => m.role == ChatRole.tool).map((m) => m.content).join(), contains('24'));
+      expect(answer.toolCalls, isNotEmpty);
+      expect(answer.sections.single.unsupported, ['0.12 grams']); // 'grams' is recognised too
     });
 
     test('no tool call at all: every stated measurement is unsupported', () async {

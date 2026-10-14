@@ -21,7 +21,7 @@ class AnswerGrounding {
   /// A number followed by a unit: weights, percentages, temperatures,
   /// volumes, durations. Bare numbers (dates, counts, codes) are not checked.
   static final _quantity = RegExp(
-      r'([-+]?\d+(?:[.,]\d+)?)\s*(?:g|克|%|％|°C|℃|°|L|升|ml|毫升|天|days?|周|weeks?|个月|months?)(?![A-Za-z])');
+      r'([-+]?\d+(?:[.,]\d+)?)\s*(?:grams?|g|克|percent|%|％|°C|℃|degrees?|°|liters?|litres?|L|升|ml|毫升|天|days?|周|weeks?|个月|months?)(?![A-Za-z])');
   static final _number = RegExp(r'[-+]?\d+(?:\.\d+)?');
 
   void _collect(Object? v) {

@@ -77,6 +77,30 @@ Rules:
 8. Answer in the keeper's language (${localeName.startsWith('zh') ? 'Simplified Chinese' : localeName.startsWith('th') ? 'Thai' : 'English'}). Keep the label prefixes in English brackets.
 ''';
 
+  static final _codeLike = RegExp(r'[A-Za-z][A-Za-z0-9]{1,7}[\s_\-]?\d{1,6}');
+
+  Future<List<({ToolCall call, ToolResult result})>> _prefetchNamedBeetles(String question) async {
+    final out = <({ToolCall call, ToolResult result})>[];
+    final seen = <String>{};
+    for (final m in _codeLike.allMatches(question).take(3)) {
+      final code = m.group(0)!;
+      for (final tool in const ['get_beetle_profile', 'get_weight_history', 'get_growth_metrics']) {
+        final call = ToolCall(id: 'prefetch_${out.length}', name: tool, arguments: {'beetle_id': code});
+        final result = await tools.execute(call);
+        if (result.json.contains('"error"')) break; // not a beetle in the records
+        final key = '$tool:${result.json.hashCode}';
+        if (seen.add(key)) out.add((call: call, result: result));
+      }
+    }
+    return out;
+  }
+
+  static String _answerLanguageReminder(String localeName) => localeName.startsWith('zh')
+      ? '（请只用简体中文回答，并保留英文方括号标签，例如 [VERIFIED]。只能使用上面查询到的记录数据。）'
+      : localeName.startsWith('th')
+          ? '(โปรดตอบเป็นภาษาไทยเท่านั้น และคงป้ายภาษาอังกฤษในวงเล็บเหลี่ยม เช่น [VERIFIED] ใช้เฉพาะข้อมูลจากบันทึกที่ค้นได้)'
+          : '(Answer in English only, keep the bracket labels such as [VERIFIED], and use only the retrieved records.)';
+
   Future<AssistantAnswer> ask(
     String question, {
     List<ChatMessage> history = const [],
@@ -89,12 +113,27 @@ Rules:
     final messages = <ChatMessage>[
       ChatMessage.system(systemPrompt(localeName)),
       ...history,
-      ChatMessage.user(question),
+      // Small models follow the last instruction best: repeat the language there.
+      ChatMessage.user('$question\n\n${_answerLanguageReminder(localeName)}'),
     ];
     final evidence = <EvidenceRef>{};
     final drafts = <ReminderDraft>[];
     final calls = <String>[];
     final toolResults = <String>[];
+
+    // Retrieve before answering: records of every beetle named in the question
+    // are fetched by the app itself, so a model that skips tool calls (common
+    // for small on-device models) still answers from real data.
+    final prefetch = await _prefetchNamedBeetles(question);
+    if (prefetch.isNotEmpty) {
+      messages.add(ChatMessage.assistant('', toolCalls: [for (final p in prefetch) p.call]));
+      for (final p in prefetch) {
+        calls.add(p.call.name);
+        evidence.addAll(p.result.evidence);
+        toolResults.add(p.result.json);
+        messages.add(ChatMessage.tool(p.call.name, p.result.json));
+      }
+    }
 
     for (var round = 0; round <= maxToolRounds; round++) {
       final response = await routed.provider.chat(messages, tools: tools.definitions);

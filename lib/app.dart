@@ -74,6 +74,12 @@ class _BeetleKeeperAppState extends ConsumerState<BeetleKeeperApp> with WidgetsB
         GlobalCupertinoLocalizations.delegate,
       ],
       routerConfig: ref.watch(routerProvider),
+      // Tapping outside a text field closes the keyboard, on every screen.
+      builder: (context, child) => GestureDetector(
+        behavior: HitTestBehavior.translucent,
+        onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+        child: child,
+      ),
     );
   }
 }

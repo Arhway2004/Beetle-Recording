@@ -52,6 +52,7 @@ class _AssistantScreenState extends ConsumerState<AssistantScreen> {
   Future<void> _ask(String text) async {
     final q = text.trim();
     if (q.isEmpty || _busy) return;
+    FocusManager.instance.primaryFocus?.unfocus(); // show the answer, not the keyboard
     final l = context.l10n;
     if (!await ensureAiConsent(context, ref)) return;
     final history = _history();
@@ -154,6 +155,7 @@ class _AssistantScreenState extends ConsumerState<AssistantScreen> {
           child: _turns.isEmpty
               ? _EmptyAssistant(onExample: _ask)
               : ListView.builder(
+                  keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
                   controller: _scroll,
                   padding: const EdgeInsets.all(Insets.m),
                   itemCount: _turns.length,
