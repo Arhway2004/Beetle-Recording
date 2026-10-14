@@ -459,5 +459,6 @@
   "detailTabPhotos": "รูปภาพ",
   "photoDelete": "ลบรูปภาพ",
   "photoActions": "การจัดการรูปภาพ",
-  "answerUnsupported": "ไม่พบในบันทึกของคุณ: {values} AI อาจสร้างขึ้นเอง โปรดเชื่อบันทึกของคุณ"
+  "answerUnsupported": "ไม่พบในบันทึกของคุณ: {values} AI อาจสร้างขึ้นเอง โปรดเชื่อบันทึกของคุณ",
+  "factsWeighings": "จำนวนครั้งที่ชั่ง"
 }

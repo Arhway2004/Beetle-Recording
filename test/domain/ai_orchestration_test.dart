@@ -220,6 +220,31 @@ void main() {
       expect(answer.sections.single.unsupported, ['0.12 grams']); // 'grams' is recognised too
     });
 
+    test('follow-up without a code keeps the beetle from the conversation', () async {
+      final provider = ScriptedProvider(AiProviderKind.mobile, [
+        const ChatResponse(content: '[UNKNOWN] 称重次数不足 3 次，暂时无法预测。'),
+      ]);
+      final answer = await AiOrchestrator(
+        router: AiRouter(providers: {AiProviderKind.mobile: provider}, preference: AiRoutingPreference.mobile),
+        tools: tools,
+      ).ask('你预测下一次换土体重会是多少', history: const [
+        ChatMessage.user('cck-01的数据'),
+        ChatMessage.assistant('[VERIFIED] ...'),
+      ]);
+      expect(answer.subjects, ['CCK-001']);
+      expect(answer.toolCalls, contains('get_weight_history'));
+      final sent = provider.seen.single;
+      expect(sent.first.content, contains('必须用简体中文回答')); // Chinese instructions for a Chinese keeper
+      expect(sent.first.content, contains('称重少于 3 次'));
+    });
+
+    test('Thai and English keepers get instructions in their language', () {
+      final o = AiOrchestrator(router: AiRouter(providers: const {}, preference: AiRoutingPreference.auto), tools: tools);
+      expect(o.systemPrompt('th'), contains('ต้องตอบเป็นภาษาไทย'));
+      expect(o.systemPrompt('en'), contains('Answer in English'));
+      expect(AiOrchestrator.namedBeetles('hello', const []), isEmpty);
+    });
+
     test('no tool call at all: every stated measurement is unsupported', () async {
       final provider = ScriptedProvider(AiProviderKind.mobile, [
         const ChatResponse(content: '[VERIFIED] 体重 0.12 g，温度 24 ℃'),

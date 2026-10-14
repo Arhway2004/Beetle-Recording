@@ -14,6 +14,7 @@ import '../common/widgets.dart';
 import '../reminders/reminder_review_sheet.dart';
 import '../shell/home_shell.dart';
 import 'analysis_tile.dart';
+import 'beetle_facts_card.dart';
 import 'consent.dart';
 
 class _Turn {
@@ -242,7 +243,8 @@ class _TurnView extends ConsumerWidget {
               : turn.error != null
                   ? Text(turn.error!, style: TextStyle(color: t.colorScheme.error))
                   : Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                      LabeledSectionsView(sections: a!.sections),
+                      for (final code in a!.subjects) BeetleFactsCard(code: code),
+                      LabeledSectionsView(sections: a.sections),
                       const Divider(),
                       Wrap(spacing: Insets.s, runSpacing: Insets.xs, children: [
                         Pill(l.providerName(a.provider), icon: Icons.memory),

@@ -864,5 +864,6 @@
         "type": "String"
       }
     }
-  }
+  },
+  "factsWeighings": "称重次数"
 }

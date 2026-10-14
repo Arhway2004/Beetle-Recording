@@ -1541,4 +1541,7 @@ class AppLocalizationsTh extends AppLocalizations {
   String answerUnsupported(String values) {
     return 'ไม่พบในบันทึกของคุณ: $values AI อาจสร้างขึ้นเอง โปรดเชื่อบันทึกของคุณ';
   }
+
+  @override
+  String get factsWeighings => 'จำนวนครั้งที่ชั่ง';
 }

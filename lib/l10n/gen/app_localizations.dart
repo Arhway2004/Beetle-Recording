@@ -2859,6 +2859,12 @@ abstract class AppLocalizations {
   /// In zh, this message translates to:
   /// **'这些数值在你的记录中找不到：{values}。可能是 AI 编造的，请以记录为准。'**
   String answerUnsupported(String values);
+
+  /// No description provided for @factsWeighings.
+  ///
+  /// In zh, this message translates to:
+  /// **'称重次数'**
+  String get factsWeighings;
 }
 
 class _AppLocalizationsDelegate

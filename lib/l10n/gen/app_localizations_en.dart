@@ -1545,4 +1545,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String answerUnsupported(String values) {
     return 'Not found in your records: $values. The AI may have made this up — trust your records.';
   }
+
+  @override
+  String get factsWeighings => 'Weighings';
 }

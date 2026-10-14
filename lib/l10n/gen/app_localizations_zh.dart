@@ -1497,4 +1497,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String answerUnsupported(String values) {
     return '这些数值在你的记录中找不到：$values。可能是 AI 编造的，请以记录为准。';
   }
+
+  @override
+  String get factsWeighings => '称重次数';
 }
