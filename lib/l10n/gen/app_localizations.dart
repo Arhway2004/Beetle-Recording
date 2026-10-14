@@ -2547,6 +2547,114 @@ abstract class AppLocalizations {
   /// In zh, this message translates to:
   /// **'实验性'**
   String get providerExperimental;
+
+  /// No description provided for @pastRecordsTitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'补录历史记录'**
+  String get pastRecordsTitle;
+
+  /// No description provided for @pastRecordsShortcut.
+  ///
+  /// In zh, this message translates to:
+  /// **'补录历史'**
+  String get pastRecordsShortcut;
+
+  /// No description provided for @pastRecordsIntro.
+  ///
+  /// In zh, this message translates to:
+  /// **'补录使用本应用之前的饲养记录。每行一个日期，可以只填体重或只填阶段。保存后会按日期排进成长路线图。'**
+  String get pastRecordsIntro;
+
+  /// No description provided for @pastRecordsRow.
+  ///
+  /// In zh, this message translates to:
+  /// **'第 {n} 条'**
+  String pastRecordsRow(int n);
+
+  /// No description provided for @pastRecordsAddRow.
+  ///
+  /// In zh, this message translates to:
+  /// **'添加一行'**
+  String get pastRecordsAddRow;
+
+  /// No description provided for @pastRecordsDate.
+  ///
+  /// In zh, this message translates to:
+  /// **'日期'**
+  String get pastRecordsDate;
+
+  /// No description provided for @pastRecordsWeight.
+  ///
+  /// In zh, this message translates to:
+  /// **'体重（克，可选）'**
+  String get pastRecordsWeight;
+
+  /// No description provided for @pastRecordsStage.
+  ///
+  /// In zh, this message translates to:
+  /// **'阶段（可选）'**
+  String get pastRecordsStage;
+
+  /// No description provided for @pastRecordsNote.
+  ///
+  /// In zh, this message translates to:
+  /// **'备注（可选）'**
+  String get pastRecordsNote;
+
+  /// No description provided for @pastRecordsApprox.
+  ///
+  /// In zh, this message translates to:
+  /// **'日期是大概的'**
+  String get pastRecordsApprox;
+
+  /// No description provided for @pastRecordsApproxNote.
+  ///
+  /// In zh, this message translates to:
+  /// **'日期为估计'**
+  String get pastRecordsApproxNote;
+
+  /// No description provided for @pastRecordsSaved.
+  ///
+  /// In zh, this message translates to:
+  /// **'已补录 {count} 条记录'**
+  String pastRecordsSaved(int count);
+
+  /// No description provided for @pastRecordsNothing.
+  ///
+  /// In zh, this message translates to:
+  /// **'没有可保存的内容'**
+  String get pastRecordsNothing;
+
+  /// No description provided for @pastRecordsMissingDate.
+  ///
+  /// In zh, this message translates to:
+  /// **'请选择日期'**
+  String get pastRecordsMissingDate;
+
+  /// No description provided for @pastRecordsFutureDate.
+  ///
+  /// In zh, this message translates to:
+  /// **'不能是未来的日期'**
+  String get pastRecordsFutureDate;
+
+  /// No description provided for @pastRecordsNeedValue.
+  ///
+  /// In zh, this message translates to:
+  /// **'请填写体重或阶段'**
+  String get pastRecordsNeedValue;
+
+  /// No description provided for @pastRecordsBadWeight.
+  ///
+  /// In zh, this message translates to:
+  /// **'体重须大于 0 且小于 1000 克'**
+  String get pastRecordsBadWeight;
+
+  /// No description provided for @pastRecordsSaveFailed.
+  ///
+  /// In zh, this message translates to:
+  /// **'保存失败，记录没有改动，请重试'**
+  String get pastRecordsSaveFailed;
 }
 
 class _AppLocalizationsDelegate

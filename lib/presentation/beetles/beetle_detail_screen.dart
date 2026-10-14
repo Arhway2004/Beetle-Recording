@@ -163,6 +163,11 @@ class _DetailBodyState extends ConsumerState<_DetailBody> {
         _LineageCard(beetle: b),
         const SizedBox(height: Insets.m),
         Wrap(spacing: Insets.s, runSpacing: Insets.s, children: [
+          ActionChip(
+            avatar: const Icon(Icons.history_edu, size: 18),
+            label: Text(l.pastRecordsShortcut),
+            onPressed: () => context.push(AppRoutes.pastRecords(b.id)),
+          ),
           for (final type in TimelineType.values.where((t) => t != TimelineType.temperature))
             ActionChip(
               avatar: Icon(timelineIcon(type), size: 18),

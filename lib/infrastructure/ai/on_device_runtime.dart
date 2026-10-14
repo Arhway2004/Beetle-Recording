@@ -11,6 +11,10 @@ import 'llama_mapping.dart';
 /// calls when it goes to the background so iOS does not kill it for memory.
 abstract class OnDeviceRuntime {
   Future<ChatResponse> chat(String modelPath, List<ChatMessage> messages, List<ToolDefinition> tools);
+
+  /// One completion constrained to JSON matching [schema]; returns the raw text.
+  Future<String> completeJson(String modelPath, List<ChatMessage> messages, Map<String, Object?> schema);
+
   Future<void> unload();
 }
 
@@ -77,6 +81,44 @@ class LlamaDartRuntime implements OnDeviceRuntime {
             collector.add(chunk);
           }
           return collector.finish();
+        } on llama.LlamaModelException catch (e) {
+          await _dropEngine();
+          throw AiProviderException('On-device model failed to load: ${describe(e)}', code: UnavailableCode.modelMissing);
+        } on llama.LlamaException catch (e) {
+          throw AiProviderException('On-device inference failed: ${describe(e)}');
+        }
+      });
+
+  @override
+  Future<String> completeJson(String modelPath, List<ChatMessage> messages, Map<String, Object?> schema) =>
+      _serialized(() async {
+        try {
+          final engine = await _engineFor(modelPath);
+          Future<String> run(Map<String, dynamic> format) async {
+            final out = StringBuffer();
+            await for (final chunk in engine.create(
+              toLlamaMessages(messages),
+              responseFormat: format,
+              enableThinking: false,
+              params: const llama.GenerationParams(maxTokens: 1500, temp: 0.3, topP: 0.8, topK: 20),
+            )) {
+              out.write(chunk.text);
+            }
+            return out.toString();
+          }
+
+          try {
+            return await run({
+              'type': 'json_schema',
+              'json_schema': {'schema': schema},
+            });
+          } on StateError {
+            // The schema uses a feature outside the grammar converter's subset:
+            // fall back to "any JSON object"; the app validates the result.
+            return await run(const {'type': 'json_object'});
+          } on llama.LlamaUnsupportedException {
+            return await run(const {'type': 'json_object'});
+          }
         } on llama.LlamaModelException catch (e) {
           await _dropEngine();
           throw AiProviderException('On-device model failed to load: ${describe(e)}', code: UnavailableCode.modelMissing);

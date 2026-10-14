@@ -2,6 +2,7 @@ import 'package:beetle_keeper/data/database/app_database.dart';
 import 'package:beetle_keeper/data/repositories/beetle_repository.dart';
 import 'package:beetle_keeper/data/repositories/models.dart';
 import 'package:beetle_keeper/domain/models/enums.dart';
+import 'package:beetle_keeper/domain/records/past_record.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../helpers/test_helpers.dart';
@@ -158,4 +159,37 @@ void main() {
       expect((await repo.beetleRow(child)).sireId, sire);
     });
   });
+
+  group('past records', () {
+    test('saves weights and stages from earlier months in one go', () async {
+      final id = await repo.createBeetle(NewBeetleInput(code: 'DHH-001', speciesId: dhh, sex: Sex.male));
+      final created = await repo.addPastRecords(id, [
+        PastRecordDraft(date: DateTime.utc(2026, 2, 1), grams: 8, stage: LifeStage.l2, dateIsApproximate: true),
+        PastRecordDraft(date: DateTime.utc(2026, 4, 1), stage: LifeStage.l3, l3Phase: L3Phase.early, note: 'moved'),
+        PastRecordDraft(date: DateTime.utc(2026, 5, 1), grams: 21),
+        const PastRecordDraft(date: null), // empty row ignored
+      ], approximateNote: 'approx.');
+      expect(created, 4);
+
+      final weights = await repo.watchWeights(id).first;
+      expect(weights.map((w) => w.weightGrams), [8, 21]);
+      expect(weights.first.notes, 'approx.');
+      final stages = await (db.select(db.lifeStageEvents)..where((e) => e.beetleId.equals(id))).get();
+      expect(stages.firstWhere((e) => e.stage == LifeStage.l2).isEstimated, isTrue);
+      expect(stages.firstWhere((e) => e.stage == LifeStage.l3).l3Phase, L3Phase.early);
+      expect((await repo.beetleByCode('DHH-001'))!.stage, LifeStage.l3); // latest by observation date
+    });
+
+    test('nothing is saved when one row fails', () async {
+      final id = await repo.createBeetle(NewBeetleInput(code: 'DHH-001', speciesId: dhh, sex: Sex.male));
+      await expectLater(
+          repo.addPastRecords(id, [
+            PastRecordDraft(date: DateTime.utc(2026, 2, 1), grams: 8),
+            PastRecordDraft(date: DateTime.utc(2026, 3, 1), grams: -1), // rejected by addWeight
+          ], approximateNote: 'approx.'),
+          throwsArgumentError);
+      expect(await repo.watchWeights(id).first, isEmpty);
+    });
+  });
 }
+

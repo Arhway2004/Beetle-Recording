@@ -7,6 +7,7 @@ import 'package:beetle_keeper/domain/models/enums.dart';
 import 'package:beetle_keeper/infrastructure/ai/llama_mapping.dart';
 import 'package:beetle_keeper/infrastructure/ai/model_store.dart';
 import 'package:beetle_keeper/infrastructure/ai/on_device_runtime.dart';
+import 'package:beetle_keeper/infrastructure/ai/proactive_prompt.dart';
 import 'package:beetle_keeper/infrastructure/ai/providers.dart';
 import 'package:crypto/crypto.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -45,6 +46,16 @@ class _FakeRuntime implements OnDeviceRuntime {
   Future<ChatResponse> chat(String modelPath, List<ChatMessage> messages, List<ToolDefinition> tools) async {
     lastMessages = messages;
     return const ChatResponse(content: '[UNKNOWN] no data');
+  }
+
+  Map<String, Object?>? lastSchema;
+  String jsonReply = '{"schema_version": "1", "suggestions": []}';
+
+  @override
+  Future<String> completeJson(String modelPath, List<ChatMessage> messages, Map<String, Object?> schema) async {
+    lastMessages = messages;
+    lastSchema = schema;
+    return jsonReply;
   }
 
   @override
@@ -188,10 +199,84 @@ void main() {
       await store.download(m).drain<void>();
       final s = await on.status();
       expect((s.available, s.experimental, s.capabilities),
-          (true, true, {AiCapability.chat, AiCapability.toolCalling}));
+          (true, true, {AiCapability.chat, AiCapability.toolCalling, AiCapability.proactiveInterpretation}));
       final r = await on.chat(const [ChatMessage.user('hi')]);
       expect((r.content, r.model), ('[UNKNOWN] no data', 'Test model'));
       expect(runtime.lastMessages!.single.content, 'hi');
     });
   });
+
+  group('on-device proactive interpretation', () {
+    late Directory dir;
+    final bytes = utf8.encode('gguf');
+    setUp(() async => dir = await Directory.systemTemp.createTemp('bk_proactive'));
+    tearDown(() => dir.delete(recursive: true));
+
+    Future<MobileLlamaProvider> ready(_FakeRuntime runtime) async {
+      final m = spec(bytes);
+      final store = ModelStore(dir, client: () => MockClient((_) async => http.Response.bytes(bytes, 200)));
+      await store.download(m).drain<void>();
+      return MobileLlamaProvider(
+        settings: AiProviderSettingRow(
+          id: 'p',
+          createdAt: DateTime.utc(2026),
+          updatedAt: DateTime.utc(2026),
+          revision: 1,
+          provider: AiProviderKind.mobile,
+          enabled: true,
+          timeoutSeconds: 60,
+        ),
+        store: store,
+        runtime: runtime,
+        model: m,
+        suggestionSchema: () async =>
+            (jsonDecode(File('assets/schemas/ai-suggestion.v1.schema.json').readAsStringSync()) as Map)
+                .cast<String, Object?>(),
+      );
+    }
+
+    test('asks with the gateway prompt and the suggestion schema, returns parsed JSON', () async {
+      final runtime = _FakeRuntime()
+        ..jsonReply = '<think>x</think>{"schema_version": "1", "suggestions": [{"beetle_id": "DHH-001"}]}';
+      final p = await ready(runtime);
+      final out = await p.interpretProactive({'beetle': {'beetle_id': 'DHH-001'}});
+      expect((out! as Map)['suggestions'], hasLength(1)); // validated later by the app, not here
+      expect(runtime.lastMessages!.first.content, proactiveSystemPrompt);
+      expect(runtime.lastMessages!.last.content, contains('DHH-001'));
+      final props = runtime.lastSchema!['properties'] as Map;
+      expect(((props['suggestions'] as Map)['items'] as Map)['required'], contains('evidence_record_ids'));
+    });
+
+    test('non-JSON output is an error, not an empty result', () async {
+      final p = await ready(_FakeRuntime()..jsonReply = 'Sorry, I cannot');
+      expect(() => p.interpretProactive(const {}), throwsA(isA<AiProviderException>()));
+    });
+
+    test('large contexts are trimmed to the most recent records', () {
+      final big = {
+        'beetle': {'beetle_id': 'DHH-001'},
+        'temperatures': [for (var i = 0; i < 50; i++) {'id': 'temperature-reading-$i-${'x' * 120}'}],
+        'weights': [for (var i = 0; i < 20; i++) {'id': 'w$i'}],
+      };
+      final small = MobileLlamaProvider.compactContext(big);
+      expect(jsonEncode(small).length, lessThanOrEqualTo(MobileLlamaProvider.maxContextChars));
+      final temps = small['temperatures']! as List;
+      expect((temps.last as Map)['id'], startsWith('temperature-reading-49-')); // newest kept
+      expect(small['beetle'], big['beetle']);
+    });
+  });
+
+  group('contracts stay in sync', () {
+    test('bundled suggestion schema equals packages/api-contracts', () {
+      expect(File('assets/schemas/ai-suggestion.v1.schema.json').readAsStringSync(),
+          File('../../packages/api-contracts/schemas/ai-suggestion.v1.schema.json').readAsStringSync());
+    });
+
+    test('on-device prompt equals the gateway prompt', () {
+      final py = File('../../services/ai-gateway/src/ai_gateway/prompts.py').readAsStringSync();
+      final start = py.indexOf('PROACTIVE_SYSTEM_PROMPT = """\\\n') + 'PROACTIVE_SYSTEM_PROMPT = """\\\n'.length;
+      expect(py.substring(start, py.indexOf('"""', start)), proactiveSystemPrompt);
+    });
+  });
 }
+

@@ -2,6 +2,7 @@ import 'package:drift/drift.dart';
 
 import '../../core/utils/ids.dart';
 import '../../domain/models/enums.dart';
+import '../../domain/records/past_record.dart';
 import '../database/app_database.dart';
 import 'models.dart';
 
@@ -410,6 +411,39 @@ WHERE b.deleted_at IS NULL''';
           notes: Value(_blankToNull(notes)),
         ));
     return id;
+  }
+
+  /// Saves history from before the keeper used the app, atomically: either
+  /// every row is stored or none. Returns the number of records created.
+  /// Validate with `validatePastRecords` first.
+  Future<int> addPastRecords(String beetleId, List<PastRecordDraft> rows, {required String approximateNote}) {
+    return db.transaction(() async {
+      var created = 0;
+      for (final r in savablePastRecords(rows)) {
+        final note = r.note?.trim().isEmpty ?? true ? null : r.note!.trim();
+        if (r.grams != null) {
+          await addWeight(
+            beetleId: beetleId,
+            measuredAt: r.date!,
+            grams: r.grams!,
+            notes: r.dateIsApproximate ? [approximateNote, if (note != null) note].join(' · ') : note,
+          );
+          created++;
+        }
+        if (r.stage != null) {
+          await addLifeStageEvent(
+            beetleId: beetleId,
+            occurredAt: r.date!,
+            stage: r.stage!,
+            l3Phase: r.stage == LifeStage.l3 ? r.l3Phase : null,
+            isEstimated: r.dateIsApproximate,
+            notes: note,
+          );
+          created++;
+        }
+      }
+      return created;
+    });
   }
 
   Future<String> addLifeStageEvent({

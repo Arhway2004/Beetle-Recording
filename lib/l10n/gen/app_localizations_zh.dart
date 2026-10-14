@@ -1320,4 +1320,63 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get providerExperimental => '实验性';
+
+  @override
+  String get pastRecordsTitle => '补录历史记录';
+
+  @override
+  String get pastRecordsShortcut => '补录历史';
+
+  @override
+  String get pastRecordsIntro =>
+      '补录使用本应用之前的饲养记录。每行一个日期，可以只填体重或只填阶段。保存后会按日期排进成长路线图。';
+
+  @override
+  String pastRecordsRow(int n) {
+    return '第 $n 条';
+  }
+
+  @override
+  String get pastRecordsAddRow => '添加一行';
+
+  @override
+  String get pastRecordsDate => '日期';
+
+  @override
+  String get pastRecordsWeight => '体重（克，可选）';
+
+  @override
+  String get pastRecordsStage => '阶段（可选）';
+
+  @override
+  String get pastRecordsNote => '备注（可选）';
+
+  @override
+  String get pastRecordsApprox => '日期是大概的';
+
+  @override
+  String get pastRecordsApproxNote => '日期为估计';
+
+  @override
+  String pastRecordsSaved(int count) {
+    return '已补录 $count 条记录';
+  }
+
+  @override
+  String get pastRecordsNothing => '没有可保存的内容';
+
+  @override
+  String get pastRecordsMissingDate => '请选择日期';
+
+  @override
+  String get pastRecordsFutureDate => '不能是未来的日期';
+
+  @override
+  String get pastRecordsNeedValue => '请填写体重或阶段';
+
+  @override
+  String get pastRecordsBadWeight => '体重须大于 0 且小于 1000 克';
+
+  @override
+  String get pastRecordsSaveFailed => '保存失败，记录没有改动，请重试';
 }

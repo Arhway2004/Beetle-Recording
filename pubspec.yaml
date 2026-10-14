@@ -65,3 +65,5 @@ flutter:
   generate: true
   assets:
     - assets/brand/
+    # Copy of packages/api-contracts/schemas (kept identical by a test).
+    - assets/schemas/

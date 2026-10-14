@@ -1359,4 +1359,65 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get providerExperimental => 'ทดลอง';
+
+  @override
+  String get pastRecordsTitle => 'เพิ่มบันทึกย้อนหลัง';
+
+  @override
+  String get pastRecordsShortcut => 'บันทึกย้อนหลัง';
+
+  @override
+  String get pastRecordsIntro =>
+      'กรอกน้ำหนักและระยะการเจริญเติบโตจากก่อนที่คุณจะใช้แอป หนึ่งวันที่ต่อแถว จะกรอกเฉพาะน้ำหนักหรือเฉพาะระยะก็ได้ ระบบจะเรียงลงแผนการเติบโตตามวันที่';
+
+  @override
+  String pastRecordsRow(int n) {
+    return 'รายการที่ $n';
+  }
+
+  @override
+  String get pastRecordsAddRow => 'เพิ่มแถว';
+
+  @override
+  String get pastRecordsDate => 'วันที่';
+
+  @override
+  String get pastRecordsWeight => 'น้ำหนัก (กรัม, ไม่บังคับ)';
+
+  @override
+  String get pastRecordsStage => 'ระยะ (ไม่บังคับ)';
+
+  @override
+  String get pastRecordsNote => 'หมายเหตุ (ไม่บังคับ)';
+
+  @override
+  String get pastRecordsApprox => 'วันที่เป็นค่าโดยประมาณ';
+
+  @override
+  String get pastRecordsApproxNote => 'วันที่โดยประมาณ';
+
+  @override
+  String pastRecordsSaved(int count) {
+    return 'บันทึกแล้ว $count รายการ';
+  }
+
+  @override
+  String get pastRecordsNothing => 'ไม่มีข้อมูลให้บันทึก';
+
+  @override
+  String get pastRecordsMissingDate => 'โปรดเลือกวันที่';
+
+  @override
+  String get pastRecordsFutureDate => 'วันที่ต้องไม่อยู่ในอนาคต';
+
+  @override
+  String get pastRecordsNeedValue => 'โปรดกรอกน้ำหนักหรือระยะ';
+
+  @override
+  String get pastRecordsBadWeight =>
+      'น้ำหนักต้องมากกว่า 0 และน้อยกว่า 1000 กรัม';
+
+  @override
+  String get pastRecordsSaveFailed =>
+      'บันทึกไม่สำเร็จ ข้อมูลไม่ถูกเปลี่ยนแปลง โปรดลองอีกครั้ง';
 }

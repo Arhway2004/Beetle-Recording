@@ -8,6 +8,7 @@ import '../data/repositories/settings_repository.dart';
 import '../data/repositories/temperature_repository.dart';
 import '../domain/ai/ai_router.dart';
 import '../domain/models/enums.dart';
+import '../domain/records/past_record.dart';
 import '../infrastructure/storage/photo_store.dart';
 import 'proactive_care_service.dart';
 
@@ -147,6 +148,13 @@ class RecordActions {
         notes: notes);
     await _attach(photos, PhotoOwnerType.lifeStage, id, beetleId);
     return _afterSave(beetleId);
+  }
+
+  /// Bulk entry of earlier history; rules run once afterwards.
+  Future<int> addPastRecords(String beetleId, List<PastRecordDraft> rows, {required String approximateNote}) async {
+    final created = await beetles.addPastRecords(beetleId, rows, approximateNote: approximateNote);
+    await _afterSave(beetleId);
+    return created;
   }
 
   Future<int> addTemperature(String sensorId, DateTime at, double celsius, {String? notes}) async {

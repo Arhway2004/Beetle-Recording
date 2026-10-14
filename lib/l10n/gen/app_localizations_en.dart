@@ -1363,4 +1363,64 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get providerExperimental => 'Experimental';
+
+  @override
+  String get pastRecordsTitle => 'Add past records';
+
+  @override
+  String get pastRecordsShortcut => 'Past records';
+
+  @override
+  String get pastRecordsIntro =>
+      'Enter weights and stages from before you used the app. One date per row; a weight or a stage alone is fine. They are placed on the growth roadmap by date.';
+
+  @override
+  String pastRecordsRow(int n) {
+    return 'Record $n';
+  }
+
+  @override
+  String get pastRecordsAddRow => 'Add row';
+
+  @override
+  String get pastRecordsDate => 'Date';
+
+  @override
+  String get pastRecordsWeight => 'Weight (g, optional)';
+
+  @override
+  String get pastRecordsStage => 'Stage (optional)';
+
+  @override
+  String get pastRecordsNote => 'Note (optional)';
+
+  @override
+  String get pastRecordsApprox => 'Date is approximate';
+
+  @override
+  String get pastRecordsApproxNote => 'approx. date';
+
+  @override
+  String pastRecordsSaved(int count) {
+    return 'Saved $count records';
+  }
+
+  @override
+  String get pastRecordsNothing => 'Nothing to save';
+
+  @override
+  String get pastRecordsMissingDate => 'Choose a date';
+
+  @override
+  String get pastRecordsFutureDate => 'The date cannot be in the future';
+
+  @override
+  String get pastRecordsNeedValue => 'Enter a weight or a stage';
+
+  @override
+  String get pastRecordsBadWeight => 'Weight must be between 0 and 1000 g';
+
+  @override
+  String get pastRecordsSaveFailed =>
+      'Could not save; nothing was changed. Please try again.';
 }

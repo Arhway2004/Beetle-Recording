@@ -8,6 +8,7 @@ import '../../presentation/beetles/beetle_detail_screen.dart';
 import '../../presentation/beetles/beetle_form_screen.dart';
 import '../../presentation/beetles/beetles_screen.dart';
 import '../../presentation/dashboard/dashboard_screen.dart';
+import '../../presentation/records/past_records_screen.dart';
 import '../../presentation/records/record_form_screen.dart';
 import '../../presentation/records/records_screen.dart';
 import '../../presentation/reminders/reminder_form_screen.dart';
@@ -37,6 +38,7 @@ class AppRoutes {
 
   static String beetle(String id) => '/beetles/$id';
   static String editBeetle(String id) => '/beetles/$id/edit';
+  static String pastRecords(String id) => '/beetles/$id/history';
   static const newBeetle = '/beetles/new';
   static String newRecord(TimelineType type, {String? beetleId}) =>
       Uri(path: '/records/new', queryParameters: {'type': type.name, if (beetleId != null) 'beetle': beetleId}).toString();
@@ -72,6 +74,7 @@ GoRouter buildRouter() => GoRouter(
                     builder: (_, s) => BeetleDetailScreen(beetleId: s.pathParameters['id']!),
                     routes: [
                       _modal('edit', (s) => BeetleFormScreen(beetleId: s.pathParameters['id'])),
+                      _modal('history', (s) => PastRecordsScreen(beetleId: s.pathParameters['id']!)),
                     ],
                   ),
                 ],

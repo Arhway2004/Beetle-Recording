@@ -1,3 +1,7 @@
+import 'dart:convert';
+
+import 'package:flutter/services.dart';
+
 import '../../data/database/app_database.dart';
 import '../../domain/ai/ai_provider.dart';
 import '../../domain/models/enums.dart';
@@ -5,6 +9,7 @@ import 'gateway_client.dart';
 import 'model_store.dart';
 import 'network_policy.dart';
 import 'on_device_runtime.dart';
+import 'proactive_prompt.dart';
 
 /// Provider A: Ollama on the user's Mac, through the authenticated gateway.
 class MacGatewayProvider implements AiProvider {
@@ -134,21 +139,33 @@ class MacGatewayProvider implements AiProvider {
 
 /// Provider B: on-device llama.cpp (llamadart) with a downloaded GGUF model.
 /// Nothing leaves the phone, so no consent is needed; the user still has to
-/// download the model and switch the provider on. Tool calling with a 1.7B
-/// model is less reliable than the Mac's 8B model, so the status is marked
-/// experimental and the UI says so. Proactive interpretation is not offered.
+/// download the model and switch the provider on. A 1.7B model is less
+/// reliable than the Mac's 8B model, so the status is marked experimental and
+/// the UI says so. Proactive output is grammar-constrained to the suggestion
+/// schema and then validated by the app exactly like the gateway's.
 class MobileLlamaProvider implements AiProvider {
   MobileLlamaProvider({
     required this.settings,
     required this.store,
     required this.runtime,
     OnDeviceModelSpec? model,
-  }) : model = model ?? defaultOnDeviceModel;
+    Future<Map<String, Object?>> Function()? suggestionSchema,
+  })  : model = model ?? defaultOnDeviceModel,
+        _suggestionSchema = suggestionSchema ?? _bundledSuggestionSchema;
 
   final AiProviderSettingRow settings;
   final ModelStore store;
   final OnDeviceRuntime runtime;
   final OnDeviceModelSpec model;
+  final Future<Map<String, Object?>> Function() _suggestionSchema;
+
+  static Future<Map<String, Object?>> _bundledSuggestionSchema() async =>
+      (jsonDecode(await rootBundle.loadString('assets/schemas/ai-suggestion.v1.schema.json')) as Map)
+          .cast<String, Object?>();
+
+  /// Upper bound for the serialized records, so prompt + answer fit the
+  /// on-device context window (~6k tokens).
+  static const maxContextChars = 9000;
 
   @override
   AiProviderKind get kind => AiProviderKind.mobile;
@@ -167,19 +184,54 @@ class MobileLlamaProvider implements AiProvider {
       available: true,
       model: model.displayName,
       experimental: true,
-      capabilities: const {AiCapability.chat, AiCapability.toolCalling},
+      capabilities: const {AiCapability.chat, AiCapability.toolCalling, AiCapability.proactiveInterpretation},
     );
+  }
+
+  Future<String> _readyModelPath() async {
+    final s = await status();
+    if (!s.available) throw AiProviderException('On-device AI unavailable', code: s.code);
+    return store.modelFile(model).path;
   }
 
   @override
   Future<ChatResponse> chat(List<ChatMessage> messages, {List<ToolDefinition> tools = const []}) async {
-    final s = await status();
-    if (!s.available) throw AiProviderException('On-device AI unavailable', code: s.code);
-    final response = await runtime.chat(store.modelFile(model).path, messages, tools);
+    final response = await runtime.chat(await _readyModelPath(), messages, tools);
     return ChatResponse(content: response.content, toolCalls: response.toolCalls, model: model.displayName);
   }
 
   @override
-  Future<Object?> interpretProactive(Map<String, Object?> context) =>
-      throw AiProviderException('Proactive interpretation is not supported on-device');
+  Future<Object?> interpretProactive(Map<String, Object?> context) async {
+    final path = await _readyModelPath();
+    final records = jsonEncode(compactContext(context));
+    final raw = await runtime.completeJson(
+      path,
+      [
+        const ChatMessage.system(proactiveSystemPrompt),
+        ChatMessage.user('Breeding records (JSON):\n$records'),
+      ],
+      suggestionBatchSchema(await _suggestionSchema()),
+    );
+    try {
+      return jsonDecode(raw.replaceAll(RegExp(r'<think>[\s\S]*?</think>'), '').trim());
+    } on FormatException catch (e) {
+      throw AiProviderException('On-device model did not return valid JSON: ${e.message}');
+    }
+  }
+
+  /// Keeps the most recent records until the JSON fits [maxContextChars].
+  /// Dropping records is safe: the model can only cite IDs it was shown, and
+  /// the app accepts only IDs from the full context.
+  static Map<String, Object?> compactContext(Map<String, Object?> context) {
+    const lists = ['temperatures', 'observations', 'weights', 'substrate_changes', 'container_changes'];
+    final out = Map<String, Object?>.of(context);
+    for (final keep in [12, 8, 5, 3, 1]) {
+      if (jsonEncode(out).length <= maxContextChars) break;
+      for (final k in lists) {
+        final l = out[k];
+        if (l is List && l.length > keep) out[k] = l.sublist(l.length - keep);
+      }
+    }
+    return out;
+  }
 }

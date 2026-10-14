@@ -736,5 +736,37 @@
   "onDeviceErrorNetwork": "下载失败，请检查网络后继续下载",
   "onDeviceErrorChecksum": "文件校验失败，已删除，请重新下载",
   "onDeviceErrorDiskFull": "存储空间不足",
-  "providerExperimental": "实验性"
+  "providerExperimental": "实验性",
+  "pastRecordsTitle": "补录历史记录",
+  "pastRecordsShortcut": "补录历史",
+  "pastRecordsIntro": "补录使用本应用之前的饲养记录。每行一个日期，可以只填体重或只填阶段。保存后会按日期排进成长路线图。",
+  "pastRecordsRow": "第 {n} 条",
+  "@pastRecordsRow": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "pastRecordsAddRow": "添加一行",
+  "pastRecordsDate": "日期",
+  "pastRecordsWeight": "体重（克，可选）",
+  "pastRecordsStage": "阶段（可选）",
+  "pastRecordsNote": "备注（可选）",
+  "pastRecordsApprox": "日期是大概的",
+  "pastRecordsApproxNote": "日期为估计",
+  "pastRecordsSaved": "已补录 {count} 条记录",
+  "@pastRecordsSaved": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "pastRecordsNothing": "没有可保存的内容",
+  "pastRecordsMissingDate": "请选择日期",
+  "pastRecordsFutureDate": "不能是未来的日期",
+  "pastRecordsNeedValue": "请填写体重或阶段",
+  "pastRecordsBadWeight": "体重须大于 0 且小于 1000 克",
+  "pastRecordsSaveFailed": "保存失败，记录没有改动，请重试"
 }
