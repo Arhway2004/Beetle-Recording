@@ -4,16 +4,23 @@ import 'dart:convert';
 enum ClaimKind { verified, calculated, observation, hypothesis, recommendation, unknown, unclassified }
 
 class AnswerSection {
-  const AnswerSection(this.kind, this.text);
+  const AnswerSection(this.kind, this.text, {this.unsupported = const []});
   final ClaimKind kind;
   final String text;
 
-  Map<String, String> toJson() => {'kind': kind.name, 'text': text};
+  /// Quantities stated as fact that do not appear in the retrieved records
+  /// (see `AnswerGrounding`). Shown as a warning; never silently trusted.
+  final List<String> unsupported;
+
+  AnswerSection withUnsupported(List<String> values) => AnswerSection(kind, text, unsupported: values);
+
+  Map<String, Object> toJson() => {'kind': kind.name, 'text': text, if (unsupported.isNotEmpty) 'unsupported': unsupported};
 
   static AnswerSection fromJson(Map<String, Object?> json) => AnswerSection(
         ClaimKind.values.firstWhere((k) => k.name == json['kind'],
             orElse: () => ClaimKind.unclassified),
         json['text'] as String? ?? '',
+        unsupported: [for (final v in (json['unsupported'] as List?) ?? const []) '$v'],
       );
 }
 

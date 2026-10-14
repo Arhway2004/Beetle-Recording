@@ -39,6 +39,18 @@ class LabeledSectionsView extends StatelessWidget {
             Pill(l.claim(s.kind), color: claimColor(context, s.kind)),
             const SizedBox(height: 4),
             SelectableText(s.text),
+            if (s.unsupported.isNotEmpty)
+              Padding(
+                padding: const EdgeInsets.only(top: 4),
+                child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                  Icon(Icons.warning_amber_rounded, size: 18, color: Theme.of(context).colorScheme.error),
+                  const SizedBox(width: 4),
+                  Expanded(
+                    child: Text(l.answerUnsupported(s.unsupported.join(', ')),
+                        style: TextStyle(color: Theme.of(context).colorScheme.error)),
+                  ),
+                ]),
+              ),
           ]),
         ),
     ]);

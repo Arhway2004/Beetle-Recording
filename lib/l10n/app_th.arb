@@ -458,5 +458,6 @@
   "detailTabRecords": "บันทึก",
   "detailTabPhotos": "รูปภาพ",
   "photoDelete": "ลบรูปภาพ",
-  "photoActions": "การจัดการรูปภาพ"
+  "photoActions": "การจัดการรูปภาพ",
+  "answerUnsupported": "ไม่พบในบันทึกของคุณ: {values} AI อาจสร้างขึ้นเอง โปรดเชื่อบันทึกของคุณ"
 }

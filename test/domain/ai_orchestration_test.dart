@@ -173,4 +173,47 @@ void main() {
       expect((await mobile.status()).code, UnavailableCode.disabled);
     });
   });
+
+  group('grounding (real case: 0.18 g recorded, model said 0.12 g)', () {
+    test('loosely typed codes resolve to the stored code', () async {
+      await beetles.addWeight(beetleId: beetleId, measuredAt: DateTime.utc(2026, 9, 30), grams: 0.18);
+      for (final typed in ['cck-01', 'CCK 1', 'cck1', 'CCK-0001', 'cck-001']) {
+        final r = await tools.execute(ToolCall(id: '1', name: 'get_weight_history', arguments: {'beetle_id': typed}));
+        final json = jsonDecode(r.json) as Map<String, Object?>;
+        expect(json['beetle_id'], 'CCK-001', reason: typed);
+        expect(jsonEncode(json), contains('0.18'), reason: typed);
+      }
+      final miss = await tools.execute(const ToolCall(id: '1', name: 'get_weight_history', arguments: {'beetle_id': 'cck-02'}));
+      expect(jsonDecode(miss.json)['error'], 'not_found');
+    });
+
+    test('a weight that is not in the records is flagged, a recorded one is not', () async {
+      await beetles.addWeight(beetleId: beetleId, measuredAt: DateTime.utc(2026, 9, 30), grams: 0.18);
+      final provider = ScriptedProvider(AiProviderKind.mobile, [
+        const ChatResponse(
+            content: '', toolCalls: [ToolCall(id: 'a', name: 'get_weight_history', arguments: {'beetle_id': 'cck-01'})]),
+        const ChatResponse(
+            content: '[VERIFIED] CCK-001 最近体重 0.12 g（2026-09-30）\n[VERIFIED] 最新记录为 0.18 g\n[HYPOTHESIS] 可能会长到 1.5 g'),
+      ]);
+      final answer = await AiOrchestrator(
+        router: AiRouter(providers: {AiProviderKind.mobile: provider}, preference: AiRoutingPreference.mobile),
+        tools: tools,
+      ).ask('dhh-01 体重多少');
+      expect(answer.sections[0].unsupported, ['0.12 g']); // invented → warned
+      expect(answer.sections[1].unsupported, isEmpty); // in the records
+      expect(answer.sections[2].unsupported, isEmpty); // hypotheses are not fact claims
+    });
+
+    test('no tool call at all: every stated measurement is unsupported', () async {
+      final provider = ScriptedProvider(AiProviderKind.mobile, [
+        const ChatResponse(content: '[VERIFIED] 体重 0.12 g，温度 24 ℃'),
+      ]);
+      final answer = await AiOrchestrator(
+        router: AiRouter(providers: {AiProviderKind.mobile: provider}, preference: AiRoutingPreference.mobile),
+        tools: tools,
+      ).ask('体重多少');
+      expect(answer.sections.single.unsupported, ['0.12 g', '24 ℃']);
+    });
+  });
 }
+

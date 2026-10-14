@@ -1536,4 +1536,9 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get photoActions => 'การจัดการรูปภาพ';
+
+  @override
+  String answerUnsupported(String values) {
+    return 'ไม่พบในบันทึกของคุณ: $values AI อาจสร้างขึ้นเอง โปรดเชื่อบันทึกของคุณ';
+  }
 }

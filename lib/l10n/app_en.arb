@@ -458,5 +458,6 @@
   "detailTabRecords": "Records",
   "detailTabPhotos": "Photos",
   "photoDelete": "Delete photo",
-  "photoActions": "Photo actions"
+  "photoActions": "Photo actions",
+  "answerUnsupported": "Not found in your records: {values}. The AI may have made this up — trust your records."
 }

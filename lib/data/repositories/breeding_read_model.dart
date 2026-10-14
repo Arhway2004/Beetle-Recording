@@ -1,5 +1,6 @@
 import 'package:drift/drift.dart';
 
+import '../../core/utils/ids.dart';
 import '../../domain/ai/breeding_tools.dart';
 import '../../domain/growth/growth_metrics.dart';
 import '../../domain/models/enums.dart';
@@ -41,6 +42,19 @@ class DriftBreedingReadModel implements BreedingReadModel {
 
   @override
   Future<String?> beetleIdForCode(String code) async => (await beetlesRepo.beetleByCode(code))?.id;
+
+  @override
+  Future<String?> resolveBeetleCode(String raw) async {
+    final exact = raw.toUpperCase().trim();
+    if (await beetlesRepo.beetleByCode(exact) != null) return exact;
+    final loose = parseLooseBeetleCode(raw);
+    if (loose == null) return null;
+    final matches = [
+      for (final b in await beetlesRepo.beetles())
+        if (parseBeetleSequence(b.code, loose.prefix) == loose.number) b.code,
+    ];
+    return matches.length == 1 ? matches.single : null; // ambiguous → not found
+  }
 
   @override
   Future<List<WeightPoint>> weights(String beetleId, {DateTime? since}) async =>

@@ -1540,4 +1540,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get photoActions => 'Photo actions';
+
+  @override
+  String answerUnsupported(String values) {
+    return 'Not found in your records: $values. The AI may have made this up — trust your records.';
+  }
 }

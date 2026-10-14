@@ -11,6 +11,9 @@ abstract class BreedingReadModel {
   Future<List<Map<String, Object?>>> beetles({String? speciesCode, BeetleStatus? status});
   Future<Map<String, Object?>?> beetleProfile(String code);
   Future<String?> beetleIdForCode(String code);
+
+  /// The stored code for a loosely typed one ("dhh-01" → "DHH-001"), or null.
+  Future<String?> resolveBeetleCode(String raw);
   Future<List<WeightPoint>> weights(String beetleId, {DateTime? since});
   Future<List<Map<String, Object?>>> observations(String beetleId, {DateTime? since});
   Future<List<Map<String, Object?>>> substrateChanges(String beetleId);
@@ -281,7 +284,7 @@ class BreedingTools {
     final out = <Map<String, Object?>>[];
     final evidence = <EvidenceRef>{};
     for (final c in codes) {
-      final code = '$c'.toUpperCase();
+      final code = await data.resolveBeetleCode('$c') ?? '$c'.toUpperCase();
       final id = await data.beetleIdForCode(code);
       if (id == null) {
         out.add({'beetle_id': code, 'error': 'not_found'});
@@ -298,7 +301,8 @@ class BreedingTools {
     String? beetleId;
     final code = a['beetle_id'];
     if (code != null) {
-      beetleId = await data.beetleIdForCode('$code'.toUpperCase());
+      final resolved = await data.resolveBeetleCode('$code');
+      beetleId = resolved == null ? null : await data.beetleIdForCode(resolved);
       if (beetleId == null) return _error('not_found', 'Beetle $code does not exist.');
     }
     final r = await data.temperatures(beetleId: beetleId, since: _since(a));
@@ -340,9 +344,12 @@ class BreedingTools {
       Map<String, Object?> a, Future<ToolResult> Function(String id, String code) body) async {
     final raw = a['beetle_id'];
     if (raw is! String || raw.isEmpty) throw _ToolArgumentError('beetle_id is required');
-    final code = raw.toUpperCase().trim();
-    final id = await data.beetleIdForCode(code);
-    if (id == null) return _error('not_found', 'Beetle $code does not exist in the records.');
+    final code = await data.resolveBeetleCode(raw);
+    final id = code == null ? null : await data.beetleIdForCode(code);
+    if (code == null || id == null) {
+      return _error('not_found',
+          'Beetle ${raw.toUpperCase().trim()} does not exist in the records. Do not guess values; tell the keeper.');
+    }
     return body(id, code);
   }
 

@@ -856,5 +856,13 @@
   "detailTabRecords": "记录",
   "detailTabPhotos": "照片",
   "photoDelete": "删除照片",
-  "photoActions": "照片操作"
+  "photoActions": "照片操作",
+  "answerUnsupported": "这些数值在你的记录中找不到：{values}。可能是 AI 编造的，请以记录为准。",
+  "@answerUnsupported": {
+    "placeholders": {
+      "values": {
+        "type": "String"
+      }
+    }
+  }
 }

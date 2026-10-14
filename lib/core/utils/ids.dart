@@ -16,6 +16,16 @@ final RegExp speciesCodePattern = RegExp(r'^[A-Z][A-Z0-9]{1,7}$');
 String formatBeetleCode(String speciesCode, int sequence) =>
     '$speciesCode-${sequence.toString().padLeft(3, '0')}';
 
+/// Reads a beetle code typed loosely by a person or a model — "dhh-01",
+/// "DHH 1", "dhh1", "DHH-0001" — as its species prefix and number.
+({String prefix, int number})? parseLooseBeetleCode(String raw) {
+  final s = raw.toUpperCase().trim();
+  final m = RegExp(r'^([A-Z][A-Z0-9]{1,7})[\s_\-]+0*([0-9]{1,6})$').firstMatch(s) ??
+      RegExp(r'^([A-Z]{2,8})0*([0-9]{1,6})$').firstMatch(s);
+  if (m == null) return null;
+  return (prefix: m.group(1)!, number: int.parse(m.group(2)!));
+}
+
 /// Parses the numeric sequence of a beetle code with the given prefix, or null.
 int? parseBeetleSequence(String code, String speciesCode) {
   final prefix = '$speciesCode-';

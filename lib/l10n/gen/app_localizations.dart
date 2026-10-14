@@ -2853,6 +2853,12 @@ abstract class AppLocalizations {
   /// In zh, this message translates to:
   /// **'照片操作'**
   String get photoActions;
+
+  /// No description provided for @answerUnsupported.
+  ///
+  /// In zh, this message translates to:
+  /// **'这些数值在你的记录中找不到：{values}。可能是 AI 编造的，请以记录为准。'**
+  String answerUnsupported(String values);
 }
 
 class _AppLocalizationsDelegate

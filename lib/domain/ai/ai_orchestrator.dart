@@ -1,6 +1,7 @@
 import '../models/enums.dart';
 import 'ai_provider.dart';
 import 'ai_router.dart';
+import 'answer_grounding.dart';
 import 'breeding_tools.dart';
 import 'labeled_answer.dart';
 
@@ -52,6 +53,9 @@ class AiOrchestrator {
 
   static const required = {AiCapability.chat, AiCapability.toolCalling};
 
+  /// Sections presented as facts; their quantities must come from the records.
+  static const _factual = {ClaimKind.verified, ClaimKind.calculated, ClaimKind.observation, ClaimKind.unclassified};
+
   String systemPrompt(String localeName) => '''
 You are the breeding assistant of "Beetle Keeper", helping a keeper of rhinoceros beetles (e.g. Dynastes hercules hercules = DHH, Chalcosoma chiron kirbyi = CCK).
 Current time (UTC): ${_clock().toUtc().toIso8601String()}.
@@ -90,13 +94,18 @@ Rules:
     final evidence = <EvidenceRef>{};
     final drafts = <ReminderDraft>[];
     final calls = <String>[];
+    final toolResults = <String>[];
 
     for (var round = 0; round <= maxToolRounds; round++) {
       final response = await routed.provider.chat(messages, tools: tools.definitions);
       if (response.toolCalls.isEmpty) {
+        final grounding = AnswerGrounding(toolResults, question: question);
         return AssistantAnswer(
           rawText: response.content,
-          sections: _parser.parse(response.content),
+          sections: [
+            for (final s in _parser.parse(response.content))
+              _factual.contains(s.kind) ? s.withUnsupported(grounding.unsupported(s.text)) : s,
+          ],
           provider: routed.status.kind,
           model: response.model ?? routed.status.model,
           evidence: evidence,
@@ -110,6 +119,7 @@ Rules:
       for (final call in response.toolCalls) {
         calls.add(call.name);
         final result = await tools.execute(call);
+        toolResults.add(result.json);
         evidence.addAll(result.evidence);
         if (result.draft != null) drafts.add(result.draft!);
         messages.add(ChatMessage.tool(call.name, result.json));
