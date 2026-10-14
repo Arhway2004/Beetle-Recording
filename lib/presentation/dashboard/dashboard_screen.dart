@@ -36,6 +36,8 @@ class DashboardScreen extends ConsumerWidget {
             onPressed: () => context.go(AppRoutes.settings)),
       ]),
       floatingActionButton: FloatingActionButton.extended(
+        // Unique tag: tab screens stay alive side by side in the shell.
+        heroTag: 'fab-dashboard',
         onPressed: () => context.push(AppRoutes.newBeetle),
         icon: const Icon(Icons.add),
         label: Text(l.dashboardAddBeetle),

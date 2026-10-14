@@ -551,6 +551,11 @@ WHERE b.deleted_at IS NULL''';
             ..orderBy([(c) => OrderingTerm(expression: c.changedAt)]))
           .get();
 
+  Stream<List<LifeStageEventRow>> watchLifeStageRows(String beetleId) => (db.select(db.lifeStageEvents)
+        ..where((e) => e.beetleId.equals(beetleId) & e.deletedAt.isNull())
+        ..orderBy([(e) => OrderingTerm(expression: e.occurredAt)]))
+      .watch();
+
   Future<List<LifeStageEventRow>> lifeStageRows(String beetleId) =>
       (db.select(db.lifeStageEvents)
             ..where((e) => e.beetleId.equals(beetleId) & e.deletedAt.isNull())

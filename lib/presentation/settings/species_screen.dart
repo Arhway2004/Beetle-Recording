@@ -19,6 +19,8 @@ class SpeciesScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(title: Text(l.settingsSpecies)),
       floatingActionButton: FloatingActionButton(
+        // Unique tag: tab screens stay alive side by side in the shell.
+        heroTag: 'fab-species',
         tooltip: l.speciesAdd,
         onPressed: () => _edit(context, ref, null),
         child: const Icon(Icons.add),

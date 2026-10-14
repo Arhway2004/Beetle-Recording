@@ -31,6 +31,8 @@ class RemindersScreen extends ConsumerWidget {
               Tab(text: l.remindersTabHistory),
             ])),
         floatingActionButton: FloatingActionButton(
+          // Unique tag: tab screens stay alive side by side in the shell.
+          heroTag: 'fab-reminders',
           tooltip: l.reminderNew,
           onPressed: () => context.push(AppRoutes.newReminder()),
           child: const Icon(Icons.add_alarm),

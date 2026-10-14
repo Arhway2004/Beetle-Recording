@@ -9,6 +9,7 @@ import '../../application/providers.dart';
 import '../../core/router/app_router.dart';
 import '../../core/theme/app_theme.dart';
 import '../../core/utils/formatters.dart';
+import '../../data/database/app_database.dart';
 import '../../data/repositories/models.dart';
 import '../../domain/ai/ai_orchestrator.dart';
 import '../../domain/ai/ai_provider.dart';
@@ -21,6 +22,7 @@ import '../common/data_providers.dart';
 import '../common/labels.dart';
 import '../common/record_widgets.dart';
 import '../common/widgets.dart';
+import 'growth_roadmap_view.dart';
 
 class BeetleDetailScreen extends ConsumerWidget {
   const BeetleDetailScreen({super.key, required this.beetleId});
@@ -68,6 +70,7 @@ class _DetailBody extends ConsumerStatefulWidget {
 
 class _DetailBodyState extends ConsumerState<_DetailBody> {
   bool _interpreting = false;
+  _Tab _tab = _Tab.overview;
 
   Future<void> _interpret() async {
     final l = context.l10n;
@@ -127,178 +130,331 @@ class _DetailBodyState extends ConsumerState<_DetailBody> {
           ]),
         );
 
-    return ListView(
-      padding: const EdgeInsets.fromLTRB(Insets.m, Insets.s, Insets.m, Insets.xl),
-      children: [
-        SectionCard(
+    final latestPhoto = photos.isEmpty ? null : photos.first;
+    Widget photoFile(PhotoAttachmentRow p, {BoxFit fit = BoxFit.cover}) => Image.file(
+          File('${docs.path}/${p.relativePath}'),
+          fit: fit,
+          errorBuilder: (_, __, ___) => const ColoredBox(color: Colors.black12, child: Icon(Icons.broken_image_outlined)),
+        );
+
+    // ---- compact identity header
+    final header = SectionCard(
+      child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        ClipRRect(
+          borderRadius: BorderRadius.circular(Insets.radius),
+          child: SizedBox(
+            width: 72,
+            height: 72,
+            child: latestPhoto != null
+                ? photoFile(latestPhoto)
+                : ColoredBox(
+                    color: t.colorScheme.secondaryContainer,
+                    child: Icon(b.stage == null ? Icons.pest_control : stageIcon(b.stage!),
+                        size: 36, color: t.colorScheme.onSecondaryContainer),
+                  ),
+          ),
+        ),
+        const SizedBox(width: Insets.m),
+        Expanded(
           child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            Row(children: [
-              Expanded(
-                child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                  Text(b.code, style: t.textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w700)),
-                  Text('${b.speciesName}${b.speciesCommonName != null ? ' · ${b.speciesCommonName}' : ''}',
-                      style: t.textTheme.bodySmall?.copyWith(fontStyle: FontStyle.italic)),
-                ]),
-              ),
+            Text(b.code, style: t.textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w700)),
+            Text('${b.speciesName}${b.speciesCommonName != null ? ' · ${b.speciesCommonName}' : ''}',
+                style: t.textTheme.bodySmall?.copyWith(fontStyle: FontStyle.italic)),
+            const SizedBox(height: Insets.s),
+            Wrap(spacing: Insets.xs, runSpacing: Insets.xs, children: [
+              Pill(l.stage(b.stage, b.l3Phase), icon: Icons.change_circle_outlined, color: t.colorScheme.primary),
+              Pill(l.sex(b.sex)),
               Pill(l.beetleStatus(b.status),
                   color: b.status == BeetleStatus.active ? t.colorScheme.primary : t.colorScheme.outline),
             ]),
-            const SizedBox(height: Insets.m),
-            Wrap(spacing: Insets.s, runSpacing: Insets.s, children: [
-              Pill(l.sex(b.sex)),
-              Pill(l.stage(b.stage, b.l3Phase), icon: Icons.change_circle_outlined),
-            ]),
-            const SizedBox(height: Insets.m),
-            fact(l.detailLatestWeight, '${Fmt.grams(b.latestWeightGrams)}${b.latestWeightAt != null ? '  (${fmt.date(b.latestWeightAt)})' : ''}'),
-            fact(l.detailContainer, Fmt.liters(b.containerLiters)),
-            fact(l.detailSubstrate, [b.substrateType, b.substrateBrand].whereType<String>().join(' · ').ifEmpty('–')),
-            fact(l.detailAcquired, fmt.date(b.acquiredAt)),
-            if (b.hatchDate != null) fact(l.detailHatch, fmt.date(b.hatchDate)),
-            if (b.hatchDate == null && b.estimatedHatchDate != null)
-              fact(l.detailHatch, l.detailEstimatedHatch(fmt.date(b.estimatedHatchDate), b.hatchUncertaintyDays ?? 0)),
-            if (b.notes != null) ...[const Divider(height: Insets.l), Text(b.notes!)],
-          ]),
-        ),
-        const SizedBox(height: Insets.m),
-        _LineageCard(beetle: b),
-        const SizedBox(height: Insets.m),
-        Wrap(spacing: Insets.s, runSpacing: Insets.s, children: [
-          ActionChip(
-            avatar: const Icon(Icons.history_edu, size: 18),
-            label: Text(l.pastRecordsShortcut),
-            onPressed: () => context.push(AppRoutes.pastRecords(b.id)),
-          ),
-          for (final type in TimelineType.values.where((t) => t != TimelineType.temperature))
-            ActionChip(
-              avatar: Icon(timelineIcon(type), size: 18),
-              label: Text(l.timelineType(type)),
-              onPressed: () => context.push(AppRoutes.newRecord(type, beetleId: b.id)),
+            const SizedBox(height: Insets.s),
+            Text(
+              b.latestWeightGrams == null
+                  ? '${l.detailLatestWeight}: –'
+                  : '${Fmt.grams(b.latestWeightGrams)} · ${fmt.date(b.latestWeightAt)}',
+              style: t.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600),
             ),
-        ]),
-        const SizedBox(height: Insets.m),
-        SectionCard(
-          title: l.detailGrowth,
-          child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            if (metrics.count < 2)
-              Text(l.detailNeedTwoWeights, style: t.textTheme.bodySmall)
-            else
-              Wrap(spacing: Insets.l, runSpacing: Insets.s, children: [
-                _Metric(l.detailChangeSincePrevious,
-                    '${Fmt.signed(metrics.changeSincePrevious, unit: ' g')} (${Fmt.signed(metrics.percentChangeSincePrevious, unit: '%', digits: 1)})',
-                    color: metrics.isLosingWeight ? Colors.orange.shade700 : null),
-                _Metric(l.detailMaxWeight, Fmt.grams(metrics.max?.grams)),
-                _Metric(l.detailAvgWeekly, Fmt.signed(metrics.avgWeeklyChange, unit: ' g')),
-              ]),
-            const SizedBox(height: Insets.m),
-            WeightChart(series: {b.code: [for (final w in weights) (w.measuredAt, w.weightGrams)]}),
-            const SizedBox(height: Insets.xs),
-            Text(l.detailAvgNote, style: t.textTheme.labelSmall),
           ]),
         ),
-        const SizedBox(height: Insets.m),
-        FilledButton.tonalIcon(
-          onPressed: _interpreting ? null : _interpret,
-          icon: _interpreting
-              ? const SizedBox(width: 18, height: 18, child: CircularProgressIndicator(strokeWidth: 2))
-              : const Icon(Icons.auto_awesome),
-          label: Text(l.detailAiInterpret),
+      ]),
+    );
+
+    // ---- primary actions
+    final actions = Row(children: [
+      Expanded(
+        child: FilledButton.icon(
+          onPressed: () => _chooseRecordType(b.id),
+          icon: const Icon(Icons.add),
+          label: Text(l.detailAddRecord),
         ),
+      ),
+      const SizedBox(width: Insets.s),
+      FilledButton.tonalIcon(
+        onPressed: () => context.push(AppRoutes.newRecord(TimelineType.weight, beetleId: b.id)),
+        icon: Icon(timelineIcon(TimelineType.weight), size: 18),
+        label: Text(l.timelineType(TimelineType.weight)),
+      ),
+      const SizedBox(width: Insets.s),
+      FilledButton.tonalIcon(
+        onPressed: () => context.push(AppRoutes.newRecord(TimelineType.lifeStage, beetleId: b.id)),
+        icon: Icon(timelineIcon(TimelineType.lifeStage), size: 18),
+        label: Text(l.timelineType(TimelineType.lifeStage)),
+      ),
+    ]);
+
+    // ---- overview tab
+    final overview = <Widget>[
+      SectionCard(
+        title: l.detailGrowth,
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          if (metrics.count < 2)
+            Text(l.detailNeedTwoWeights, style: t.textTheme.bodySmall)
+          else
+            Wrap(spacing: Insets.l, runSpacing: Insets.s, children: [
+              _Metric(l.detailChangeSincePrevious,
+                  '${Fmt.signed(metrics.changeSincePrevious, unit: ' g')} (${Fmt.signed(metrics.percentChangeSincePrevious, unit: '%', digits: 1)})',
+                  color: metrics.isLosingWeight ? Colors.orange.shade700 : null),
+              _Metric(l.detailMaxWeight, Fmt.grams(metrics.max?.grams)),
+              _Metric(l.detailAvgWeekly, Fmt.signed(metrics.avgWeeklyChange, unit: ' g')),
+            ]),
+          const SizedBox(height: Insets.m),
+          WeightChart(series: {b.code: [for (final w in weights) (w.measuredAt, w.weightGrams)]}),
+          const SizedBox(height: Insets.xs),
+          Text(l.detailAvgNote, style: t.textTheme.labelSmall),
+        ]),
+      ),
+      const SizedBox(height: Insets.m),
+      OutlinedButton.icon(
+        onPressed: _interpreting ? null : _interpret,
+        icon: _interpreting
+            ? const SizedBox(width: 18, height: 18, child: CircularProgressIndicator(strokeWidth: 2))
+            : const Icon(Icons.auto_awesome),
+        label: Text(l.detailAiInterpret),
+      ),
+      const SizedBox(height: Insets.m),
+      SectionCard(
+        title: l.detailReminders,
+        trailing: IconButton(
+            icon: const Icon(Icons.add_alarm),
+            tooltip: l.reminderNew,
+            onPressed: () => context.push(AppRoutes.newReminder(beetleId: b.id))),
+        padding: const EdgeInsets.fromLTRB(0, Insets.m, 0, Insets.s),
+        child: reminders.isEmpty
+            ? Padding(padding: const EdgeInsets.all(Insets.m), child: Text(l.dashboardNoUpcoming))
+            : Column(children: [
+                for (final r in reminders) ReminderTile(reminder: r, onTap: () => context.go(AppRoutes.reminders)),
+              ]),
+      ),
+      const SizedBox(height: Insets.m),
+      _LineageCard(beetle: b),
+      const SizedBox(height: Insets.m),
+      SectionCard(
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          fact(l.detailContainer, Fmt.liters(b.containerLiters)),
+          fact(l.detailSubstrate, [b.substrateType, b.substrateBrand].whereType<String>().join(' · ').ifEmpty('–')),
+          fact(l.detailAcquired, fmt.date(b.acquiredAt)),
+          if (b.hatchDate != null) fact(l.detailHatch, fmt.date(b.hatchDate)),
+          if (b.hatchDate == null && b.estimatedHatchDate != null)
+            fact(l.detailHatch, l.detailEstimatedHatch(fmt.date(b.estimatedHatchDate), b.hatchUncertaintyDays ?? 0)),
+          if (b.notes != null) ...[const Divider(height: Insets.l), Text(b.notes!)],
+        ]),
+      ),
+      if (analyses.isNotEmpty) ...[
         const SizedBox(height: Insets.m),
         SectionCard(
-          title: l.detailReminders,
-          trailing: IconButton(
-              icon: const Icon(Icons.add_alarm),
-              tooltip: l.reminderNew,
-              onPressed: () => context.push(AppRoutes.newReminder(beetleId: b.id))),
+          title: l.detailAiAnalyses,
           padding: const EdgeInsets.fromLTRB(0, Insets.m, 0, Insets.s),
-          child: reminders.isEmpty
-              ? Padding(padding: const EdgeInsets.all(Insets.m), child: Text(l.dashboardNoUpcoming))
+          child: Column(children: [for (final a in analyses.take(10)) AnalysisTile(analysis: a)]),
+        ),
+      ],
+    ];
+
+    // ---- records tab
+    final records = <Widget>[
+      SectionCard(
+        title: l.detailHistory,
+        trailing: TextButton.icon(
+          onPressed: () => context.push(AppRoutes.pastRecords(b.id)),
+          icon: const Icon(Icons.history_edu, size: 18),
+          label: Text(l.pastRecordsShortcut),
+        ),
+        padding: const EdgeInsets.fromLTRB(0, Insets.m, 0, Insets.s),
+        child: AsyncView(
+          value: history,
+          onRetry: () => ref.invalidate(timelineProvider((beetleId: b.id, type: null, limit: 200))),
+          data: (entries) => entries.isEmpty
+              ? Padding(padding: const EdgeInsets.all(Insets.m), child: Text(l.detailNoHistory))
               : Column(children: [
-                  for (final r in reminders)
-                    ReminderTile(reminder: r, onTap: () => context.go(AppRoutes.reminders)),
+                  for (final e in entries)
+                    TimelineTile(
+                      entry: e,
+                      showBeetle: false,
+                      onDelete: () async {
+                        if (await confirmDialog(context,
+                            title: l.commonDeleteConfirmTitle, message: l.commonDeleteRecordMessage, destructive: true)) {
+                          await ref.read(beetleRepoProvider).deleteRecord(e.type, e.id);
+                        }
+                      },
+                    ),
                 ]),
         ),
-        const SizedBox(height: Insets.m),
-        SectionCard(
-          title: l.detailPhotos,
-          trailing: PopupMenuButton<ImageSource>(
-            icon: const Icon(Icons.add_a_photo_outlined),
-            tooltip: l.detailAddPhoto,
-            onSelected: _addPhoto,
-            itemBuilder: (_) => [
-              PopupMenuItem(value: ImageSource.camera, child: Text(l.photoFromCamera)),
-              PopupMenuItem(value: ImageSource.gallery, child: Text(l.photoFromGallery)),
-            ],
-          ),
-          child: photos.isEmpty
-              ? Text(l.detailNoPhotos)
-              : Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                  GridView.count(
-                    crossAxisCount: 3,
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    mainAxisSpacing: 4,
-                    crossAxisSpacing: 4,
-                    children: [
-                      for (final p in photos)
-                        GestureDetector(
-                          onLongPress: () async {
-                            if (await confirmDialog(context,
-                                title: l.commonDeleteConfirmTitle, message: fmt.dateTime(p.takenAt), destructive: true)) {
-                              await ref.read(photoStoreProvider).deletePhoto(p.id);
-                            }
-                          },
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(8),
-                            child: Image.file(File('${docs.path}/${p.relativePath}'),
-                                fit: BoxFit.cover,
-                                errorBuilder: (_, __, ___) => const ColoredBox(
-                                    color: Colors.black12, child: Icon(Icons.broken_image_outlined))),
+      ),
+    ];
+
+    // ---- photos tab: tap to preview, visible ⋯ menu for actions
+    final photoTab = <Widget>[
+      SectionCard(
+        title: l.detailPhotos,
+        trailing: PopupMenuButton<ImageSource>(
+          icon: const Icon(Icons.add_a_photo_outlined),
+          tooltip: l.detailAddPhoto,
+          onSelected: _addPhoto,
+          itemBuilder: (_) => [
+            PopupMenuItem(value: ImageSource.camera, child: Text(l.photoFromCamera)),
+            PopupMenuItem(value: ImageSource.gallery, child: Text(l.photoFromGallery)),
+          ],
+        ),
+        child: photos.isEmpty
+            ? Text(l.detailNoPhotos)
+            : Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                GridView.count(
+                  crossAxisCount: 3,
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  mainAxisSpacing: 4,
+                  crossAxisSpacing: 4,
+                  children: [
+                    for (final p in photos)
+                      Stack(fit: StackFit.expand, children: [
+                        Semantics(
+                          button: true,
+                          label: fmt.dateTime(p.takenAt),
+                          child: GestureDetector(
+                            onTap: () => _previewPhoto(photoFile(p, fit: BoxFit.contain), fmt.dateTime(p.takenAt)),
+                            child: ClipRRect(borderRadius: BorderRadius.circular(8), child: photoFile(p)),
                           ),
                         ),
-                    ],
-                  ),
-                  const SizedBox(height: Insets.s),
-                  Text(l.assistantImageUnavailable, style: t.textTheme.labelSmall),
-                ]),
-        ),
+                        Positioned(
+                          top: 2,
+                          right: 2,
+                          child: Material(
+                            color: Colors.black45,
+                            shape: const CircleBorder(),
+                            child: PopupMenuButton<String>(
+                              tooltip: l.photoActions,
+                              iconColor: Colors.white,
+                              iconSize: 18,
+                              padding: EdgeInsets.zero,
+                              icon: const Icon(Icons.more_horiz),
+                              onSelected: (_) async {
+                                if (await confirmDialog(context,
+                                    title: l.photoDelete, message: fmt.dateTime(p.takenAt), destructive: true)) {
+                                  await ref.read(photoStoreProvider).deletePhoto(p.id);
+                                }
+                              },
+                              itemBuilder: (_) => [PopupMenuItem(value: 'delete', child: Text(l.photoDelete))],
+                            ),
+                          ),
+                        ),
+                      ]),
+                  ],
+                ),
+                const SizedBox(height: Insets.s),
+                Text(l.assistantImageUnavailable, style: t.textTheme.labelSmall),
+              ]),
+      ),
+    ];
+
+    return ListView(
+      padding: const EdgeInsets.fromLTRB(Insets.m, Insets.s, Insets.m, Insets.xl),
+      children: [
+        header,
         const SizedBox(height: Insets.m),
         SectionCard(
-          title: l.detailHistory,
-          padding: const EdgeInsets.fromLTRB(0, Insets.m, 0, Insets.s),
+          title: l.roadmapTitle,
           child: AsyncView(
-            value: history,
-            data: (entries) => entries.isEmpty
-                ? Padding(padding: const EdgeInsets.all(Insets.m), child: Text(l.detailNoHistory))
-                : Column(children: [
-                    for (final e in entries)
-                      TimelineTile(
-                        entry: e,
-                        showBeetle: false,
-                        onDelete: () async {
-                          if (await confirmDialog(context,
-                              title: l.commonDeleteConfirmTitle,
-                              message: l.commonDeleteRecordMessage,
-                              destructive: true)) {
-                            await ref.read(beetleRepoProvider).deleteRecord(e.type, e.id);
-                          }
-                        },
-                      ),
-                  ]),
+            value: ref.watch(roadmapProvider(b.id)),
+            onRetry: () => ref
+              ..invalidate(stageEventsProvider(b.id))
+              ..invalidate(weightsProvider(b.id)),
+            data: (r) => GrowthRoadmapView(roadmap: r),
           ),
         ),
-        if (analyses.isNotEmpty) ...[
-          const SizedBox(height: Insets.m),
-          SectionCard(
-            title: l.detailAiAnalyses,
-            padding: const EdgeInsets.fromLTRB(0, Insets.m, 0, Insets.s),
-            child: Column(children: [for (final a in analyses.take(10)) AnalysisTile(analysis: a)]),
-          ),
-        ],
+        const SizedBox(height: Insets.m),
+        actions,
+        const SizedBox(height: Insets.l),
+        SegmentedButton<_Tab>(
+          showSelectedIcon: false,
+          segments: [
+            ButtonSegment(value: _Tab.overview, label: Text(l.detailTabOverview)),
+            ButtonSegment(value: _Tab.records, label: Text(l.detailTabRecords)),
+            ButtonSegment(
+                value: _Tab.photos, label: Text(photos.isEmpty ? l.detailTabPhotos : '${l.detailTabPhotos} ${photos.length}')),
+          ],
+          selected: {_tab},
+          onSelectionChanged: (v) => setState(() => _tab = v.first),
+        ),
+        const SizedBox(height: Insets.m),
+        ...switch (_tab) {
+          _Tab.overview => overview,
+          _Tab.records => records,
+          _Tab.photos => photoTab,
+        },
       ],
     );
   }
+
+  Future<void> _chooseRecordType(String beetleId) async {
+    final l = context.l10n;
+    final choice = await showModalBottomSheet<Object>(
+      context: context,
+      showDragHandle: true,
+      builder: (ctx) => SafeArea(
+        child: Column(mainAxisSize: MainAxisSize.min, children: [
+          Text(l.chooseRecordType, style: Theme.of(ctx).textTheme.titleMedium),
+          const SizedBox(height: Insets.s),
+          for (final type in TimelineType.values.where((t) => t != TimelineType.temperature))
+            ListTile(
+                leading: Icon(timelineIcon(type)), title: Text(l.timelineType(type)), onTap: () => Navigator.pop(ctx, type)),
+          const Divider(),
+          ListTile(
+            leading: const Icon(Icons.history_edu),
+            title: Text(l.pastRecordsTitle),
+            onTap: () => Navigator.pop(ctx, 'past'),
+          ),
+        ]),
+      ),
+    );
+    if (!mounted || choice == null) return;
+    await context.push(choice is TimelineType
+        ? AppRoutes.newRecord(choice, beetleId: beetleId)
+        : AppRoutes.pastRecords(beetleId));
+  }
+
+  void _previewPhoto(Widget image, String caption) {
+    showDialog<void>(
+      context: context,
+      builder: (ctx) => Dialog.fullscreen(
+        backgroundColor: Colors.black,
+        child: Stack(children: [
+          Positioned.fill(child: InteractiveViewer(maxScale: 5, child: Center(child: image))),
+          SafeArea(
+            child: Row(children: [
+              IconButton(
+                icon: const Icon(Icons.close, color: Colors.white),
+                tooltip: MaterialLocalizations.of(ctx).closeButtonTooltip,
+                onPressed: () => Navigator.pop(ctx),
+              ),
+              Expanded(child: Text(caption, style: const TextStyle(color: Colors.white))),
+            ]),
+          ),
+        ]),
+      ),
+    );
+  }
 }
+
+enum _Tab { overview, records, photos }
 
 class _Metric extends StatelessWidget {
   const _Metric(this.label, this.value, {this.color});

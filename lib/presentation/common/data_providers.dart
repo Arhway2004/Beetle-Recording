@@ -4,6 +4,8 @@ import '../../application/providers.dart';
 import '../../data/database/app_database.dart';
 import '../../data/repositories/models.dart';
 import '../../data/repositories/temperature_repository.dart';
+import '../../domain/growth/growth_metrics.dart';
+import '../../domain/growth/growth_roadmap.dart';
 import '../../domain/models/enums.dart';
 
 /// Reactive read models shared by screens. All are local-database streams, so
@@ -58,3 +60,30 @@ final analysesProvider = StreamProvider.family<List<AiAnalysisRow>, String?>(
 /// beetleId → code, for labeling reminders and analyses.
 final beetleCodesProvider = Provider<Map<String, String>>((ref) =>
     {for (final b in ref.watch(beetlesProvider).valueOrNull ?? const <BeetleSummary>[]) b.id: b.code});
+
+final stageEventsProvider = StreamProvider.family<List<LifeStageEventRow>, String>(
+    (ref, beetleId) => ref.watch(beetleRepoProvider).watchLifeStageRows(beetleId));
+
+/// The beetle's growth roadmap, re-derived whenever a weight or stage record
+/// is saved, edited or deleted (both inputs are live database streams).
+final roadmapProvider = Provider.family<AsyncValue<GrowthRoadmap>, String>((ref, beetleId) {
+  final stages = ref.watch(stageEventsProvider(beetleId));
+  final weights = ref.watch(weightsProvider(beetleId));
+  if (stages.hasError) return AsyncValue.error(stages.error!, stages.stackTrace ?? StackTrace.current);
+  if (weights.hasError) return AsyncValue.error(weights.error!, weights.stackTrace ?? StackTrace.current);
+  if (!stages.hasValue || !weights.hasValue) return const AsyncValue.loading();
+  return AsyncValue.data(GrowthRoadmap.derive(
+    events: [
+      for (final e in stages.value!)
+        StageEventPoint(
+          id: e.id,
+          occurredAt: e.occurredAt,
+          createdAt: e.createdAt,
+          stage: e.stage,
+          l3Phase: e.l3Phase,
+          isEstimated: e.isEstimated,
+        ),
+    ],
+    weights: [for (final w in weights.value!) WeightPoint(id: w.id, measuredAt: w.measuredAt, grams: w.weightGrams)],
+  ));
+});

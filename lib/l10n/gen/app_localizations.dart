@@ -2721,6 +2721,138 @@ abstract class AppLocalizations {
   /// In zh, this message translates to:
   /// **'操作未完成，没有任何改动，请重试'**
   String get commonActionFailed;
+
+  /// No description provided for @roadmapTitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'成长路线'**
+  String get roadmapTitle;
+
+  /// No description provided for @roadmapCurrent.
+  ///
+  /// In zh, this message translates to:
+  /// **'当前阶段'**
+  String get roadmapCurrent;
+
+  /// No description provided for @roadmapRecorded.
+  ///
+  /// In zh, this message translates to:
+  /// **'已记录'**
+  String get roadmapRecorded;
+
+  /// No description provided for @roadmapNotRecorded.
+  ///
+  /// In zh, this message translates to:
+  /// **'未记录'**
+  String get roadmapNotRecorded;
+
+  /// No description provided for @roadmapUpcoming.
+  ///
+  /// In zh, this message translates to:
+  /// **'尚未到达'**
+  String get roadmapUpcoming;
+
+  /// No description provided for @roadmapSince.
+  ///
+  /// In zh, this message translates to:
+  /// **'自 {date} 起'**
+  String roadmapSince(String date);
+
+  /// No description provided for @roadmapPeriod.
+  ///
+  /// In zh, this message translates to:
+  /// **'{start} → 下一条记录 {end}'**
+  String roadmapPeriod(String start, String end);
+
+  /// No description provided for @roadmapApprox.
+  ///
+  /// In zh, this message translates to:
+  /// **'约'**
+  String get roadmapApprox;
+
+  /// No description provided for @roadmapWeights.
+  ///
+  /// In zh, this message translates to:
+  /// **'{count} 次称重'**
+  String roadmapWeights(int count);
+
+  /// No description provided for @roadmapLatestWeight.
+  ///
+  /// In zh, this message translates to:
+  /// **'最近 {weight}（{date}）'**
+  String roadmapLatestWeight(String weight, String date);
+
+  /// No description provided for @roadmapNeedsReview.
+  ///
+  /// In zh, this message translates to:
+  /// **'阶段顺序异常，请检查记录'**
+  String get roadmapNeedsReview;
+
+  /// No description provided for @roadmapBeforeFirst.
+  ///
+  /// In zh, this message translates to:
+  /// **'首个阶段记录之前有 {count} 次称重（阶段未知）'**
+  String roadmapBeforeFirst(int count);
+
+  /// No description provided for @roadmapEndNote.
+  ///
+  /// In zh, this message translates to:
+  /// **'结束日期为下一条阶段记录的日期，不代表确切的蜕变时间。'**
+  String get roadmapEndNote;
+
+  /// No description provided for @roadmapNoWeights.
+  ///
+  /// In zh, this message translates to:
+  /// **'此阶段没有称重记录'**
+  String get roadmapNoWeights;
+
+  /// No description provided for @roadmapNoStages.
+  ///
+  /// In zh, this message translates to:
+  /// **'还没有阶段记录。添加阶段变化后会显示路线。'**
+  String get roadmapNoStages;
+
+  /// No description provided for @roadmapStageEvents.
+  ///
+  /// In zh, this message translates to:
+  /// **'阶段记录'**
+  String get roadmapStageEvents;
+
+  /// No description provided for @detailAddRecord.
+  ///
+  /// In zh, this message translates to:
+  /// **'添加记录'**
+  String get detailAddRecord;
+
+  /// No description provided for @detailTabOverview.
+  ///
+  /// In zh, this message translates to:
+  /// **'概览'**
+  String get detailTabOverview;
+
+  /// No description provided for @detailTabRecords.
+  ///
+  /// In zh, this message translates to:
+  /// **'记录'**
+  String get detailTabRecords;
+
+  /// No description provided for @detailTabPhotos.
+  ///
+  /// In zh, this message translates to:
+  /// **'照片'**
+  String get detailTabPhotos;
+
+  /// No description provided for @photoDelete.
+  ///
+  /// In zh, this message translates to:
+  /// **'删除照片'**
+  String get photoDelete;
+
+  /// No description provided for @photoActions.
+  ///
+  /// In zh, this message translates to:
+  /// **'照片操作'**
+  String get photoActions;
 }
 
 class _AppLocalizationsDelegate

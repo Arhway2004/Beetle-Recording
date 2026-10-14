@@ -1416,4 +1416,80 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get commonActionFailed => '操作未完成，没有任何改动，请重试';
+
+  @override
+  String get roadmapTitle => '成长路线';
+
+  @override
+  String get roadmapCurrent => '当前阶段';
+
+  @override
+  String get roadmapRecorded => '已记录';
+
+  @override
+  String get roadmapNotRecorded => '未记录';
+
+  @override
+  String get roadmapUpcoming => '尚未到达';
+
+  @override
+  String roadmapSince(String date) {
+    return '自 $date 起';
+  }
+
+  @override
+  String roadmapPeriod(String start, String end) {
+    return '$start → 下一条记录 $end';
+  }
+
+  @override
+  String get roadmapApprox => '约';
+
+  @override
+  String roadmapWeights(int count) {
+    return '$count 次称重';
+  }
+
+  @override
+  String roadmapLatestWeight(String weight, String date) {
+    return '最近 $weight（$date）';
+  }
+
+  @override
+  String get roadmapNeedsReview => '阶段顺序异常，请检查记录';
+
+  @override
+  String roadmapBeforeFirst(int count) {
+    return '首个阶段记录之前有 $count 次称重（阶段未知）';
+  }
+
+  @override
+  String get roadmapEndNote => '结束日期为下一条阶段记录的日期，不代表确切的蜕变时间。';
+
+  @override
+  String get roadmapNoWeights => '此阶段没有称重记录';
+
+  @override
+  String get roadmapNoStages => '还没有阶段记录。添加阶段变化后会显示路线。';
+
+  @override
+  String get roadmapStageEvents => '阶段记录';
+
+  @override
+  String get detailAddRecord => '添加记录';
+
+  @override
+  String get detailTabOverview => '概览';
+
+  @override
+  String get detailTabRecords => '记录';
+
+  @override
+  String get detailTabPhotos => '照片';
+
+  @override
+  String get photoDelete => '删除照片';
+
+  @override
+  String get photoActions => '照片操作';
 }

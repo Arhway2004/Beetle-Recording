@@ -20,6 +20,8 @@ class SensorsScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(title: Text(l.settingsSensors)),
       floatingActionButton: FloatingActionButton(
+        // Unique tag: tab screens stay alive side by side in the shell.
+        heroTag: 'fab-sensors',
         tooltip: l.sensorAdd,
         onPressed: () => _edit(context, null),
         child: const Icon(Icons.add),

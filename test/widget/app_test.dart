@@ -96,6 +96,33 @@ void main() {
     await dispose(tester);
   });
 
+  testWidgets('beetle page shows identity, roadmap and the tabs', (tester) async {
+    late String id;
+    await tester.runAsync(() async {
+      final repo = BeetleRepository(db);
+      id = await repo.createBeetle(NewBeetleInput(code: 'DHH-007', speciesId: builtinSpeciesId('DHH'), sex: Sex.male));
+      await repo.addLifeStageEvent(beetleId: id, occurredAt: DateTime.utc(2026, 3, 1), stage: LifeStage.l3);
+      await repo.addWeight(beetleId: id, measuredAt: DateTime.utc(2026, 4, 1), grams: 30.5);
+    });
+    await pumpApp(tester);
+    await tester.tap(find.descendant(of: find.byType(NavigationBar), matching: find.text('甲虫')));
+    await settle(tester);
+    await tester.tap(find.text('DHH-007').first);
+    await settle(tester);
+
+    expect(find.text('成长路线'), findsOneWidget);
+    expect(find.text('当前阶段'), findsOneWidget); // L3, stated in words
+    expect(find.text('未记录'), findsNWidgets(2)); // L1 and L2: no invented history
+    expect(find.text('尚未到达'), findsNWidgets(3)); // prepupa, pupa, adult
+    expect(find.text('添加记录'), findsOneWidget);
+    expect(find.textContaining('30.5 g'), findsWidgets);
+
+    await tester.tap(find.text('记录').last);
+    await settle(tester);
+    expect(find.text('补录历史'), findsOneWidget);
+    await dispose(tester);
+  });
+
   testWidgets('English locale is selectable', (tester) async {
     await tester.runAsync(() => SettingsRepository(db).set(SettingsKeys.locale, 'en'));
     await pumpApp(tester, settings: {'ui.locale': 'en'});

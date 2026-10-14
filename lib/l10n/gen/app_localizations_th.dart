@@ -1458,4 +1458,82 @@ class AppLocalizationsTh extends AppLocalizations {
   @override
   String get commonActionFailed =>
       'ทำไม่สำเร็จ ไม่มีการเปลี่ยนแปลง โปรดลองอีกครั้ง';
+
+  @override
+  String get roadmapTitle => 'เส้นทางการเติบโต';
+
+  @override
+  String get roadmapCurrent => 'ระยะปัจจุบัน';
+
+  @override
+  String get roadmapRecorded => 'บันทึกแล้ว';
+
+  @override
+  String get roadmapNotRecorded => 'ไม่ได้บันทึก';
+
+  @override
+  String get roadmapUpcoming => 'ยังไม่ถึง';
+
+  @override
+  String roadmapSince(String date) {
+    return 'ตั้งแต่ $date';
+  }
+
+  @override
+  String roadmapPeriod(String start, String end) {
+    return '$start → บันทึกถัดไป $end';
+  }
+
+  @override
+  String get roadmapApprox => 'ประมาณ';
+
+  @override
+  String roadmapWeights(int count) {
+    return 'ชั่งน้ำหนัก $count ครั้ง';
+  }
+
+  @override
+  String roadmapLatestWeight(String weight, String date) {
+    return 'ล่าสุด $weight ($date)';
+  }
+
+  @override
+  String get roadmapNeedsReview => 'ลำดับระยะผิดปกติ โปรดตรวจสอบบันทึก';
+
+  @override
+  String roadmapBeforeFirst(int count) {
+    return 'ชั่งน้ำหนัก $count ครั้งก่อนบันทึกระยะแรก (ไม่ทราบระยะ)';
+  }
+
+  @override
+  String get roadmapEndNote =>
+      'วันสิ้นสุดคือวันที่บันทึกระยะถัดไป ไม่ใช่วันลอกคราบที่แน่นอน';
+
+  @override
+  String get roadmapNoWeights => 'ไม่มีการชั่งน้ำหนักในระยะนี้';
+
+  @override
+  String get roadmapNoStages =>
+      'ยังไม่มีบันทึกระยะ เพิ่มการเปลี่ยนระยะเพื่อเริ่มเส้นทาง';
+
+  @override
+  String get roadmapStageEvents => 'บันทึกระยะ';
+
+  @override
+  String get detailAddRecord => 'เพิ่มบันทึก';
+
+  @override
+  String get detailTabOverview => 'ภาพรวม';
+
+  @override
+  String get detailTabRecords => 'บันทึก';
+
+  @override
+  String get detailTabPhotos => 'รูปภาพ';
+
+  @override
+  String get photoDelete => 'ลบรูปภาพ';
+
+  @override
+  String get photoActions => 'การจัดการรูปภาพ';
 }

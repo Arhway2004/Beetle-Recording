@@ -34,6 +34,8 @@ class _BeetlesScreenState extends ConsumerState<BeetlesScreen> {
     return Scaffold(
       appBar: topLevelAppBar(context, l.navBeetles),
       floatingActionButton: FloatingActionButton(
+        // Unique tag: tab screens stay alive side by side in the shell.
+        heroTag: 'fab-beetles',
         onPressed: () => context.push(AppRoutes.newBeetle),
         tooltip: l.dashboardAddBeetle,
         child: const Icon(Icons.add),

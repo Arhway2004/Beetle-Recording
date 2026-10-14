@@ -793,5 +793,68 @@
   "dashboardQuickRecord": "快速记录",
   "dashboardCollection": "我的饲养",
   "reminderMarkDone": "标记完成",
-  "commonActionFailed": "操作未完成，没有任何改动，请重试"
+  "commonActionFailed": "操作未完成，没有任何改动，请重试",
+  "roadmapTitle": "成长路线",
+  "roadmapCurrent": "当前阶段",
+  "roadmapRecorded": "已记录",
+  "roadmapNotRecorded": "未记录",
+  "roadmapUpcoming": "尚未到达",
+  "roadmapSince": "自 {date} 起",
+  "@roadmapSince": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "roadmapPeriod": "{start} → 下一条记录 {end}",
+  "@roadmapPeriod": {
+    "placeholders": {
+      "start": {
+        "type": "String"
+      },
+      "end": {
+        "type": "String"
+      }
+    }
+  },
+  "roadmapApprox": "约",
+  "roadmapWeights": "{count} 次称重",
+  "@roadmapWeights": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "roadmapLatestWeight": "最近 {weight}（{date}）",
+  "@roadmapLatestWeight": {
+    "placeholders": {
+      "weight": {
+        "type": "String"
+      },
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "roadmapNeedsReview": "阶段顺序异常，请检查记录",
+  "roadmapBeforeFirst": "首个阶段记录之前有 {count} 次称重（阶段未知）",
+  "@roadmapBeforeFirst": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "roadmapEndNote": "结束日期为下一条阶段记录的日期，不代表确切的蜕变时间。",
+  "roadmapNoWeights": "此阶段没有称重记录",
+  "roadmapNoStages": "还没有阶段记录。添加阶段变化后会显示路线。",
+  "roadmapStageEvents": "阶段记录",
+  "detailAddRecord": "添加记录",
+  "detailTabOverview": "概览",
+  "detailTabRecords": "记录",
+  "detailTabPhotos": "照片",
+  "photoDelete": "删除照片",
+  "photoActions": "照片操作"
 }

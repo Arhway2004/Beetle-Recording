@@ -1461,4 +1461,83 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get commonActionFailed =>
       'That didn\'t work and nothing was changed. Please try again.';
+
+  @override
+  String get roadmapTitle => 'Growth roadmap';
+
+  @override
+  String get roadmapCurrent => 'Current';
+
+  @override
+  String get roadmapRecorded => 'Recorded';
+
+  @override
+  String get roadmapNotRecorded => 'Not recorded';
+
+  @override
+  String get roadmapUpcoming => 'Not reached yet';
+
+  @override
+  String roadmapSince(String date) {
+    return 'Since $date';
+  }
+
+  @override
+  String roadmapPeriod(String start, String end) {
+    return '$start → next record $end';
+  }
+
+  @override
+  String get roadmapApprox => 'approx.';
+
+  @override
+  String roadmapWeights(int count) {
+    return '$count weighings';
+  }
+
+  @override
+  String roadmapLatestWeight(String weight, String date) {
+    return 'latest $weight ($date)';
+  }
+
+  @override
+  String get roadmapNeedsReview =>
+      'Stage order looks wrong — please check these records';
+
+  @override
+  String roadmapBeforeFirst(int count) {
+    return '$count weighings before the first stage record (stage unknown)';
+  }
+
+  @override
+  String get roadmapEndNote =>
+      'An end date is when the next stage was recorded, not the exact moult date.';
+
+  @override
+  String get roadmapNoWeights => 'No weighings in this stage';
+
+  @override
+  String get roadmapNoStages =>
+      'No stage records yet. Add a stage change to start the roadmap.';
+
+  @override
+  String get roadmapStageEvents => 'Stage records';
+
+  @override
+  String get detailAddRecord => 'Add record';
+
+  @override
+  String get detailTabOverview => 'Overview';
+
+  @override
+  String get detailTabRecords => 'Records';
+
+  @override
+  String get detailTabPhotos => 'Photos';
+
+  @override
+  String get photoDelete => 'Delete photo';
+
+  @override
+  String get photoActions => 'Photo actions';
 }

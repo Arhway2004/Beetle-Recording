@@ -48,6 +48,8 @@ class _RecordsScreenState extends ConsumerState<RecordsScreen> {
     return Scaffold(
       appBar: topLevelAppBar(context, l.navRecords),
       floatingActionButton: FloatingActionButton.extended(
+        // Unique tag: tab screens stay alive side by side in the shell.
+        heroTag: 'fab-records',
         onPressed: _add,
         icon: const Icon(Icons.add),
         label: Text(l.recordsAdd),
